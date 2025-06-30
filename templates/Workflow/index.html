@@ -1,0 +1,54 @@
+{% extends "bootstrap/vertical_base.html" %}
+{% load static %}
+
+{% block title %}Workflow{% endblock title %}
+
+{% block extra_css %}
+<!-- Keeping only SweetAlert and essential layout styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+{% endblock %}
+
+{% block page_title %}
+  {% include "bootstrap/partials/page-title.html" with page_title='Workflow' sub_title='Workflow' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card" style="border-radius: 15px;">
+      <div class="card-body">
+        <h3 class="text-center">Hello World</h3>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_javascript %}
+<!-- Keeping only SweetAlert and optional message popup -->
+<script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+{% if messages %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const theme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+      {% for message in messages %}
+        Swal.fire({
+          title: "{{ message.tags|title }}",
+          text: "{{ message|escapejs }}",
+          icon: "{{ message.tags }}",
+          confirmButtonText: "OK",
+          background: theme === 'dark' ? '#343a40' : '#ffffff',
+          color: theme === 'dark' ? '#f8f9fa' : '#212529',
+          confirmButtonColor: '#0d6efd',
+          customClass: {
+            popup: 'rounded-4 shadow',
+            confirmButton: 'btn btn-primary px-4 py-2'
+          }
+        });
+      {% endfor %}
+    });
+  </script>
+{% endif %}
+{% endblock %}
