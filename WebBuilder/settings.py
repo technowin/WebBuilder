@@ -124,8 +124,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'webbuilder',                   # Your MySQL database name
         'USER': 'root',                         # Your MySQL username
-        'PASSWORD': '8805433102qwe@',   # Your MySQL password
-        'HOST': '127.0.0.1',                # Your MySQL server IP
+        'PASSWORD': 'Mysql_MH-047319',   # Your MySQL password
+        'HOST': '15.207.169.98',                # Your MySQL server IP
         'PORT': '3306',                         # Default MySQL port
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
