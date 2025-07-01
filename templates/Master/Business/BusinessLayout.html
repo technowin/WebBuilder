@@ -1,0 +1,323 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font: Merriweather -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/Business/BusinessHome.css' %}">
+</head>
+
+<body>
+
+    <section id="headerIndex" lang="mr">  <!-- Marathi content header -->
+        
+        <div class="content" style="background-color: #fff" role="banner" aria-label="Site Header">
+            
+            <div class="row headerUtilityRow">
+
+                <div class="col-md-5 govLinkContainer">
+                    <a href="https://maharashtra.gov.in/" 
+                    target="_blank" 
+                    class="underlineHover" 
+                    aria-label="Government of Maharashtra official website, opens in a new tab" 
+                    rel="noopener noreferrer">
+                        Welcome To Technowin Solutions Pvt. Ltd.
+                    </a><br>
+                </div>
+
+                <div class="col-md-6 fontControlContainer" role="region" aria-label="Font size controls and site map">
+                    <button onclick="increaseFont()" class="fontControlBtn" title="Increase Font Size" aria-label="Increase font size">A+</button>
+                    <button onclick="decreaseFont()" class="fontControlBtn" title="Decrease Font Size" aria-label="Decrease font size">A-</button>
+                    <button onclick="resetFont()" class="fontControlBtn" title="Reset Font Size" aria-label="Reset font size">A</button>
+                    <button class="fontControlBtn" id="toggleSpeech" aria-label="Toggle speech">🔈</button>
+                    <span class="siteMap"><a href="#" aria-label="Site Map">Site Map</a></span>
+                </div>
+
+            </div>
+
+            <div class="containerForGLCLogo">
+               
+                <div class="logoRow">
+                    <div class="mainGlclogo" id="mainlogoid">
+                        <img src="{% static 'images/Business/bg-techno.png' %}" alt="First Logo" style="" />
+                    </div>
+                    <div class="namez" id="nameid">
+                        <h1>Technowin Solutions Pvt. Ltd.</h1>
+                    </div>
+                    <div class="RightLayoutlogo" id="RightLayoutlogo">
+                        <img src="{% static 'images/Business/bg-techno.png' %}" alt="Second layout logo" />
+                    </div>
+                </div>
+            
+            </div>
+            
+            <nav class="topnav" id="myTopnav" role="navigation" aria-label="Primary navigation menu">
+
+                <a href="{{ 'Index' }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
+                    Home
+                </a>
+
+                <a href="{{ 'AboutUsIndex' }}" class="navlink" role="menuitem" tabindex="0">
+                    About Us
+                </a>
+
+                <div class="dropdown1">
+                    <button class="dropbtn1 navlink" role="menuitem" tabindex="0">
+                        Contact Us <span class="dropdown-icon">&#x25BC;</span> <!-- ▼ Downward chevron -->
+                    </button>
+                    <div class="dropdown1-content1">
+                        <a href="{{ 'ContactForm' }}" role="menuitem" tabindex="0">Contact Form</a>
+                        <a href="{{ 'SupportTeam' }}" role="menuitem" tabindex="0">Support Team</a>
+                    </div>
+                </div>
+
+                <a href="{{ 'OurServiceIndex' }}" class="navlink" role="menuitem" tabindex="0">
+                    Our Service
+                </a>
+
+                <a href="javascript:void(0);" class="icon" aria-label="Toggle navigation menu" role="button" tabindex="0" onclick="myFunction()">
+                    &#9776;
+                </a>
+
+            </nav>
+
+        </div>
+
+    </section>
+
+    <main>
+        {% block content %}
+        <!-- Default content can go here -->
+        {% endblock %}
+    </main>
+
+    <section>
+
+        <footer class="main-footer" id="footerIndex" role="contentinfo" aria-label="Website Footer">
+            <div class="container">
+                <!--Widgets Section-->
+                <div class="widgets-section">
+                    <div class="row clearfix">
+                        <!--Column-->
+                        <div class="big-column col-md-12">
+                            <div class="row clearfix">
+
+                                <!--Footer Column-->
+                                <section class="footer-column col-md-4" aria-labelledby="contact-us-heading">
+                                    <div class="footer-widget info-widget">
+                                        <h2 id="contact-us-heading" class="headin5_amrc col_white_amrc pt2"
+                                            style="text-align: justify; font-family: 'Merriweather', serif; font-size: 32px; color: #D4AF37; letter-spacing: 0.03em; font-weight: 600; border-bottom: 3px solid #D4AF37; padding-bottom: 8px; display: inline-block;">
+                                            Contact Us
+                                        </h2>
+                                        <address style="text-align: justify; font-family: 'Merriweather', serif; font-size: 18px; color: white; letter-spacing: 0.02em;">
+                                            Technowin Solutions Pvt. Ltd.<br>
+                                            Station Road, Goregoan,<br>
+                                            Mumbai - 400 520<br><br>
+                                            <a href="tel:+918805699874" style="color: white;">
+                                                <i class="fa-solid fa-phone" aria-hidden="true"></i> 022-8805 3626
+                                            </a><br>
+                                            <a href="mailto:TestEnail@glcmumbai.com" style="color: white;">
+                                                <i class="fa-solid fa-envelope" aria-hidden="true"></i> TestEnail@glcmumbai.com
+                                            </a>
+                                        </address>
+
+                                        <!-- Social Links -->
+                                        <div class="Visitors-Container" aria-label="Visitor Counter">
+                                            <div style="color: #ffffff; font-family: 'Merriweather', serif; font-size: 18px; float: left; margin-top: 10px;">
+                                                You Are Visitor No.
+                                            </div>
+                                            <div class="website-counter" style="font-size: 18px;" id="counter" aria-live="polite" aria-atomic="true">{{ VisitorCnt }}</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mini Google Map -->
+                                    <div>
+                                        <a href="https://maps.app.goo.gl/SyfzjUNCardhZ83E9" target="_blank" style="display: block; cursor: pointer;" aria-label="Open Google Maps location of Government Law College Mumbai">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.4306172396626!2d72.82497107542036!3d18.93528198223864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1dc814b8c25%3A0x79f51771f176a50b!2sGovernment%20Law%20College%2C%20Churchgate!5e0!3m2!1sen!2sin!4v1716467930622!5m2!1sen!2sin"
+                                                width="300" height="200" style="border: 0; border-radius: 10px; pointer-events: none;" allowfullscreen="" loading="lazy"
+                                                referrerpolicy="no-referrer-when-downgrade" title="Google Map of Government Law College Mumbai">
+                                            </iframe>
+                                        </a>
+                                    </div>
+                                </section>
+                                
+                                <nav class="footer-column col-md-4" aria-labelledby="quick-links-heading" role="navigation">
+                                    <div class="footer-widget links-widget">
+                                        <h2 id="quick-links-heading" style="
+                                                text-align: justify;
+                                                font-family: 'Merriweather', serif;
+                                                font-size: 32px;
+                                                color: #D4AF37;
+                                                letter-spacing: 0.04em;
+                                                font-weight: 600;
+                                                border-bottom: 3px solid #D4AF37;
+                                                padding-bottom: 8px;
+                                                display: inline-block;
+                                            ">
+                                            Quick Links
+                                        </h2>
+
+                                        <ul style="list-style: none; line-height:2em; padding-left: 0; font-family: 'Merriweather', serif;" role="list" aria-label="Quick Links">
+                                            <li>
+                                                <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
+                                                aria-label="Visit Mumbai University website">Home</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
+                                                aria-label="Visit Maharashtra CET Cell website">About Us</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
+                                                aria-label="Visit Maharashtra Scholarship website">Contact Us</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
+                                                aria-label="Visit Bar Council Of India website">Our Service</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+
+                                <section class="footer-column col-md-4" aria-labelledby="follow-us-heading">
+
+                                    <div class="footer-widget info-widget">
+                                        <h2 id="follow-us-heading" class="headin5_amrc col_white_amrc pt2" style="
+                                                    text-align: justify;
+                                                    font-family: 'Merriweather', serif;
+                                                    font-size: 32px;
+                                                    color: #D4AF37;
+                                                    letter-spacing: 0.03em;
+                                                    font-weight: 600;
+                                                    border-bottom: 3px solid #D4AF37;
+                                                    padding-bottom: 8px;
+                                                    display: inline-block;
+                                                ">
+                                            Follow Us
+                                        </h2>
+
+                                        <ul class="social-list" role="list">
+                                            <li>
+                                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                                <a href="https://www.facebook.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Facebook page">Official Facebook</a>
+                                            </li>
+                                            <li>
+                                                <i class="fab fa-youtube" aria-hidden="true"></i>
+                                                <a href="https://www.youtube.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official YouTube channel">Official YouTube</a>
+                                            </li>
+                                            <li>
+                                                <i class="fab fa-twitter" aria-hidden="true"></i>
+                                                <a href="https://twitter.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Twitter profile">Official Twitter</a>
+                                            </li>
+                                            <li>
+                                                <i class="fab fa-instagram" aria-hidden="true"></i>
+                                                <a href="https://instagram.com/glcmumbai" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Instagram profile">Official Instagram</a>
+                                            </li>
+                                            <li>
+                                                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                                <a href="https://www.linkedin.com/school/government-law-college-mumbai/" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official LinkedIn profile">Official LinkedIn</a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                </section>
+                       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row clearfix">
+                        <div class="copyright">
+                            <a href="http://technowinitinfra.com/" style="color: white; font-size: 18px;" target="_blank" rel="noopener noreferrer" aria-label="Designed and Developed by Technowin IT Infra Pvt. Ltd.">
+                                Designed and Developed By TECHNOWIN IT INFRA PVT. LTD.
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+
+    </setion>
+
+    {% comment %} function For NavBar responsive {% endcomment %}
+    <script>
+        function myFunction() {
+            const nav = document.getElementById("myTopnav");
+            nav.classList.toggle("responsive");
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Close all dropdowns
+            function closeAllDropdowns() {
+                document.querySelectorAll('.dropdown1-content1, .dropdown2-content').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+
+            // Toggle dropdowns (mobile-friendly)
+            document.querySelectorAll(".dropbtn1").forEach(btn => {
+                btn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    const dropdown = this.nextElementSibling;
+
+                    // Close all others
+                    document.querySelectorAll(".dropdown1-content1").forEach(menu => {
+                        if (menu !== dropdown) menu.classList.remove("show");
+                    });
+
+                    dropdown.classList.toggle("show");
+                });
+            });
+
+            // Toggle submenus
+            document.querySelectorAll(".dropbtn2").forEach(btn => {
+                btn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    const submenu = this.nextElementSibling;
+
+                    // Close other submenus
+                    document.querySelectorAll(".dropdown2-content").forEach(menu => {
+                        if (menu !== submenu) menu.classList.remove("show");
+                    });
+
+                    submenu.classList.toggle("show");
+                });
+            });
+
+            // Click outside to close dropdowns
+            document.addEventListener("click", function () {
+                closeAllDropdowns();
+            });
+        });
+    </script>
+
+</body>
+</html>

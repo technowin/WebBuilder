@@ -21,6 +21,8 @@ def businessHome(request):
         print(f"error: {e}")
         messages.error(request, 'Oops...! Something went wrong!')
         response = {'result': 'fail','messages ':'something went wrong !'}  
+       
+
         
 def aboutUs(request):
     Db.closeConnection()
