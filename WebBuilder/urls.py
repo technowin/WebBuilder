@@ -23,6 +23,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from Account.views import *
 from workflow.views import *
+from Master.views import *
 
 urlpatterns = [
     
@@ -46,11 +47,13 @@ urlpatterns = [
     path("dashboard/", include("bootstrap.dashboard.urls", namespace="dashboard")),
     path("landing", view=TemplateView.as_view(template_name="bootstrap/landing.html"), name="landing"),
     
-     # Account
+    # Account
     path("", Login,name='Account'),
     path("Login", Login,name='Account'),
     path("Login", Login,name='Login'),
     path("logout",logoutView,name='logout'),
-    
     path("workflow_starts", workflow_starts,name='workflow_starts'),
+    
+    # Master
+    path("businessHome", businessHome,name='businessHome'),
 ]
