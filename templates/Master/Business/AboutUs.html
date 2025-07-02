@@ -5,180 +5,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About Us | Your Website Builder</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/Business/AboutUs.css' %}">
 </head>
-<style>
-    .bg-custom-primary {
-  background-color: #07367a;
-}
-
-  .deep-shadow {
-    margin-left: 20px;
-  margin-right: 20px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
-  border-radius: 12px;
-  background-color: #fff;
-}
-
-   .who-we-are-card {
-    
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-              rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-  background-color: #fff;
-  border-radius: 1rem;
-  padding: 3rem;
-}
-
-  
-   .mission-card {
-  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-  background-color: #fff;
-  border-radius: 1rem;
-  padding: 2rem;
-}
-
-   .fancy-box {
-    border: 2px solid #e0e0e0;
-    border-radius: 20px;
-    padding: 2rem;
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 25px 50px -12px;
-    transition: all 0.3s ease;
-  }
-
-  .fancy-box:hover {
-    {% comment %} border-color:rgb(27, 29, 31); {% endcomment %}
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 60px -15px;
-    transform: translateY(-5px);
-  }
-
-  .lets-connect-card {
-  background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
-  max-width: 900px;
-}
-</style>
-
 <body>
 
   <!-- Header -->
-  <header class="bg-custom-primary text-white py-5 text-center">
-  <div class="container">
-    <h1 class="display-4">About Us</h1>
-    <p class="lead">Build Stunning Websites. Without Code.</p>
-  </div>
-</header>
-
-  <!-- About Section -->
-  <section class="py-5">
-  <div class="container-fluid px-4">
-    <div class="who-we-are-card">
-      <h2 class="mb-4">Who We Are</h2>
-      <p>
-        Welcome to <strong>Your Website Builder</strong> — your all-in-one platform for creating stunning, responsive, and high-performance websites using premium Bootstrap designs.
-        Whether you're a freelancer, a small business owner, or launching your next startup, we’ve got the tools you need to succeed online.
-      </p>
+  <header class="bg-custom-primary header-title">
+    <div class="container">
+      <h1 class="display-4">About Us</h1>
+      <p class="lead header-subtitle">Build Stunning Websites. Without Code.</p>
     </div>
-  </div>
-</section>
+  </header>
 
-
-
+  <!-- Who We Are -->
+  <section class="py-5">
+    <div class="container-fluid px-0">
+      <div class="who-we-are-card">
+        <h2 class="mb-4 who-we-are-title">Who We Are</h2>
+        <p  class="who-we-are-text">
+          Welcome to <strong>Your Website Builder</strong> — your all-in-one platform for creating stunning, responsive, and high-performance websites using premium Bootstrap designs.
+          Whether you're a freelancer, a small business owner, or launching your next startup, we’ve got the tools you need to succeed online.
+        </p>
+      </div>
+    </div>
+  </section>
 
   <!-- Why Choose Us -->
   <section>
-  <div class="container-fluid px-0">
-    <h2 class="mb-4 text-center">Why Choose Us</h2>
-    <div class="row text-center mx-0">
-      <div class="col-md-4 mb-4">
-        <div class="p-4 deep-shadow h-100">
-          <h5>Premium Bootstrap Templates</h5>
-          <p>Responsive, pixel-perfect, and professional-grade templates built with Bootstrap 5+</p>
+    <div class="container-fluid px-0">
+      <h2 class="mb-4 text-center who-we-are-title">Why Choose Us</h2>
+      <div class="row text-center mx-0">
+        <div class="col-md-4 mb-4">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">Premium Bootstrap Templates</h5>
+            <p>Responsive, pixel-perfect, and professional-grade templates built with Bootstrap 5+. 
+                Responsive, pixel-perfect, and professional-grade templates built with Bootstrap 5+
+            SEO tools, hosting, forms, analytics, and more — everything included</p>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="p-4 deep-shadow h-100">
-          <h5>Drag & Drop Builder</h5>
-          <p>Build pages visually with intuitive components — no coding required.</p>
+        <div class="col-md-4 mb-4">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">Drag & Drop Builder</h5>
+            <p>Build pages visually with intuitive components — no coding required. Responsive, 
+                pixel-perfect, and professional-grade templates built with Bootstrap 5+
+            SEO tools, hosting, forms, analytics, and more — everything included</p>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="p-4 deep-shadow h-100">
-          <h5>All-in-One Platform</h5>
-          <p>SEO tools, hosting, forms, analytics, and more — everything included.</p>
+        <div class="col-md-4 mb-4">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">All-in-One Platform</h5>
+            <p>SEO tools, hosting, forms, analytics, and more — everything included. Responsive,
+                 pixel-perfect, and professional-grade templates built with Bootstrap 5+
+                SEO tools, hosting, forms, analytics, and more — everything included</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-
-
-
-  <!-- Photo + Description Section -->
-<section class="py-5">
-  <div class="container-fluid px-0">
-    <div class="fancy-box w-100">
-      <div class="row align-items-center g-0">
-        <!-- Left: Image Slider -->
-        <div class="col-md-6 mb-4 mb-md-0">
-          <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-            <div class="carousel-inner rounded shadow-sm">
-              <div class="carousel-item active">
-                <img src="{% static 'images/aboutus1.jpg' %}" class="d-block w-100" alt="Photo 1">
-              </div>
-              <div class="carousel-item">
-                <img src="{% static 'images/aboutus4.jpg' %}" class="d-block w-100" alt="Photo 2">
-              </div>
-              <div class="carousel-item">
-                <img src="{% static 'images/aboutus5.jpg' %}" class="d-block w-100" alt="Photo 3">
+  <!-- Photo + Description -->
+  <section class="py-5">
+    <div class="container-fluid px-0">
+      <div class="fancy-box w-100">
+        <div class="row align-items-center g-0">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+              <div class="carousel-inner rounded shadow-sm">
+                <div class="carousel-item active">
+                  <img src="{% static 'images/aboutus1.jpg' %}" class="d-block w-100" alt="Photo 1">
+                </div>
+                <div class="carousel-item">
+                  <img src="{% static 'images/aboutus4.jpg' %}" class="d-block w-100" alt="Photo 2">
+                </div>
+                <div class="carousel-item">
+                  <img src="{% static 'images/aboutus5.jpg' %}" class="d-block w-100" alt="Photo 3">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Right: Description -->
-        <div class="col-md-6 p-5">
-          <h3 class="mb-3">Our Work in Action</h3>
-          <p>
-            From elegant landing pages to complete business websites, our builder powers thousands of professional projects across the globe. Each photo showcases real websites built using our templates and tools.
-          </p>
-          <p>
-            With drag-and-drop simplicity and fully customizable components, creators bring their ideas to life in just minutes — no code required.
-          </p>
+          <div class="col-md-6 p-5">
+            <h3 class="mb-3 who-we-are-title">Our Work in Action</h3>
+            <p>
+              From elegant landing pages to complete business websites, our builder powers thousands of professional projects across the globe.
+            </p>
+            <p>
+              With drag-and-drop simplicity and fully customizable components, creators bring their ideas to life in just minutes — no code required.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-
-
+  </section>
 
   <!-- Our Mission -->
-<section class="py-5">
-  <div class="container-fluid px-0">
-    <div class="mission-card mx-5">
-      <h2 class="mb-4 text-center">Our Mission</h2>
-      <p class="text-center">
-        We aim to make website creation easy, beautiful, and accessible to everyone.
-        With simplicity, speed, and quality at the core, we help businesses go online with confidence and style.
-      </p>
+  <section class="py-5">
+    <div class="container-fluid px-0">
+      <div class="mission-card">
+        <h2 class="mb-4 text-center who-we-are-title">Our Mission</h2>
+        <p class="text-center">
+          We aim to make website creation easy, beautiful, and accessible to everyone.
+          With simplicity, speed, and quality at the core, we help businesses go online with confidence and style.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-
-
-
-  <!-- Contact Section -->
-  <section class="py-5 bg-light">
+  <!-- Let’s Connect -->
+  <section class="py-5 connect-section-bg">
   <div class="container">
     <div class="lets-connect-card p-4 mx-auto">
-      <h2 class="mb-4 text-center">Let’s Connect</h2>
+      <h2 class="mb-4 text-center connect-heading">Let’s Connect</h2>
       <div class="row justify-content-center">
         <div class="col-md-8">
           <ul class="list-group list-group-flush">
@@ -193,7 +137,9 @@
 </section>
 
 
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
