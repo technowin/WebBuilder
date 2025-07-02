@@ -1,0 +1,126 @@
+/* style.css */
+
+body {
+  font-family: 'Merriweather', serif;
+  background-color: #f9f9f9;
+}
+
+.bg-custom-primary {
+  background-color: #92969d;
+  color: white;
+}
+
+.header-title {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.who-we-are-card {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+              rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 3rem;
+  margin: 0 2rem;
+}
+
+.deep-shadow {
+  margin: 0 20px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 2rem;
+}
+
+.fancy-box {
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 25px 50px -12px;
+  transition: all 0.3s ease;
+  margin: 0 1rem;
+}
+
+.fancy-box:hover {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 60px -15px;
+  transform: translateY(-5px);
+}
+
+.mission-card {
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  background-color: #fff;
+  
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 0 2rem;
+}
+.mission-heading {
+  color: #FFD700; /* Yellow */
+  font-weight: 700;
+  font-size: 2rem;
+  font-family: 'Merriweather', serif;
+}
+
+.mission-card p {
+  color: #000000bb;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: 'Merriweather', serif;
+}
+
+.lets-connect-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+  max-width: 900px;
+}
+.header-subtitle {
+  color: #FFD700; /* Gold/Yellow */
+}
+.who-we-are-title {
+  font-size: 2.5rem;        /* Bigger font */
+  font-weight: 700;         /* Bold */
+  color: #002147;           /* Deep blue */
+  font-family: 'Merriweather', serif;
+}
+.who-we-are-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #333;
+  font-weight: 600; /* Made it bolder */
+  font-family: 'Merriweather', serif;
+}
+.feature-heading {
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  color: #000000; /* optional if you want to match your theme */
+}
+.connect-section-bg {
+  background-color: #92969d;
+}
+
+/* Card remains white */
+.lets-connect-card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+  max-width: 900px;
+}
+
+/* Yellow heading inside white card */
+.connect-heading {
+  color: #FFD700; /* Yellow */
+  font-weight: 700;
+  font-size: 2rem;
+  font-family: 'Merriweather', serif;
+}
+
+/* Optional: Improve list text */
+.lets-connect-card .list-group-item {
+  background-color: transparent;
+  border: none;
+  font-family: 'Merriweather', serif;
+  font-size: 1.1rem;
+  color: #333;
+}
