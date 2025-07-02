@@ -17,7 +17,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <!-- Your Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/Business/BusinessHome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Business/BusinessLayout.css' %}">
+
+    {% block extra_css %}{% endblock %}
+    
 </head>
 
 <body>
@@ -39,13 +42,49 @@
                 </div>
 
                 <div class="col-md-6 fontControlContainer" role="region" aria-label="Font size controls and site map">
+                    
+                    <div class="colorSelectorContainer" style="display: inline-flex; gap: 8px; margin-right: 10px;">
+                        
+                        <!-- Charcoal + Copper -->
+                        <button class="colorCircle"
+                            style="background-color: #2E2E2E;"
+                            onclick="selectColor('#2E2E2E', '#B87333')"
+                            aria-label="Select Charcoal and Copper theme"
+                            title="Charcoal + Copper (#2E2E2E / #B87333)">
+                        </button>
+
+                        <!-- Midnight Navy + Rose Gold -->
+                        <button class="colorCircle"
+                            style="background-color: #191970;"
+                            onclick="selectColor('#191970', '#B76E79')"
+                            aria-label="Select Midnight Navy and Rose Gold theme"
+                            title="Midnight Navy + Rose Gold (#191970 / #B76E79)">
+                        </button>
+
+                        <!-- Deep Forest + Champagne -->
+                        <button class="colorCircle"
+                            style="background-color: #013220;"
+                            onclick="selectColor('#013220', '#F7E7CE')"
+                            aria-label="Select Deep Forest and Champagne theme"
+                            title="Deep Forest + Champagne (#013220 / #F7E7CE)">
+                        </button>
+
+                        <!-- Default: Navy + Gold -->
+                        <button class="colorCircle"
+                            style="background-color: #002147; border: 2px solid gold;"
+                            onclick="selectColor('#002147', '#D4AF37')"
+                            aria-label="Select default Navy and Gold theme"
+                            title="Default Theme: Navy + Gold (#002147 / #D4AF37)">
+                        </button>
+
+                    </div>
+
                     <button onclick="increaseFont()" class="fontControlBtn" title="Increase Font Size" aria-label="Increase font size">A+</button>
                     <button onclick="decreaseFont()" class="fontControlBtn" title="Decrease Font Size" aria-label="Decrease font size">A-</button>
                     <button onclick="resetFont()" class="fontControlBtn" title="Reset Font Size" aria-label="Reset font size">A</button>
                     <button class="fontControlBtn" id="toggleSpeech" aria-label="Toggle speech">🔈</button>
                     <span class="siteMap"><a href="#" aria-label="Site Map">Site Map</a></span>
                 </div>
-
             </div>
 
             <div class="containerForGLCLogo">
@@ -66,7 +105,7 @@
             
             <nav class="topnav" id="myTopnav" role="navigation" aria-label="Primary navigation menu">
 
-                <a href="{{ 'Index' }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
+                <a href="{{ 'businessHome' }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
                     Home
                 </a>
 
@@ -268,6 +307,7 @@
     </setion>
 
     {% comment %} function For NavBar responsive {% endcomment %}
+     
     <script>
         function myFunction() {
             const nav = document.getElementById("myTopnav");
@@ -318,6 +358,32 @@
             });
         });
     </script>
+
+    {% comment %} Change Color Codes {% endcomment %}
+
+    <script>
+        function selectColor(primary, accent) {
+            debugger;
+            document.documentElement.style.setProperty('--primary-color', primary);
+            document.documentElement.style.setProperty('--accent-color', accent);
+
+            // Optional: persist theme across page reloads
+            localStorage.setItem('primary-color', primary);
+            localStorage.setItem('accent-color', accent);
+        }
+
+        // Restore colors if previously selected
+        window.addEventListener('DOMContentLoaded', () => {
+            debugger;
+            const primary = localStorage.getItem('primary-color');
+            const accent = localStorage.getItem('accent-color');
+            if (primary && accent) {
+            document.documentElement.style.setProperty('--primary-color', primary);
+            document.documentElement.style.setProperty('--accent-color', accent);
+            }
+        });
+    </script>
+
 
 </body>
 </html>
