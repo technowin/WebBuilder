@@ -68,7 +68,7 @@ p {
 /* 🔗 Anchor Tags */
 a {
     font-size: 1rem;
-    text-decoration: none;
+    text-decoration: none !important;
     color: var(--primary-color);
     transition: color 0.3s ease;
 }
@@ -792,4 +792,31 @@ a:hover .underlineHover {
 }
 .colorCircle:focus {
     border-color: #000;
+}
+
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    /*background-color: darkblue;*/
+    /*background-color: #1E5631;*/
+    background-color: var(--accent-color);
+    /*background-color: #002147;*/
+    color: #fff;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+#myBtn:hover {
+    background-color: #fff;
+    /*color: darkblue;*/
+    color: var(--accent-color);
+    /*font-weight: bold;*/
+    border: 3px solid var(--accent-color);
 }

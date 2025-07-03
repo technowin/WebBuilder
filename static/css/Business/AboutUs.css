@@ -5,9 +5,14 @@ body {
   background-color: #f9f9f9;
 }
 
+:root {
+  --primary-color:#002147;
+  --accent-color: #D4AF37;
+}
+
 .bg-custom-primary {
-  background-color: #92969d;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .header-title {
@@ -16,30 +21,31 @@ body {
 }
 
 .who-we-are-card {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-              rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+              rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
   background-color: #fff;
   border-radius: 1rem;
   padding: 3rem;
   margin: 0 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .deep-shadow {
   margin: 0 20px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  /* box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px; */
   border-radius: 12px;
   background-color: #fff;
   padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .fancy-box {
   border: 2px solid #e0e0e0;
   border-radius: 20px;
-  padding: 2rem;
+  padding: 5rem;
   background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 25px 50px -12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
-  margin: 0 1rem;
 }
 
 .fancy-box:hover {
@@ -56,7 +62,7 @@ body {
   margin: 0 2rem;
 }
 .mission-heading {
-  color: #FFD700; /* Yellow */
+  color: var(--accent-color); /* Yellow */
   font-weight: 700;
   font-size: 2rem;
   font-family: 'Merriweather', serif;
@@ -76,12 +82,12 @@ body {
   max-width: 900px;
 }
 .header-subtitle {
-  color: #FFD700; /* Gold/Yellow */
+  color: var(--accent-color); /* Gold/Yellow */
 }
 .who-we-are-title {
   font-size: 2.5rem;        /* Bigger font */
   font-weight: 700;         /* Bold */
-  color: #002147;           /* Deep blue */
+  color: var(--primary-color);           /* Deep blue */
   font-family: 'Merriweather', serif;
 }
 .who-we-are-text {
@@ -94,7 +100,7 @@ body {
 .feature-heading {
   font-weight: 700;
   font-family: 'Merriweather', serif;
-  color: #000000; /* optional if you want to match your theme */
+  color: var(--accent-color); /* optional if you want to match your theme */
 }
 .connect-section-bg {
   background-color: #92969d;
@@ -110,7 +116,7 @@ body {
 
 /* Yellow heading inside white card */
 .connect-heading {
-  color: #FFD700; /* Yellow */
+  color: var(--accent-color); /* Yellow */
   font-weight: 700;
   font-size: 2rem;
   font-family: 'Merriweather', serif;
@@ -123,4 +129,8 @@ body {
   font-family: 'Merriweather', serif;
   font-size: 1.1rem;
   color: #333;
+}
+
+.aboutUsPage{
+  margin: 5em;
 }

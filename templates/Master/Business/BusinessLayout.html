@@ -109,7 +109,7 @@
                     Home
                 </a>
 
-                <a href="{{ 'AboutUsIndex' }}" class="navlink" role="menuitem" tabindex="0">
+                <a href="{{ 'AboutUs' }}" class="navlink" role="menuitem" tabindex="0">
                     About Us
                 </a>
 
@@ -118,8 +118,8 @@
                         Contact Us <span class="dropdown-icon">&#x25BC;</span> <!-- ▼ Downward chevron -->
                     </button>
                     <div class="dropdown1-content1">
-                        <a href="{{ 'ContactForm' }}" role="menuitem" tabindex="0">Contact Form</a>
-                        <a href="{{ 'SupportTeam' }}" role="menuitem" tabindex="0">Support Team</a>
+                        <a href="{{ 'BusinessContactUs' }}" role="menuitem" tabindex="0">Contact Form</a>
+                        <a href="{{ 'BusinessContactUs' }}" role="menuitem" tabindex="0">Support Team</a>
                     </div>
                 </div>
 
@@ -213,19 +213,19 @@
                                         <ul style="list-style: none; line-height:2em; padding-left: 0; font-family: 'Merriweather', serif;" role="list" aria-label="Quick Links">
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
-                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                <a href="{{ 'businessHome' }}" class="underline-hover" target="_blank" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Mumbai University website">Home</a>
                                             </li>
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
-                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                <a href="{{ 'AboutUs' }}" class="underline-hover" target="_blank" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Maharashtra CET Cell website">About Us</a>
                                             </li>
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
-                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                <a href="{{'BusinessContactUs'}}" class="underline-hover" target="_blank" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Maharashtra Scholarship website">Contact Us</a>
                                             </li>
@@ -306,8 +306,10 @@
 
     </setion>
 
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+
     {% comment %} function For NavBar responsive {% endcomment %}
-     
+
     <script>
         function myFunction() {
             const nav = document.getElementById("myTopnav");
@@ -384,6 +386,32 @@
         });
     </script>
 
+    {% comment %} Scroll top function {% endcomment %}
+
+    <script>
+
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 
 </body>
 </html>

@@ -57,4 +57,5 @@ urlpatterns = [
     # Master
     path("businessHome", businessHome,name='businessHome'),
     path("AboutUs", aboutUs,name='aboutUs'),
+    path("BusinessContactUs", BusinessContactUs,name='BusinessContactUs'),
 ]

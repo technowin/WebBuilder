@@ -1,0 +1,132 @@
+/* style.css */
+
+body {
+  font-family: 'Merriweather', serif;
+  background-color: #f9f9f9;
+}
+
+:root {
+  --primary-color:#002147;
+  --accent-color: #D4AF37;
+}
+
+.bg-custom-primary {
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+}
+
+.header-title {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.header-subtitle {
+  color: var(--accent-color); /* Gold/Yellow */
+}
+
+.feature-heading {
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  color: var(--accent-color); /* optional if you want to match your theme */
+}
+.connect-section-bg {
+  background-color: #92969d;
+}
+
+@media all and (max-width: 1000px) {
+    .contactussection{
+      padding: 5% 5%;
+    }
+}
+
+/* 📲 Tablet view (1000px - 1135px) */
+@media all and (min-width: 1000px) and (max-width: 1135px) {
+    .contactussection{
+      padding: 5% 15%;
+    }
+}
+
+/* 🖥️ Desktop view (1136px and above) */
+@media all and (min-width: 1136px) {
+   
+    .contactussection{
+      padding: 5% 15%;
+    }
+}
+
+.contactusFirstsection h1{
+  color:var(--primary-color);
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: var(--primary-color);
+    font-size: 20px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+.social-icons a:hover {
+    color: #007bff; /* Bootstrap primary blue or change to your brand color */
+    transform: scale(1.2) rotate(5deg);
+}
+
+.social-icons a:nth-child(1):hover { color: #3b5998; }  /* Facebook */
+.social-icons a:nth-child(2):hover { color: #1da1f2; }  /* Twitter */
+.social-icons a:nth-child(3):hover { color: #e1306c; }  /* Instagram */
+.social-icons a:nth-child(4):hover { color: #0077b5; }  /* LinkedIn */
+
+.contact-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      max-width: 600px;
+      width: 100%;
+}
+
+.contact-box h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.contact-box p {
+  font-size: 15px;
+  color: var(--accent-color);
+  margin-bottom: 25px;
+}
+
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #fafafa;
+}
+
+.contact-box textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-box button {
+  background: #ff9124;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 14px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+
+.contact-box button:hover {
+  background: #e07d14;
+}

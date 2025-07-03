@@ -1,0 +1,87 @@
+{% extends 'Master/Business/BusinessLayout.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/Business/BusinessContactUs.css' %}">
+
+{% endblock %}
+
+{% block content %}
+  
+  <header class="bg-custom-primary header-title">
+    <div class="container">
+      <h1 class="display-4">Contact Us</h1>
+      <p class="lead header-subtitle">Build Stunning Websites. Without Code.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="row contactussection">
+      
+      <div class="col-md-6 contactusFirstsection">
+        <h1>Contact Us</h1>
+        <p>We’d love to hear from you! Whether you have a question about our services, need support, or just want to say hello – we’re here for you.</p>
+        <br>
+
+        <p><i class="fas fa-map-marker-alt me-2"></i>123 Test Location, Here City 401589</p>
+        <p><i class="fas fa-envelope me-2"></i>TestEmail@gmail.com</p>
+        <p><i class="fas fa-phone-alt me-2"></i>+91 78965 11458</p>
+        <br>
+
+        <p>
+          <strong>Keep In Touch</strong>
+          <span class="ms-3 social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </span>
+        </p>
+
+        <!-- Embedded Live Google Map -->
+        <div class="map-responsive">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d942.2036277256495!2d72.85040326962346!3d19.159595065697417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b64cd1a7becb%3A0x3630cb7349ffd737!2sTECHNO%20WIN%20IT%20INFRA%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1751455694281!5m2!1sen!2sin" 
+            width="100%" 
+            height="350" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        
+      </div>
+
+      <div class="col-md-6">
+        <div class="contact-box">
+          <h2>Have Questions?</h2>
+          <p>We’d love to hear from you! Whether you have a question about our services, need support, or just want to say hello – we’re here for you.</p>
+
+          <form action="#" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
+
