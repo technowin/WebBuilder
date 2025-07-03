@@ -39,14 +39,7 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.fancy-box {
-  border: 2px solid #e0e0e0;
-  border-radius: 20px;
-  padding: 5rem;
-  background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
+
 
 .fancy-box:hover {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 60px -15px;
@@ -133,4 +126,38 @@ body {
 
 .aboutUsPage{
   margin: 5em;
+}
+
+@media all and (max-width: 1000px) {
+    .fancy-box {
+      border: 2px solid #e0e0e0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+}
+
+/* 📲 Tablet view (1000px - 1135px) */
+@media all and (min-width: 1000px) and (max-width: 1135px) {
+    .fancy-box {
+      border: 2px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 5rem;
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+}
+
+/* 🖥️ Desktop view (1136px and above) */
+@media all and (min-width: 1136px) {
+   .fancy-box {
+      border: 2px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 5rem;
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
 }
