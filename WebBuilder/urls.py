@@ -52,10 +52,14 @@ urlpatterns = [
     path("Login", Login,name='Account'),
     path("Login", Login,name='Login'),
     path("logout",logoutView,name='logout'),
-    path("workflow_starts", workflow_starts,name='workflow_starts'),
     
     # Master
     path("businessHome", businessHome,name='businessHome'),
     path("AboutUs", aboutUs,name='aboutUs'),
     path("BusinessContactUs", BusinessContactUs,name='BusinessContactUs'),
+    
+    # Workflow
+    path("workflow_starts", workflow_starts,name='workflow_starts'),
+    path("GettingStarted", GettingStarted,name='GettingStarted'),
+    path("viewTemplate", viewTemplate,name='viewTemplate')
 ]
