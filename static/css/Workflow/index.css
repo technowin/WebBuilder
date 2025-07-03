@@ -183,7 +183,8 @@ body {
 
 .dashboardView {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap; /* Wrap cards to next line if they overflow */
+  gap: 1rem; /* Adds spacing between cards */
 }
 
 .siteView-card {
@@ -193,6 +194,8 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   padding: 15px;
+  flex: 1 1 300px; /* Grow/shrink but take minimum 300px */
+  max-width: 300px;
 }
 
 .cardView-header {

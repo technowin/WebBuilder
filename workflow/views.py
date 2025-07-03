@@ -49,18 +49,50 @@ def viewTemplate(request):
         if request.method == 'POST':
             category_id = request.POST.get('category_id')
 
-            if category_id:
-                try:
-                    selected_category = WebsiteCategory.objects.get(id=category_id)
+        if category_id:
+            try:
+                selected_category = WebsiteCategory.objects.get(id=category_id)
+
+                # Check if any templates exist for this category
+                templates = WebsiteTemplate.objects.filter(category_id=category_id, is_active=1)
+
+                if templates.exists():
                     return render(request, 'Workflow/viewTemplate.html', {
                         'categoryId': selected_category.id,
                         'categoryName': selected_category.category_name,
+                        'templates': templates,
                     })
-                except WebsiteCategory.DoesNotExist:
-                    messages.error(request, "Invalid category selected.")
-            else:
-                messages.error(request, "Please select a correct category.")
+                else:
+                    messages.info(
+                        request,
+                        "There are currently no templates available under the selected category. Please select a different category. Thank you for your understanding."
+                    )
+                    return redirect('GettingStarted')
+
+            except WebsiteCategory.DoesNotExist:
+                messages.error(request, "Invalid category selected.")
                 return redirect('GettingStarted')
+        else:
+            messages.error(request, "Please select a correct category.")
+            return redirect('GettingStarted')
+        # if request.method == 'POST':
+        #     category_id = request.POST.get('category_id')
+
+        #     if category_id:
+        #         try:
+        #             selected_category = WebsiteCategory.objects.get(id=category_id)
+                    
+                    
+                    
+        #             return render(request, 'Workflow/viewTemplate.html', {
+        #                 'categoryId': selected_category.id,
+        #                 'categoryName': selected_category.category_name,
+        #             })
+        #         except WebsiteCategory.DoesNotExist:
+        #             messages.error(request, "Invalid category selected.")
+        #     else:
+        #         messages.error(request, "Please select a correct category.")
+        #         return redirect('GettingStarted')
 
     except Exception as e:
         import traceback

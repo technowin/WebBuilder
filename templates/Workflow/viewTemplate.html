@@ -28,6 +28,39 @@
 
   <section class="hero">
     <div class="dashboardView">
+      {% for template in templates %}
+      <!-- Project Card -->
+      <div class="siteView-card">
+        <div class="cardView-header">
+          <img src="{% static 'images/Business/backgroundDemoSite.jpg' %}" alt="Website Banner" class="cardView-image">
+        </div>
+        <div class="cardView-footer">
+          <div class="cardView-content">
+            <p class="siteView-title">{{ template.template_name }}</p>
+            <p class="siteView-status">Not published</p>
+          </div>
+          <div class="menuView-btn-wrapper">
+            <div class="menuView-btn">⋮</div>
+            <span class="menuView-tooltip">Site Actions</span>
+          </div>
+        </div>
+
+        <!-- Dropdown menu -->
+        <div class="dropdownView-menu">
+          <ul>
+            <li><a href="#"><i class="fas fa-pen"></i> Rename site</a></li>
+            <li><a href="{% url template.function_name %}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li>
+            <li><a href="#"><i class="fas fa-trash-alt"></i> Move to trash</a></li>
+            <li><a href="#"><i class="fas fa-pencil-alt"></i> Start Editing</a></li>
+          </ul>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% comment %} <section class="hero">
+    <div class="dashboardView">
       <!-- Project Card -->
       <div class="siteView-card">
         <div class="cardView-header">
@@ -56,7 +89,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> {% endcomment %}
 
 {% endblock %}
 
