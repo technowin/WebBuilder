@@ -1,0 +1,225 @@
+{% extends 'Master/Business/BusinessLayout.html' %}
+{% load static %}
+{% block extra_css %}
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/Business/Service.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-...snip..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    
+  </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+{% comment %} <section class="hero-section text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Our Premium Services</h1>
+    <p class="lead">We help businesses grow with innovative and scalable digital solutions.</p>
+  </div>
+</section> {% endcomment %}
+
+<header class="bg-custom-primary header-title">
+    <div class="container">
+      <h1 class="display-4">Our Services</h1>
+      <p class="lead header-subtitle">Build Stunning Websites. Without Code.</p>
+    </div>
+</header>
+
+<!-- Services Offered -->
+{% comment %} <section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">What We Offer</h2>
+      <p class="text-muted">A range of services tailored to your success.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card service-card h-100 p-4">
+          <div class="card-body text-center">
+            <i class="bi bi-laptop fs-1 mb-3 text-primary"></i>
+            <h5 class="card-title">Web Development</h5>
+            <p class="card-text">Custom websites built with performance and scalability in mind.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card service-card h-100 p-4">
+          <div class="card-body text-center">
+            <i class="bi bi-phone fs-1 mb-3 text-success"></i>
+            <h5 class="card-title">Mobile App Design</h5>
+            <p class="card-text">User-first mobile applications for both Android and iOS.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card service-card h-100 p-4">
+          <div class="card-body text-center">
+            <i class="bi bi-bar-chart-line fs-1 mb-3 text-danger"></i>
+            <h5 class="card-title">Digital Marketing</h5>
+            <p class="card-text">SEO, PPC, and social media strategies to boost your growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> {% endcomment %}
+
+
+<section>
+    <div class="container-fluid px-0">
+      <h2 class="mb-4 text-center who-we-are-title">What We Offer</h2>
+      <div class="row text-center mx-0">
+        <div class="col-md-4 mb-4">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">Premium Bootstrap Templates</h5>
+            <p>Responsive, pixel-perfect, and professional-grade templates built with Bootstrap 5+. 
+                Responsive, pixel-perfect, and professional-grade templates built with Bootstrap 5+
+            SEO tools, hosting, forms, analytics, and more — everything included</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">Drag & Drop Builder</h5>
+            <p>Build pages visually with intuitive components — no coding required. Responsive, 
+                pixel-perfect, and professional-grade templates built with Bootstrap 5+
+            SEO tools, hosting, forms, analytics, and more — everything included</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">All-in-One Platform</h5>
+            <p>SEO tools, hosting, forms, analytics, and more — everything included. Responsive,
+                 pixel-perfect, and professional-grade templates built with Bootstrap 5+
+                SEO tools, hosting, forms, analytics, and more — everything included</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+<!-- Why Choose Us -->
+<section class="py-5">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <img src="{% static 'images/aboutus1.jpg' %}" class="img-fluid rounded" alt="Why Choose Us">
+      </div>
+      <div class="col-lg-6">
+        <h2 class="fw-bold mb-4 who-we-are-title">Why Choose Us?</h2>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">✅ Industry-leading expertise</li>
+          <li class="list-group-item">✅ Transparent pricing and timelines</li>
+          <li class="list-group-item">✅ Dedicated support and maintenance</li>
+          <li class="list-group-item">✅ Proven success with global clients</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold who-we-are-title">What Our Clients Say</h2>
+    </div>
+    <div class="row g-4">
+      {% comment %} <div class="col-md-6"> {% endcomment %}
+        {% comment %} <div class="card h-100 p-4">
+          <blockquote class="blockquote mb-0">
+            <p>“Their team helped us launch faster than we imagined, and the ROI has been incredible.”</p>
+            <footer class="blockquote-footer mt-3">Sarah Johnson, <cite title="Company 1">BrightTech</cite></footer>
+          </blockquote>
+        </div> {% endcomment %}
+
+        <div class="col-md-6">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">Premium Bootstrap Templates</h5>
+            <p>“Their team helped us launch faster than we imagined, and the ROI has been incredible.”</p>
+            <footer class="blockquote-footer mt-3">Sarah Johnson, <cite title="Company 1">BrightTech</cite></footer>
+          
+          </div>
+        </div>
+
+      {% comment %} </div> {% endcomment %}
+        <div class="col-md-6">
+          <div class="deep-shadow h-100">
+            <h5 class="feature-heading">Premium Bootstrap Templates</h5>
+            <p>“Their team helped us launch faster than we imagined, and the ROI has been incredible.”</p>
+            <footer class="blockquote-footer mt-3">Sarah Johnson, <cite title="Company 1">BrightTech</cite></footer>
+          
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5 faq-section">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold who-we-are-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+            What industries do you serve?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            We work with startups, enterprises, and everything in between across tech, healthcare, finance, and more.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            How long does a typical project take?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            Depending on complexity, a project can take anywhere from 2 weeks to 3 months.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

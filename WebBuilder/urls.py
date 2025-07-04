@@ -57,6 +57,7 @@ urlpatterns = [
     path("businessHome", businessHome,name='businessHome'),
     path("AboutUs", aboutUs,name='aboutUs'),
     path("BusinessContactUs", BusinessContactUs,name='BusinessContactUs'),
+    path("Service", servicepage,name='servicepage'),
     
     # Workflow
     path("workflow_starts", workflow_starts,name='workflow_starts'),
