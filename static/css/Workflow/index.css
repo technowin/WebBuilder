@@ -292,7 +292,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 10px;
   display: none;
-  z-index: 10;
+  z-index: 21;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   text-align: left;
 }
@@ -357,4 +357,21 @@ html[data-bs-theme="dark"] .menuView-tooltip {
 
 html[data-bs-theme="dark"] .siteView-status {
   color: #ccc;
+}
+
+@media (max-width: 480px) {
+  .dropdownView-menu {
+    position: absolute;
+    top: 60px;
+    left: 110px;
+    width: 200px;
+    background: #ffffff;
+    color: #212529;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: none;
+    z-index: 21;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: left;
+  }
 }
