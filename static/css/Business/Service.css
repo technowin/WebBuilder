@@ -1,0 +1,77 @@
+body {
+  font-family: 'Merriweather', serif;
+  background-color: #f9f9f9;
+}
+
+:root {
+  --primary-color:#002147;
+  --accent-color: #D4AF37;
+}
+
+.bg-custom-primary {
+  background-color: grey;
+  
+  color: var(--accent-color);
+}
+
+.header-title {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.header-title h1,
+.header-title p {
+  color: white;
+}
+
+.header-title p.header-subtitle {
+  color: yellow !important;
+}
+.deep-shadow {
+  margin: 0 20px;
+  /* box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px; */
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.feature-heading {
+  
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  color: var(--accent-color); /* optional if you want to match your theme */
+}
+.who-we-are-title {
+    margin-top: 2%;
+  font-size: 2.5rem;        /* Bigger font */
+  font-weight: 700;         /* Bold */
+  color: var(--primary-color);           /* Deep blue */
+  font-family: 'Merriweather', serif;
+}
+.who-we-are-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #333;
+  font-weight: 600; /* Made it bolder */
+  font-family: 'Merriweather', serif;
+}
+
+
+.faq-section .accordion-button {
+  background-color: var(--primary-color);
+  color: white;
+  font-family: 'Merriweather', serif;
+  
+}
+
+.faq-section .accordion-button:not(.collapsed) {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: none;
+}
+
+.faq-section .accordion-item {
+  border: none;
+}
+
+
