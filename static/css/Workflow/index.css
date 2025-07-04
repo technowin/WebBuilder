@@ -375,3 +375,33 @@ html[data-bs-theme="dark"] .siteView-status {
     text-align: left;
   }
 }
+
+/* mySites */
+
+.create-site-btn {
+  background-color: #007bff; /* Bright blue */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 999px; /* Full rounded pill shape */
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease;
+  float: right; /* Aligns the button to the right */
+  margin-right: 20%; /* Adds some space above the button */
+}
+
+.create-site-btn:hover {
+  background-color: #0069d9;
+}
+
+.plus-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+

@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import connection
 import traceback
+from django.contrib.auth.decorators import login_required
 import Db 
 
 # Create your views here.
 
+@login_required
 def businessHome(request):
     Db.closeConnection()
     m = Db.get_connection()
@@ -21,7 +23,8 @@ def businessHome(request):
         print(f"error: {e}")
         messages.error(request, 'Oops...! Something went wrong!')
         response = {'result': 'fail','messages ':'something went wrong !'}  
-       
+
+@login_required
 def BusinessContactUs(request):
     Db.closeConnection()
     m = Db.get_connection()
@@ -37,7 +40,8 @@ def BusinessContactUs(request):
         print(f"error: {e}")
         messages.error(request, 'Oops...! Something went wrong!')
         response = {'result': 'fail','messages ':'something went wrong !'}  
-        
+
+@login_required
 def aboutUs(request):
     Db.closeConnection()
     m = Db.get_connection()
@@ -53,7 +57,8 @@ def aboutUs(request):
         print(f"error: {e}")
         messages.error(request, 'Oops...! Something went wrong!')
         response = {'result': 'fail','messages ':'something went wrong !'}  
-        
+   
+@login_required
 def servicepage(request):
     Db.closeConnection()
     m = Db.get_connection()
