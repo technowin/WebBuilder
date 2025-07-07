@@ -148,4 +148,52 @@ def mySites(request):
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
 
-   
+@login_required
+def startEditing(request):
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor = m.cursor(dictionary=True)  # so results are dicts, not tuples
+
+    try:
+        workflow_id = request.GET.get('workflow_id')
+
+        # Call stored procedure
+        cursor.callproc("stp_getPagesSection", [workflow_id])
+
+        # MySQL returns result sets in cursor.stored_results()
+        for result in cursor.stored_results():
+            rows = result.fetchall()
+
+        # Process results to group sections under pages
+        from collections import defaultdict
+        page_map = defaultdict(list)
+        page_titles = {}
+
+        for row in rows:
+            page_id = row['page_id']
+            page_titles[page_id] = row['page_title']
+            page_map[page_id].append(row)
+
+        pages_with_sections = [
+            {
+                'page_id': page_id,
+                'page_title': page_titles[page_id],
+                'sections': sections
+            }
+            for page_id, sections in page_map.items()
+        ]
+
+        return render(request, 'Workflow/StartEditing.html', {
+            'workflow_id': workflow_id,
+            'pages': pages_with_sections
+        })
+
+    except Exception as e:
+        import traceback
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        print(f"Error: {e}")
+        messages.error(request, "Oops! Something went wrong.")
+        return redirect('some_error_page')
+
