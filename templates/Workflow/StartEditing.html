@@ -45,14 +45,17 @@
                         {% if page.sections %}
                         <ul class="list-group">
                             {% for section in page.sections %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center section-item"
-                                data-section-id="{{ section.section_id }}">
-                                <span>
-                                <i class="fa-solid fa-cube text-secondary me-2"></i>
-                                {{ section.section_title }}
-                                </span>
-                                <span class="badge bg-info text-dark">Section ID: {{ section.section_id }}</span>
-                            </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center section-item"
+                                    data-section-id="{{ section.section_id }}"
+                                    data-page-id="{{ page.page_id }}"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#contentModal">
+                                    <span>
+                                        <i class="fa-solid fa-cube text-secondary me-2"></i>
+                                        {{ section.section_title }}
+                                    </span>
+                                    <span class="badge bg-info text-dark">Section ID: {{ section.section_id }}</span>
+                                </li>
                             {% endfor %}
                         </ul>
                         {% else %}
@@ -70,8 +73,75 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="contentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content p-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Enter Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body d-flex justify-content-between gap-4">
+                <!-- Left side: Input form -->
+                <div class="w-50">
+                    <div class="mb-3">
+                    <label for="titleInput" class="form-label fw-semibold">Enter Title</label>
+                    <input type="text" class="form-control" name="title" id="titleInput" required>
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="descInput" class="form-label fw-semibold">Enter Description</label>
+                    <textarea class="form-control" name="description" id="descInput" rows="4" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="fileInput" class="form-label fw-semibold">Upload (Image or PDF)</label>
+                    <input type="file" class="form-control" name="media_file" id="fileInput" accept="image/*,.pdf" required>
+                    <small class="text-muted d-block">Image ≤ 2GB, PDF ≤ 5GB</small>
+                    </div>
+
+                    <!-- Hidden Inputs -->
+                    <input type="hidden" name="page_id" id="pageIdInput">
+                    <input type="hidden" name="section_id" id="sectionIdInput">
+                </div>
+
+                <!-- Right side: View Index -->
+                <div class="w-50 text-center d-flex align-items-center justify-content-center">
+                    <a href="#" class="btn btn-outline-primary btn-lg">📚 View Index</a>
+                </div>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                <button type="submit" class="btn btn-success px-5">Submit</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+
 <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    
+    document.querySelectorAll('.section-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const sectionId = item.getAttribute('data-section-id');
+            const pageId = item.getAttribute('data-page-id');
+            document.getElementById('sectionIdInput').value = sectionId;
+            document.getElementById('pageIdInput').value = pageId;
+        });
+    });
+
+</script>
+
+{% endblock %}
+
+{% block extra_javascript %}  
 
 {% if messages %}
   <script>

@@ -120,6 +120,8 @@ class ContentBlock(models.Model):
         related_name='blocks'
     )
 
+    title = models.CharField(max_length=255, blank=True, null=True)  # 🆕 New Title field
+
     block_type = models.CharField(max_length=50, choices=[
         ('text', 'Text'),
         ('file', 'File'),
@@ -128,7 +130,7 @@ class ContentBlock(models.Model):
         ('button', 'Button'),
     ])
 
-    content = models.TextField(blank=True)
+    description = models.TextField(blank=True)  # ✏️ Renamed from content → description
     media_file = models.FileField(blank=True, null=True)
 
     order = models.PositiveIntegerField(default=0)
@@ -137,6 +139,7 @@ class ContentBlock(models.Model):
     updated_by = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
 
     class Meta:
         db_table = 'tbl_content_block'

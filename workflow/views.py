@@ -197,3 +197,20 @@ def startEditing(request):
         messages.error(request, "Oops! Something went wrong.")
         return redirect('some_error_page')
 
+@login_required   
+def submitEditing(request):
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor = m.cursor()
+
+    try:
+       
+        return redirect('startEditing')  # Redirect to mySites after editing
+    
+    except Exception as e:
+        import traceback
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        print(f"Error: {e}")
+        messages.error(request, "Oops! Something went wrong.")
