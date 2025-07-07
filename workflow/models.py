@@ -34,7 +34,7 @@ class WebsiteTemplate(models.Model):
     
     class Meta:
         db_table = 'tbl_websiteTemplateMaster'
-        
+
 class WebsiteWorkflow(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -50,7 +50,21 @@ class WebsiteWorkflow(models.Model):
         db_column='category_id',
         related_name='workflows'
     )
-    client_id = models.IntegerField(blank=True, null=True)  # or ForeignKey if client table exists
+    client_id = models.IntegerField(blank=True, null=True)  # ForeignKey optional
+
+    # New branding fields
+    website_name = models.CharField(max_length=2555, blank=True, null=True)
+    logo = models.ImageField(blank=True, null=True)
+    favicon = models.ImageField(blank=True, null=True)
+
+    primary_color = models.CharField(max_length=71, blank=True, null=True)
+    secondary_color = models.CharField(max_length=71, blank=True, null=True)
+
+    # Social Media URLs
+    facebook_url = models.URLField(blank=True, null=True)
+    instagram_url = models.URLField(blank=True, null=True)
+    youtube_url = models.URLField(blank=True, null=True)
+    linkedin_url = models.URLField(blank=True, null=True)
 
     is_active = models.IntegerField(default=1)
 

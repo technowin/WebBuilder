@@ -12,6 +12,8 @@ from django.urls import reverse
 from django.conf import settings
 import os
 from django.core.files.storage import FileSystemStorage
+import time
+from .models import WebsiteWorkflow
 
 
 # Create your views here.
@@ -133,26 +135,122 @@ def viewTemplate(request):
         print(f"error: {e}")
         messages.error(request, 'Oops...! Something went wrong!')
    
-@login_required   
+@login_required
 def mySites(request):
     Db.closeConnection()
     m = Db.get_connection()
     cursor = m.cursor()
 
     try:
-        username = request.session.get("username", "")
-        workflows = WebsiteWorkflow.objects.select_related('template', 'category').filter(
-            created_by=username
-        )
-        return render(request, 'Workflow/MySites.html', {'workflows': workflows})
-    
+        if request.method == 'GET':
+            username = request.session.get("username", "")
+            workflows = WebsiteWorkflow.objects.select_related('template', 'category').filter(
+                created_by=username
+            )
+            return render(request, 'Workflow/MySites.html', {'workflows': workflows})
+
+        if request.method == 'POST':
+            print("POST request received in mySites")
+
+            username = request.session.get("username", "")
+            workflow_id = request.POST.get("workflow_id")
+
+            website_name = request.POST.get("website_name", "").strip()
+            primary_color = request.POST.get("primary_color", "").strip()
+            secondary_color = request.POST.get("secondary_color", "").strip()
+
+            facebook_url = request.POST.get("facebook_url", "").strip()
+            instagram_url = request.POST.get("instagram_url", "").strip()
+            youtube_url = request.POST.get("youtube_url", "").strip()
+            linkedin_url = request.POST.get("linkedin_url", "").strip()
+
+            logo = request.FILES.get("logo")
+            favicon = request.FILES.get("favicon")
+
+            MAX_FILE_SIZE_MB = 5
+            MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
+
+            def save_file(file_obj, workflow_id, subfolder):
+                if not file_obj:
+                    return None
+
+                if file_obj.size > MAX_FILE_SIZE:
+                    raise ValueError(f"{file_obj.name} exceeds {MAX_FILE_SIZE_MB} MB.")
+
+                folder_path = os.path.join(settings.MEDIA_ROOT, str(workflow_id), subfolder)
+                os.makedirs(folder_path, exist_ok=True)
+
+                fs = FileSystemStorage(location=folder_path)
+                original_name, ext = os.path.splitext(file_obj.name)
+                safe_name = "".join(c for c in original_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+                timestamp = time.strftime('%Y%m%d_%H%M%S')
+                final_name = f"{safe_name}_{timestamp}{ext}"
+
+                filename = fs.save(final_name, file_obj)
+                return os.path.join(str(workflow_id), subfolder, filename).replace('\\', '/')
+
+            # Insert new
+            if not workflow_id:
+                # No workflow_id => Create new
+                workflow = WebsiteWorkflow.objects.create(
+                    website_name=website_name or None,
+                    primary_color=primary_color or None,
+                    secondary_color=secondary_color or None,
+                    facebook_url=facebook_url or None,
+                    instagram_url=instagram_url or None,
+                    youtube_url=youtube_url or None,
+                    linkedin_url=linkedin_url or None,
+                    created_at=timezone.now(),
+                    created_by=username
+                )
+
+                # If logo is uploaded, save it
+                if logo:
+                    workflow.logo = save_file(logo, workflow.id, "Image")
+                if favicon:
+                    workflow.favicon = save_file(favicon, workflow.id, "Favicon")
+
+                workflow.save()
+                messages.success(request, "New branding created successfully!")
+
+            else:
+                # Update existing
+                workflow = WebsiteWorkflow.objects.filter(id=workflow_id).first()
+                if not workflow:
+                    messages.error(request, "Workflow not found for update.")
+                    return redirect('mySites')
+
+                workflow.website_name = website_name or workflow.website_name
+                workflow.primary_color = primary_color or workflow.primary_color
+                workflow.secondary_color = secondary_color or workflow.secondary_color
+                workflow.facebook_url = facebook_url or workflow.facebook_url
+                workflow.instagram_url = instagram_url or workflow.instagram_url
+                workflow.youtube_url = youtube_url or workflow.youtube_url
+                workflow.linkedin_url = linkedin_url or workflow.linkedin_url
+
+                if logo:
+                    workflow.logo = save_file(logo, workflow_id, "Image")
+                if favicon:
+                    workflow.favicon = save_file(favicon, workflow_id, "Favicon")
+
+                workflow.updated_at = timezone.now()
+                workflow.updated_by = username
+                workflow.save()
+
+                messages.success(request, "Branding updated successfully!")
+
+            return redirect('mySites')
+        
     except Exception as e:
         import traceback
         tb = traceback.extract_tb(e.__traceback__)
         fun = tb[0].name
-        request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        user_id = getattr(request.user, 'id', None)
+        if user_id:
+            cursor.callproc("stp_error_log", [fun, str(e), user_id])
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
+        return redirect('mySites')
 
 @login_required
 def startEditing(request):
