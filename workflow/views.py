@@ -7,6 +7,12 @@ import Db
 from workflow.models import *
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from workflow.models import *
+from django.urls import reverse
+from django.conf import settings
+import os
+from django.core.files.storage import FileSystemStorage
+
 
 # Create your views here.
 
@@ -197,20 +203,79 @@ def startEditing(request):
         messages.error(request, "Oops! Something went wrong.")
         return redirect('some_error_page')
 
-@login_required   
+@login_required
 def submitEditing(request):
     Db.closeConnection()
     m = Db.get_connection()
     cursor = m.cursor()
 
     try:
-       
-        return redirect('startEditing')  # Redirect to mySites after editing
-    
+        username = request.session.get("username", "")
+        title = request.POST.get('title') or ''
+        description = request.POST.get('description') or ''
+        workflow_id = request.POST.get('workflow_id')
+        page_id = request.POST.get('page_id')
+        section_id = request.POST.get('section_id')
+        uploaded_file = request.FILES.get('media_file', None)
+
+        # At least one of these fields is required
+        if not (title or description or uploaded_file):
+            messages.error(request, "Please provide at least Title, Description or File.")
+            return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+        saved_path = None
+
+        if uploaded_file:
+            # ✅ File size validation
+            MAX_FILE_SIZE_MB = 5
+            MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024  # 5 MB in bytes
+
+            if uploaded_file.size > MAX_FILE_SIZE:
+                messages.error(request, f"File size should not exceed {MAX_FILE_SIZE_MB} MB.")
+                return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+            # 📁 Save file
+            folder_path = os.path.join(settings.MEDIA_ROOT, str(workflow_id), str(page_id), str(section_id))
+            os.makedirs(folder_path, exist_ok=True)
+
+            fs = FileSystemStorage(location=folder_path)
+
+            import time
+            original_name = os.path.splitext(uploaded_file.name)[0]
+            ext = os.path.splitext(uploaded_file.name)[1]
+
+            # Sanitize filename (optional but recommended)
+            safe_name = "".join(c for c in original_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+
+            # Add timestamp to filename
+            timestamp = time.strftime('%Y%m%d_%H%M%S')
+            final_name = f"{safe_name}_{timestamp}{ext}"
+
+            filename = fs.save(final_name, uploaded_file)
+
+            saved_path = os.path.join(str(workflow_id), str(page_id), str(section_id), filename).replace('\\', '/')
+
+        # ✅ Create DB entry
+        section_instance = Section.objects.get(id=section_id)
+        ContentBlock.objects.create(
+            section=section_instance,
+            title=title,
+            description=description,
+            block_type='file' if uploaded_file else 'text',
+            media_file=saved_path,
+            created_by=username,
+            created_at=timezone.now()
+        )
+
+        messages.success(request, "Content saved successfully.")
+        return redirect(f"/startEditing?workflow_id={workflow_id}")
+
     except Exception as e:
         import traceback
         tb = traceback.extract_tb(e.__traceback__)
         fun = tb[0].name
-        request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        if request.user.id:
+            cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
+        return redirect(f"/startEditing?workflow_id={workflow_id}")

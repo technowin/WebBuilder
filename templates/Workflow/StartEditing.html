@@ -77,47 +77,74 @@
     <div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="contentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content p-4">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold">Enter Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            
-            <form method="POST" action="" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="modal-body d-flex justify-content-between gap-4">
-                <!-- Left side: Input form -->
-                <div class="w-50">
-                    <div class="mb-3">
-                    <label for="titleInput" class="form-label fw-semibold">Enter Title</label>
-                    <input type="text" class="form-control" name="title" id="titleInput" required>
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Enter Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <form method="POST" action="{% url 'submitEditing' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="modal-body row g-4">
+                        <!-- Left Column: Form Inputs -->
+                        <div class="col-md-6">
+                            <!-- Title Input -->
+                            <div class="mb-3">
+                                <label for="titleInput" class="form-label fw-semibold">Title</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="titleInput" 
+                                    name="title" 
+                                    placeholder="Optional title"
+                                >
+                            </div>
+
+                            <!-- Description Input -->
+                            <div class="mb-3">
+                                <label for="descInput" class="form-label fw-semibold">Description</label>
+                                <textarea 
+                                    class="form-control" 
+                                    id="descInput" 
+                                    name="description" 
+                                    rows="4" 
+                                    placeholder="Optional description"
+                                ></textarea>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="mb-3">
+                                <label for="fileInput" class="form-label fw-semibold">Upload File</label>
+                                <input 
+                                    type="file" 
+                                    class="form-control" 
+                                    id="fileInput" 
+                                    name="media_file" 
+                                    accept="image/*,.pdf"
+                                >
+                                <div class="form-text">
+                                    Supported: Images ≤ 2GB, PDFs ≤ 5GB
+                                </div>
+                            </div>
+
+                            <!-- Hidden Inputs -->
+                            <input type="hidden" name="page_id" id="pageIdInput">
+                            <input type="hidden" name="section_id" id="sectionIdInput">
+                            <input type="hidden" name="workflow_id" id="workflowIdInput" value="{{ workflow_id }}">
+                        </div>
+
+                        <!-- Right Column: Action/Link -->
+                        <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <a href="#" class="btn btn-outline-primary btn-lg">📚 View Index</a>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                    <label for="descInput" class="form-label fw-semibold">Enter Description</label>
-                    <textarea class="form-control" name="description" id="descInput" rows="4" required></textarea>
+                    <!-- Footer: Submit Button -->
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-success px-5">Submit</button>
                     </div>
+                </form>
 
-                    <div class="mb-3">
-                    <label for="fileInput" class="form-label fw-semibold">Upload (Image or PDF)</label>
-                    <input type="file" class="form-control" name="media_file" id="fileInput" accept="image/*,.pdf" required>
-                    <small class="text-muted d-block">Image ≤ 2GB, PDF ≤ 5GB</small>
-                    </div>
-
-                    <!-- Hidden Inputs -->
-                    <input type="hidden" name="page_id" id="pageIdInput">
-                    <input type="hidden" name="section_id" id="sectionIdInput">
-                </div>
-
-                <!-- Right side: View Index -->
-                <div class="w-50 text-center d-flex align-items-center justify-content-center">
-                    <a href="#" class="btn btn-outline-primary btn-lg">📚 View Index</a>
-                </div>
-                </div>
-
-                <div class="modal-footer justify-content-center">
-                <button type="submit" class="btn btn-success px-5">Submit</button>
-                </div>
-            </form>
             </div>
         </div>
     </div>

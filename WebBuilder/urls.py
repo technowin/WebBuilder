@@ -64,5 +64,6 @@ urlpatterns = [
     path("GettingStarted", GettingStarted,name='GettingStarted'),
     path("viewTemplate", viewTemplate,name='viewTemplate'),
     path("mySites", mySites,name='mySites'),
-    path("startEditing", startEditing,name='startEditing')
+    path("startEditing", startEditing,name='startEditing'),
+    path("submitEditing", submitEditing,name='submitEditing')
 ]
