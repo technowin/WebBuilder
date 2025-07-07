@@ -1,7 +1,7 @@
 {% extends "bootstrap/vertical_base.html" %}
 {% load static %}
 
-{% block title %}Workflow{% endblock title %}
+{% block title %}My Sites{% endblock title %}
 
 {% block extra_css %}
 
@@ -26,43 +26,52 @@
 
 {% block content %}
 
-  <section class="hero">
-    <div class="dashboardView">
-      {% for template in templates %}
-        <!-- Project Card -->
-        <div class="siteView-card">
-          <div class="cardView-header">
-            <img src="{% static 'images/Business/backgroundDemoSite.jpg' %}" alt="Website Banner" class="cardView-image">
+  <section>
+      <div class="row mySites">
+          <div class="col-md-6">
+              <h1>Sites</h1>
+              <p style="font-size:1.4em;">No more jumping tabs — manage every website right here.</p>
           </div>
-          <div class="cardView-footer">
-            <div class="cardView-content">
-              <p class="siteView-title">{{ template.template_name }}</p>
-              <p class="siteView-status">Not published</p>
-            </div>
-            <div class="menuView-btn-wrapper">
-              <div class="menuView-btn">⋮</div>
-              <span class="menuView-tooltip">Site Actions</span>
-            </div>
+          <div class="col-md-6">
+              <a href="{% url 'GettingStarted' %}" class="create-site-btn" style="text-decoration: none;">
+                <span class="plus-icon">+</span> Create New Site
+              </a>
           </div>
+      </div>
 
-          <!-- Dropdown menu -->
-          <div class="dropdownView-menu">
-            <ul>
-              <li><a href="#"><i class="fas fa-pen"></i> Rename site</a></li>
-              <li><a href="{% url template.function_name %}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li>
-              <li><a href="#"><i class="fas fa-trash-alt"></i> Move to trash</a></li>
-              <li><a href="{% url 'viewTemplate' %}?template_id={{ template.id }}&category_id={{ template.category.id }}&choice={{'Editing'}}"><i class="fas fa-pencil-alt"></i> Start Editing</a></li>
-            </ul>
+      <div class="dashboardView">
+        {% for template in workflows %}
+          <!-- Project Card -->
+          <div class="siteView-card">
+            <div class="cardView-header">
+              <img src="{% static 'images/Business/backgroundDemoSite.jpg' %}" alt="Website Banner" class="cardView-image">
+            </div>
+            <div class="cardView-footer">
+              <div class="cardView-content">
+                <p class="siteView-title">{{template.template.template_name}}</p>
+                <p class="siteView-status">In Progress</p>
+              </div>
+              <div class="menuView-btn-wrapper">
+                <div class="menuView-btn">⋮</div>
+                <span class="menuView-tooltip">Site Actions</span>
+              </div>
+            </div>
+
+            <!-- Dropdown menu -->
+            <div class="dropdownView-menu">
+              <ul>
+                <li><a href="#"><i class="fas fa-pen"></i> Rename site</a></li>
+                <li><a href="{{template.template.function_name}}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li>
+                <li><a href="#"><i class="fas fa-trash-alt"></i> Move to trash</a></li>
+                <li><a href="{{template.template.function_name}}"><i class="fas fa-pencil-alt"></i> Start Editing</a></li>
+              </ul>
+            </div>
           </div>
-        </div>
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
   </section>
 
-{% endblock %}
 
-{% block extra_javascript %}
-<!-- Keeping only SweetAlert and optional message popup -->
 <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
@@ -89,7 +98,7 @@
   </script>
 {% endif %}
 
-<script>
+  <script>
     document.addEventListener("DOMContentLoaded", function () {
       const menuBtns = document.querySelectorAll(".menuView-btn");
 

@@ -27,7 +27,8 @@
   <section class="hero">
     <div class="container">
       <h1 class="title">What type of website do you want to create?</h1>
-      <form method="POST" action="{% url 'viewTemplate' %}">
+      {% comment %} <form method="POST" action="{% url 'viewTemplate' %}"> {% endcomment %}
+      <form method="POST" action="{% url 'GettingStarted' %}">
         {% csrf_token %}
         <!-- This hidden input will carry the selected category's ID -->
         <input type="hidden" name="category_id" id="categoryId" />
