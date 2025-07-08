@@ -67,6 +67,7 @@ class WebsiteWorkflow(models.Model):
     linkedin_url = models.URLField(blank=True, null=True)
 
     is_active = models.IntegerField(default=1)
+    enable_accessibility = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.CharField(max_length=1000, blank=True, null=True)

@@ -105,7 +105,7 @@
                       data-workflow-id="" 
                       data-doc-type="logo"
                       title="View Logo">
-                      <i class="bi bi-eye"></i>
+                      <i class="bi bi-eye fs-2"></i>
                     </a>
                   </div>
                 </div>
@@ -120,7 +120,7 @@
                       data-workflow-id="" 
                       data-doc-type="favicon"
                       title="View Favicon">
-                      <i class="bi bi-eye"></i>
+                      <i class="bi bi-eye fs-2"></i>
                     </a>
                   </div>
                 </div>
@@ -156,6 +156,16 @@
                 <div class="col-md-6">
                   <label for="linkedinUrl" class="form-label fw-semibold">LinkedIn URL</label>
                   <input type="url" class="form-control" name="linkedin_url" id="linkedinUrl" placeholder="https://linkedin.com/company/yourcompany">
+                </div>
+
+                <!-- Accessibility Option -->
+                <div class="col-md-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="enable_accessibility" id="accessibilityOption">
+                    <label class="form-check-label fw-semibold" for="accessibilityOption">
+                      Enable accessibility features (for visually impaired, keyboard navigation, etc.)
+                    </label>
+                  </div>
                 </div>
 
                 <!-- Hidden workflow_id -->
@@ -217,6 +227,7 @@
           $('#youtubeUrl').val(response.youtube_url || '');
           $('#linkedinUrl').val(response.linkedin_url || '');
           $('#workflowIdInput').val(response.workflow_id); // 🔁 Update hidden input too
+          $('#accessibilityOption').prop('checked', response.enable_accessibility === 1);
         },
         error: function (xhr) {
           console.error("Error fetching site details:", xhr.responseText);

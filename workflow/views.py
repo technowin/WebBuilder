@@ -167,6 +167,8 @@ def mySites(request):
             youtube_url = request.POST.get("youtube_url", "").strip()
             linkedin_url = request.POST.get("linkedin_url", "").strip()
 
+            enable_accessibility = 1 if request.POST.get("enable_accessibility") == "on" else 0
+            
             logo = request.FILES.get("logo")
             favicon = request.FILES.get("favicon")
 
@@ -203,6 +205,7 @@ def mySites(request):
                     instagram_url=instagram_url or None,
                     youtube_url=youtube_url or None,
                     linkedin_url=linkedin_url or None,
+                    enable_accessibility=enable_accessibility,
                     created_at=timezone.now(),
                     created_by=username
                 )
@@ -230,7 +233,8 @@ def mySites(request):
                 workflow.instagram_url = instagram_url or workflow.instagram_url
                 workflow.youtube_url = youtube_url or workflow.youtube_url
                 workflow.linkedin_url = linkedin_url or workflow.linkedin_url
-
+                workflow.enable_accessibility = enable_accessibility
+                
                 if logo:
                     workflow.logo = save_file(logo, workflow_id, "Image")
                 if favicon:
@@ -409,6 +413,7 @@ def renameSiteDetails(request):
             'instagram_url': workflow.instagram_url,
             'youtube_url': workflow.youtube_url,
             'linkedin_url': workflow.linkedin_url,
+            'enable_accessibility': workflow.enable_accessibility,
         }
         return JsonResponse(response_data)
 
