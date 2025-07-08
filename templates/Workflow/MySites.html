@@ -15,6 +15,8 @@
 
   <!-- Google Font: Merriweather -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     
   <link rel="stylesheet" href="{% static 'css/Workflow/index.css' %}">
 
@@ -60,7 +62,11 @@
             <!-- Dropdown menu -->
             <div class="dropdownView-menu">
               <ul>
-                <li><a href="#" data-bs-toggle="modal" data-bs-target="#brandingModal" data-workflow-id="{{ template.id }}"><i class="fas fa-pen"></i> Rename site</a></li>
+                <li>
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#brandingModal" data-workflow-id="{{ template.id }}">
+                    <i class="fas fa-pen"></i> Rename site
+                  </a>
+                </li>
                 <li><a href="{{template.template.function_name}}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li>
                 <li><a href="#"><i class="fas fa-trash-alt"></i> Move to trash</a></li>
                 <li><a href="{% url 'startEditing' %}?workflow_id={{ template.id }}"><i class="fas fa-pencil-alt"></i> Start Editing</a></li>
@@ -92,13 +98,31 @@
                 <!-- Logo Upload -->
                 <div class="col-md-6">
                   <label for="logoUpload" class="form-label fw-semibold">Upload Logo</label>
-                  <input type="file" class="form-control" name="logo" id="logoUpload" accept="image/*">
+                  <div class="input-group">
+                    <input type="file" class="form-control" name="logo" id="logoUpload" accept="image/*">
+                    <a href="#" 
+                      class="view-document" 
+                      data-workflow-id="" 
+                      data-doc-type="logo"
+                      title="View Logo">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                  </div>
                 </div>
 
                 <!-- Favicon Upload -->
                 <div class="col-md-6">
                   <label for="faviconUpload" class="form-label fw-semibold">Upload Favicon</label>
-                  <input type="file" class="form-control" name="favicon" id="faviconUpload" accept="image/*">
+                  <div class="input-group">
+                    <input type="file" class="form-control" name="favicon" id="faviconUpload" accept="image/*">
+                    <a href="#" 
+                      class="view-document" 
+                      data-workflow-id="" 
+                      data-doc-type="favicon"
+                      title="View Favicon">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                  </div>
                 </div>
 
                 <!-- Primary Color -->
@@ -152,6 +176,118 @@
 
 <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // 🔥 1. When modal opens
+    $('#brandingModal').on('show.bs.modal', function (event) {
+      const button = $(event.relatedTarget);
+      const workflowId = button.data('workflow-id');
+
+      // Set workflow ID in hidden input for form submission
+      $('#workflowIdInput').val(workflowId);
+
+      // Also set it on any `.view-document` links inside the modal
+      $(this).find('.view-document').each(function () {
+        $(this).data('workflow-id', workflowId);
+      });
+
+      // CSRF Token
+      const csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+      // Call AJAX to fetch existing branding data
+      const formData = new FormData();
+      formData.append('workflow_id', workflowId);
+
+      $.ajax({
+        type: 'POST',
+        url: 'renameSiteDetails', // 👈 Make sure this URL is correct
+        data: formData,
+        headers: {
+          'X-CSRFToken': csrftoken,
+        },
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          $('#websiteName').val(response.website_name || '');
+          $('#primaryColor').val(response.primary_color || '#000000');
+          $('#secondaryColor').val(response.secondary_color || '#ffffff');
+          $('#facebookUrl').val(response.facebook_url || '');
+          $('#instagramUrl').val(response.instagram_url || '');
+          $('#youtubeUrl').val(response.youtube_url || '');
+          $('#linkedinUrl').val(response.linkedin_url || '');
+          $('#workflowIdInput').val(response.workflow_id); // 🔁 Update hidden input too
+        },
+        error: function (xhr) {
+          console.error("Error fetching site details:", xhr.responseText);
+          alert('Something went wrong while loading the site details.');
+        }
+      });
+    });
+
+    // 🔥 2. When View Document is clicked
+    $(document).on('click', '.view-document', function (e) {
+      e.preventDefault();
+      debugger; // 🔥 Debugging point
+      const workflowId = $(this).data('workflow-id');
+      const docType = $(this).data('doc-type');
+
+      if (!workflowId || !docType) {
+        alert('Workflow ID or document type missing!');
+        return;
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: 'view_document', // 👈 Django URL (check this is correct)
+        data: {
+          'workflow_id': workflowId,
+          'doc_type': docType,
+          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+        },
+        success: function (response) {
+          if (response.file_url) {
+            window.open(response.file_url, '_blank');
+          } else {
+            // Shouldn't usually hit this, but safe fallback
+            Swal.fire({
+              title: 'Error',
+              text: response.error || 'Unknown issue occurred.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        },
+        error: function (xhr) {
+          let errorMessage = 'Something went wrong.';
+
+          try {
+            const response = JSON.parse(xhr.responseText);
+            errorMessage = response.error || response.file_url || errorMessage;
+          } catch (e) {
+            // Non-JSON error, stick with fallback
+          }
+
+          const theme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+
+          Swal.fire({
+            title: 'Error',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'OK',
+            background: theme === 'dark' ? '#343a40' : '#ffffff',
+            color: theme === 'dark' ? '#f8f9fa' : '#212529',
+            confirmButtonColor: '#0d6efd',
+            customClass: {
+              popup: 'rounded-4 shadow',
+              confirmButton: 'btn btn-primary px-4 py-2'
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
 
 {% if messages %}
   <script>

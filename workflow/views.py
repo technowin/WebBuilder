@@ -14,7 +14,10 @@ import os
 from django.core.files.storage import FileSystemStorage
 import time
 from .models import WebsiteWorkflow
-
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.core.exceptions import ObjectDoesNotExist
+from WebBuilder.encryption import encrypt_parameter
 
 # Create your views here.
 
@@ -377,3 +380,70 @@ def submitEditing(request):
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
         return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+@login_required
+@require_POST
+def renameSiteDetails(request):
+    # Optional: close old connections if you're handling raw DB manually
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor = m.cursor()
+
+    try:
+        workflow_id = request.POST.get('workflow_id')
+
+        if not workflow_id:
+            return JsonResponse({'error': 'Workflow ID is required'}, status=400)
+
+        try:
+            workflow = WebsiteWorkflow.objects.get(id=workflow_id)
+        except ObjectDoesNotExist:
+            return JsonResponse({'error': 'WebsiteWorkflow not found'}, status=404)
+
+        response_data = {
+            'workflow_id': workflow.id,
+            'website_name': workflow.website_name,
+            'primary_color': workflow.primary_color,
+            'secondary_color': workflow.secondary_color,
+            'facebook_url': workflow.facebook_url,
+            'instagram_url': workflow.instagram_url,
+            'youtube_url': workflow.youtube_url,
+            'linkedin_url': workflow.linkedin_url,
+        }
+        return JsonResponse(response_data)
+
+    except Exception as e:
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        if request.user.id:
+            cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        print(f"Error: {e}")
+        return JsonResponse({'error': 'Something went wrong on the server.'}, status=500)
+    
+@login_required
+def view_document(request):
+    if request.method == "POST":
+        workflow_id = request.POST.get("workflow_id")
+        doc_type = request.POST.get("doc_type")  # 'logo' or 'favicon'
+
+        try:
+            workflow = WebsiteWorkflow.objects.get(pk=workflow_id)
+
+            if doc_type == 'logo':
+                file_field = workflow.logo
+            elif doc_type == 'favicon':
+                file_field = workflow.favicon
+            else:
+                return JsonResponse({'error': 'Invalid document type.'}, status=400)
+
+            if file_field and file_field.name:
+                return JsonResponse({
+                    'file_url': os.path.join(settings.MEDIA_URL, file_field.name)
+                }, status=200)
+            else:
+                return JsonResponse({'error': 'File not uploaded.'}, status=404)
+
+        except WebsiteWorkflow.DoesNotExist:
+            return JsonResponse({'error': 'Workflow not found.'}, status=404)
+
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)
