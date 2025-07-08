@@ -66,6 +66,10 @@ urlpatterns = [
     path("mySites", mySites,name='mySites'),
     path("startEditing", startEditing,name='startEditing'),
     path("submitEditing", submitEditing,name='submitEditing'),
+    path("view_index", view_index,name='view_index')
+]
+
+    path("submitEditing", submitEditing,name='submitEditing'),
     path("renameSiteDetails", renameSiteDetails,name='renameSiteDetails'),
     path("view_document", view_document,name='view_document')
 

@@ -431,3 +431,56 @@ html[data-bs-theme="dark"] .siteView-status {
 .section-item i {
   font-size: 1.1rem;
 }
+
+
+
+
+
+
+
+
+/* for index css */
+/* Make the table theme aware */
+body[data-bs-theme="dark"] .theme-table {
+  background-color: #000000;
+  color: #f8f9fa;
+}
+body[data-bs-theme="dark"] .theme-table thead {
+  background-color: #000000;
+  color: #ffffff;
+}
+body[data-bs-theme="dark"] .theme-table tbody tr {
+  border-color: #000000;
+}
+
+body[data-bs-theme="light"] .theme-table {
+  background-color: #ffffff;
+  color: #212529;
+}
+body[data-bs-theme="light"] .theme-table thead {
+  background-color: #9faab3;
+  color: #000;
+}
+body[data-bs-theme="dark"] .card.shadow-lg {
+  box-shadow: 0 0 0 rgb(0, 0, 0) !important;
+  background-color: #1e1e1e;
+}
+
+/* body[data-bs-theme="dark"] .no-shadow-dark {
+  box-shadow: none !important;
+  border: 1px solid #000000; 
+  background-color: #000000; 
+} */
+
+/* body[data-bs-theme="dark"] .no-shadow-dark {
+  box-shadow: none !important;
+  border: 1px solid #343a40; 
+  background-color: #1e1e1e;
+} */
+body[data-bs-theme="dark"] .card.no-shadow-dark {
+  box-shadow: none !important;
+  border: 1px solid #3a3a3a;
+  background-color: #1e1e1e;
+}
+
+
