@@ -135,7 +135,7 @@
 
                         <!-- Right Column: Action/Link -->
                         <div class="col-md-6 d-flex align-items-center justify-content-center">
-                            <a href="#" class="btn btn-outline-primary btn-lg">📚 View Index</a>
+                            <a href="{% url 'view_index' %}" id="viewIndexLinkid" class="btn btn-outline-primary btn-lg">📚 View Index</a>
                         </div>
                     </div>
 
@@ -165,6 +165,26 @@
     });
 
 </script>
+
+<script>
+  document.querySelectorAll('.section-item').forEach(item => {
+    item.addEventListener('click', function () {
+      const sectionId = this.getAttribute('data-section-id');
+      const pageId = this.getAttribute('data-page-id');
+
+      document.getElementById('sectionIdInput').value = sectionId;
+      document.getElementById('pageIdInput').value = pageId;
+
+      const viewIndexLink = document.getElementById('viewIndexLinkid');
+      const workflowIdInput = document.getElementById('workflowIdInput');
+      const workflowId = workflowIdInput.value;
+      const baseUrl = viewIndexLink.getAttribute('href').split('?')[0];
+      
+      viewIndexLink.setAttribute('href', `${baseUrl}?workflow_id=${workflowId}&section_id=${sectionId}`);
+    });
+  });
+</script>
+
 
 {% endblock %}
 

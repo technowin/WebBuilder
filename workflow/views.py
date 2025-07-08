@@ -279,3 +279,34 @@ def submitEditing(request):
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
         return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+
+# def view_index(request):
+#     data = YourModel.objects.all()
+#     return render(request, 'index.html', {'data': data})
+
+
+def view_index(request):
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor = m.cursor(dictionary=True)  # so results are dicts, not tuples
+
+    try:
+        section_id = request.GET.get('section_id')
+        workflow_Id = request.GET.get('workflow_id')
+        cursor.callproc("stp_getIndexPage", [section_id])
+        for result in cursor.stored_results():
+            # rows = result.fetchall()
+            index_data = list(result.fetchall())
+        
+        return render(request, 'Workflow/view_index.html', {"index_data": index_data,"workflow_Id":workflow_Id,
+        })
+
+    except Exception as e:
+        import traceback
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        print(f"Error: {e}")
+        messages.error(request, "Oops! Something went wrong.")
+        return redirect('some_error_page')
