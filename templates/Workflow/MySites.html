@@ -92,7 +92,7 @@
                 <!-- Website Name -->
                 <div class="col-md-12">
                   <label for="websiteName" class="form-label fw-semibold">Website Name</label>
-                  <input type="text" class="form-control" name="website_name" id="websiteName" placeholder="Enter your site name" >
+                  <input type="text" class="form-control" name="website_name" id="websiteName" placeholder="Enter your site name" required>
                 </div>
 
                 <!-- Logo Upload -->
@@ -125,6 +125,21 @@
                   </div>
                 </div>
 
+                <!-- Second Logo Upload -->
+                <div class="col-md-6">
+                  <label for="secondLogoUpload" class="form-label fw-semibold">Upload Second Logo</label>
+                  <div class="input-group">
+                    <input type="file" class="form-control" name="second_logo" id="secondLogoUpload" accept="image/*">
+                    <a href="#" 
+                      class="view-document" 
+                      data-workflow-id="" 
+                      data-doc-type="second_logo"
+                      title="View Second Logo">
+                      <i class="bi bi-eye fs-2"></i>
+                    </a>
+                  </div>
+                </div>
+
                 <!-- Primary Color -->
                 <div class="col-md-6">
                   <label for="primaryColor" class="form-label fw-semibold">Primary Color</label>
@@ -140,30 +155,68 @@
                 <!-- Social Media URLs -->
                 <div class="col-md-6">
                   <label for="facebookUrl" class="form-label fw-semibold">Facebook URL</label>
-                  <input type="url" class="form-control" name="facebook_url" id="facebookUrl" placeholder="https://facebook.com/yourpage">
+                  <input type="url" class="form-control" name="facebook_url" id="facebookUrl" placeholder="https://facebook.com/yourpage" required>
                 </div>
 
                 <div class="col-md-6">
                   <label for="instagramUrl" class="form-label fw-semibold">Instagram URL</label>
-                  <input type="url" class="form-control" name="instagram_url" id="instagramUrl" placeholder="https://instagram.com/yourhandle">
+                  <input type="url" class="form-control" name="instagram_url" id="instagramUrl" placeholder="https://instagram.com/yourhandle" required>
                 </div>
 
                 <div class="col-md-6">
                   <label for="youtubeUrl" class="form-label fw-semibold">YouTube URL</label>
-                  <input type="url" class="form-control" name="youtube_url" id="youtubeUrl" placeholder="https://youtube.com/yourchannel">
+                  <input type="url" class="form-control" name="youtube_url" id="youtubeUrl" placeholder="https://youtube.com/yourchannel" required>
                 </div>
 
                 <div class="col-md-6">
                   <label for="linkedinUrl" class="form-label fw-semibold">LinkedIn URL</label>
-                  <input type="url" class="form-control" name="linkedin_url" id="linkedinUrl" placeholder="https://linkedin.com/company/yourcompany">
+                  <input type="url" class="form-control" name="linkedin_url" id="linkedinUrl" placeholder="https://linkedin.com/company/yourcompany" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="address" class="form-label fw-semibold">Address</label>
+                  <input type="text" class="form-control" name="address" id="address" placeholder="Enter your address" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="phone" class="form-label fw-semibold">Phone Number</label>
+                  <input type="tel" 
+                        class="form-control" 
+                        name="phone" 
+                        id="phone" 
+                        placeholder="+91 98765 43210"
+                        pattern="^\+91\s?[6-9]\d{9}$"
+                        title="Enter a valid Indian phone number. Example: +91 9876543210"
+                        required>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="email" class="form-label fw-semibold">Email Address</label>
+                  <input type="email" 
+                        class="form-control" 
+                        name="email" 
+                        id="email" 
+                        placeholder="yourname@example.com" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                        title="Enter a valid email address like yourname@example.com"
+                        required>
                 </div>
 
                 <!-- Accessibility Option -->
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="enable_accessibility" id="accessibilityOption">
                     <label class="form-check-label fw-semibold" for="accessibilityOption">
                       Enable accessibility features (for visually impaired, keyboard navigation, etc.)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="show_second_logo" id="showSecondLogoOption">
+                    <label class="form-check-label fw-semibold" for="showSecondLogoOption">
+                      Would you like to display a second logo on your website?
                     </label>
                   </div>
                 </div>
@@ -228,6 +281,10 @@
           $('#linkedinUrl').val(response.linkedin_url || '');
           $('#workflowIdInput').val(response.workflow_id); // 🔁 Update hidden input too
           $('#accessibilityOption').prop('checked', response.enable_accessibility === 1);
+          $('#showSecondLogoOption').prop('checked', response.show_second_logo === 1);
+          $('#address').val(response.address || '');
+          $('#phone').val(response.phone_number || '');
+          $('#email').val(response.email_address || '');
         },
         error: function (xhr) {
           console.error("Error fetching site details:", xhr.responseText);

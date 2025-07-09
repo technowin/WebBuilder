@@ -56,6 +56,7 @@ class WebsiteWorkflow(models.Model):
     website_name = models.CharField(max_length=2555, blank=True, null=True)
     logo = models.ImageField(blank=True, null=True)
     favicon = models.ImageField(blank=True, null=True)
+    second_logo = models.ImageField(blank=True, null=True)
 
     primary_color = models.CharField(max_length=71, blank=True, null=True)
     secondary_color = models.CharField(max_length=71, blank=True, null=True)
@@ -65,9 +66,14 @@ class WebsiteWorkflow(models.Model):
     instagram_url = models.URLField(blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
     linkedin_url = models.URLField(blank=True, null=True)
-
+    
+    address = models.TextField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    email_address = models.EmailField(blank=True, null=True)
+    
     is_active = models.IntegerField(default=1)
     enable_accessibility = models.IntegerField(default=0)
+    show_second_logo  = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.CharField(max_length=1000, blank=True, null=True)

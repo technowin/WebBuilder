@@ -14,7 +14,17 @@ def businessHome(request):
     cursor=m.cursor()
     try:
         # Your normal logic goes here
-        return render(request, 'Master/Business/BusinessHome.html')
+        # return render(request, 'Master/Business/BusinessHome.html')
+        
+        workflow_id = request.GET.get('workflow_id','')
+        if workflow_id:
+            cursor.callproc("stp_getDataForWebsite", [workflow_id])
+            for result in cursor.stored_results():
+                workflow_data = list(result.fetchall())
+            
+            return render(request, 'Master/Business/BusinessHome.html', {"workflow_data": workflow_data})
+        else:
+            return render(request, 'Master/Business/BusinessHome.html')
     
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
