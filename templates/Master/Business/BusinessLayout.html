@@ -199,11 +199,11 @@
             
             <nav class="topnav" id="myTopnav" role="navigation" aria-label="Primary navigation menu">
 
-                <a href="{{ 'businessHome' }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
+                <a href="{% url 'businessHome' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
                     Home
                 </a>
 
-                <a href="{{ 'AboutUs' }}" class="navlink" role="menuitem" tabindex="0">
+                <a href="{% url 'aboutUs' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
                     About Us
                 </a>
 
@@ -217,7 +217,7 @@
                     </div>
                 </div>
 
-                <a href="{{ 'Service' }}" class="navlink" role="menuitem" tabindex="0">
+                <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
                     Our Service
                 </a>
 

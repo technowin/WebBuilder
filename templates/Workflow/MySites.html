@@ -67,7 +67,8 @@
                     <i class="fas fa-pen"></i> Rename site
                   </a>
                 </li>
-                <li><a href="{{template.template.function_name}}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li>
+                {% comment %} <li><a href="{{template.template.function_name}}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li> {% endcomment %}
+                <li><a href="{{ template.template.function_name }}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li>
                 <li><a href="#"><i class="fas fa-trash-alt"></i> Move to trash</a></li>
                 <li><a href="{% url 'startEditing' %}?workflow_id={{ template.id }}"><i class="fas fa-pencil-alt"></i> Start Editing</a></li>
               </ul>

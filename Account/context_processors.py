@@ -25,7 +25,7 @@ def logged_in_user(request):
     
     workflow_data = []
     workflow_id = request.GET.get('workflow_id', '')
-
+    
     if workflow_id:
         try:
             m = Db.get_connection()
@@ -41,5 +41,4 @@ def logged_in_user(request):
         finally:
             if cursor: cursor.close()
             if m and m.is_connected(): m.close()
-  
     return {'username':username,'full_name':full_name,'session_timeout_minutes':session_timeout_minutes,'reports':reports, 'menu_items': menu_items, 'workflow_data': workflow_data}
