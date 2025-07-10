@@ -171,3 +171,179 @@ body {
       transition: all 0.3s ease;
     }
 }
+
+/* Mobile View: max-width 1000px */
+@media all and (max-width: 1000px) {
+
+    .about-image {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        object-fit: cover;
+    }
+
+    .about-tagline {
+        font-weight: 900;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
+        line-height: 1.3;
+        font-size: 29px;
+        text-align: center;
+    }
+
+    .about-section-heading {
+        font-size: 1.6em;
+        padding: 0 10px;
+        text-decoration: underline;
+        text-decoration-color: var(--accent-color);
+    }
+
+    .about-description {
+        text-align: justify;
+        font-size: 18px;
+        font-weight: bold;
+        /*font-size: 1rem;*/
+        color: var(--primary-color);
+        line-height: 1.6;
+        text-align: justify; /* Optional: balances both left & right */
+        max-width: 65ch; /* Keeps line length readable */
+    }
+
+    .about-separator-line {
+        display: none;
+    }
+}
+
+/* Mid-range view: between 1000px and 1136px */
+@media all and (max-width: 1136px) and (min-width: 1000px) {
+
+    .about-image {
+        width: 80%;
+        height: auto;
+        border-radius: 15px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        object-fit: cover;
+    }
+
+    .about-tagline {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
+        line-height: 1.3;
+    }
+
+    .about-section-heading {
+        font-size: 28px;
+    }
+
+    .about-header-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        background: #EDEDF4;
+        padding: 25px;
+        justify-content: center;
+    }
+
+    .separator {
+        display: flex;
+        align-items: center;
+    }
+
+    .about-separator-line {
+        height: 3px;
+        flex: 1;
+        background-color: var(--accent-color);
+    }
+
+    .separator h2 {
+        padding: 0 2rem;
+    }
+
+    .about-description {
+        font-size: 18px;
+        font-weight: bold;
+        /*font-size: 1rem;*/
+        color: var(--primary-color);
+        line-height: 1.6;
+        padding: 10px 20px;
+        text-align: justify; /* Optional: balances both left & right */
+        max-width: 65ch; /* Keeps line length readable */
+    }
+
+}
+
+/* Desktop view: min-width 1136px */
+@media all and (min-width: 1136px) {
+
+    .about-image {
+        width: 80%;
+        height: auto;
+        border-radius: 15px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        object-fit: cover;
+    }
+
+    .about-tagline {
+        font-size: 2.1rem;
+        font-weight: 900;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
+        line-height: 1.3;
+    }
+
+    .about-section-heading {
+        font-size: 35px;
+    }
+
+    .about-content-container {
+        padding: 0% 10%;
+    }
+
+    .about-header-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        background: #EDEDF4;
+        padding: 25px;
+        justify-content: center;
+    }
+
+    .separator {
+        display: flex;
+        align-items: center;
+    }
+
+    .about-separator-line {
+        height: 3px;
+        flex: 1;
+        background-color: var(--accent-color);
+        max-width: 100px;
+        border-radius: 2px;
+    }
+
+    .separator h2 {
+        padding: 0 2rem;
+    }
+
+    .about-image img{
+        width: 80%;
+        height: auto;
+    }
+
+    .about-description {
+        font-size: 18px;
+        color: var(--primary-color);
+        line-height: 1.6;
+        padding: 10px 0px;
+        text-align: justify; /* Optional: balances both left & right */
+        max-width: 65ch; /* Keeps line length readable */
+        font-weight: 600;
+    }
+
+}

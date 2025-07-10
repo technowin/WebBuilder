@@ -155,12 +155,12 @@ class ContentBlock(models.Model):
     media_file = models.FileField(blank=True, null=True)
 
     order = models.PositiveIntegerField(default=0)
+    is_active = models.IntegerField(default=1)
 
     created_by = models.CharField(max_length=255, null=True, blank=True)
     updated_by = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
-
 
     class Meta:
         db_table = 'tbl_content_block'

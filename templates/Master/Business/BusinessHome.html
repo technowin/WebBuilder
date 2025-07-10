@@ -13,91 +13,134 @@
 
 {% comment %} slider section {% endcomment %}
 
-<section style="margin: 0.5%;" id="sliderIndex" data-aos="fade-up">
-    <div class="row">
+{% if section_data.Main_Slider %}
+    <section style="margin: 0.5%;" id="sliderIndex" data-aos="fade-up">
+        <div class="row">
+            <div class="col-md-8 wrapper" id="WrapId" style="background-color: #EDEDF4; padding: 0 !important;">
+                <div id="idSlider" aria-live="polite">
+                    <div class="slider" id="One">
+                        <div class="slide_viewer">
+                            <div class="slide_group">
+                                {% for item in section_data.Main_Slider %}
+                                <div class="slide">
+                                    <img src="/media/{{ item.media_file }}" alt="{{ item.title }}"
+                                        style="width: 100%; min-height: 100%; border-radius: 0;">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="col-md-8 wrapper" id="WrapId" style="background-color: #EDEDF4; padding: 0 !important;">
-            <div id="idSlider" aria-live="polite">
-                <div class="slider" id="One">
-                    <div class="slide_viewer">
-                        <div class="slide_group">
+            <div class="col-md-4 ImpCard">
+                <div class="cardSlider">
+                    {% for item in section_data.Main_Slider %}
+                    <div class="cardContent">
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ item.description }}</p>
+                    </div>
+                    {% endfor %}
 
-                            <!-- All Slides use the same image -->
-                            <div class="slide">
-                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Empowering Businesses"
-                                     style="width: 100%; min-height: 100%; border-radius: 0;">
-                            </div>
-                            <div class="slide">
-                                <img src="{% static 'images/Business/vision_bg.jpg' %}" alt="Smart Solutions"
-                                     style="width: 100%; min-height: 100%; border-radius: 0;">
-                            </div>
-                            <div class="slide">
-                                <img src="{% static 'images/Business/vision_mission_bg.png' %}" alt="Innovate Your Workflow"
-                                     style="width: 100%; min-height: 100%; border-radius: 0;">
-                            </div>
-                            <div class="slide">
-                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Secure Your Data"
-                                     style="width: 100%; min-height: 100%; border-radius: 0;">
-                            </div>
-                            <div class="slide">
-                                <img src="{% static 'images/Business/vision_bg.jpg' %}" alt="Boost Productivity"
-                                     style="width: 100%; min-height: 100%; border-radius: 0;">
-                            </div>
-
+                    <div class="arrow-container">
+                        <div class="arrow-icon arrow-left" role="button" aria-label="Previous slide" tabindex="0">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </div>
+                        <div class="arrow-icon arrow-right" role="button" aria-label="Next slide" tabindex="0">
+                            <i class="fa-solid fa-arrow-right"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+{% else %}
+    <section style="margin: 0.5%;" id="sliderIndex" data-aos="fade-up">
+        <div class="row">
 
-        <div class="col-md-4 ImpCard">
-            <div class="cardSlider">
+            <div class="col-md-8 wrapper" id="WrapId" style="background-color: #EDEDF4; padding: 0 !important;">
+                <div id="idSlider" aria-live="polite">
+                    <div class="slider" id="One">
+                        <div class="slide_viewer">
+                            <div class="slide_group">
 
-                <div class="cardContent">
-                    <h4>Empowering Businesses</h4>
-                    <p>Transforming ideas into scalable digital solutions.
-                        Transforming ideas into scalable digital solutions.
-                        Transforming ideas into scalable digital solutions.
-                        Transforming ideas into scalable digital solutions.
-                        Transforming ideas into scalable digital solutions.
-                        Transforming ideas into scalable digital solutions.
-                        Transforming ideas into scalable digital solutions.
-                        Transforming ideas into scalable digital solutions.
-                    </p>
-                </div>
+                                <!-- All Slides use the same image -->
+                                <div class="slide">
+                                    <img src="{% static 'images/Business/bg-techno.png' %}" alt="Empowering Businesses"
+                                        style="width: 100%; min-height: 100%; border-radius: 0;">
+                                </div>
+                                <div class="slide">
+                                    <img src="{% static 'images/Business/vision_bg.jpg' %}" alt="Smart Solutions"
+                                        style="width: 100%; min-height: 100%; border-radius: 0;">
+                                </div>
+                                <div class="slide">
+                                    <img src="{% static 'images/Business/vision_mission_bg.png' %}" alt="Innovate Your Workflow"
+                                        style="width: 100%; min-height: 100%; border-radius: 0;">
+                                </div>
+                                <div class="slide">
+                                    <img src="{% static 'images/Business/bg-techno.png' %}" alt="Secure Your Data"
+                                        style="width: 100%; min-height: 100%; border-radius: 0;">
+                                </div>
+                                <div class="slide">
+                                    <img src="{% static 'images/Business/vision_bg.jpg' %}" alt="Boost Productivity"
+                                        style="width: 100%; min-height: 100%; border-radius: 0;">
+                                </div>
 
-                <div class="cardContent">
-                    <h4>Smart Solutions</h4>
-                    <p>Cutting-edge tech tailored for your needs.</p>
-                </div>
-
-                <div class="cardContent">
-                    <h4>Innovate Your Workflow</h4>
-                    <p>Automation tools designed to elevate productivity.</p>
-                </div>
-
-                <div class="cardContent">
-                    <h4>Secure Your Data</h4>
-                    <p>Robust cybersecurity built to protect your operations.</p>
-                </div>
-
-                <div class="cardContent">
-                    <h4>Boost Productivity</h4>
-                    <p>Work smarter, not harder—with our AI-driven tools.</p>
-                </div>
-                <div class="arrow-container">
-                    <div class="arrow-icon arrow-left" role="button" aria-label="Previous slide" tabindex="0">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </div>
-                    <div class="arrow-icon arrow-right" role="button" aria-label="Next slide" tabindex="0">
-                        <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>
-</section>
+            <div class="col-md-4 ImpCard">
+                <div class="cardSlider">
+
+                    <div class="cardContent">
+                        <h4>Empowering Businesses</h4>
+                        <p>Transforming ideas into scalable digital solutions.
+                            Transforming ideas into scalable digital solutions.
+                            Transforming ideas into scalable digital solutions.
+                            Transforming ideas into scalable digital solutions.
+                            Transforming ideas into scalable digital solutions.
+                            Transforming ideas into scalable digital solutions.
+                            Transforming ideas into scalable digital solutions.
+                            Transforming ideas into scalable digital solutions.
+                        </p>
+                    </div>
+
+                    <div class="cardContent">
+                        <h4>Smart Solutions</h4>
+                        <p>Cutting-edge tech tailored for your needs.</p>
+                    </div>
+
+                    <div class="cardContent">
+                        <h4>Innovate Your Workflow</h4>
+                        <p>Automation tools designed to elevate productivity.</p>
+                    </div>
+
+                    <div class="cardContent">
+                        <h4>Secure Your Data</h4>
+                        <p>Robust cybersecurity built to protect your operations.</p>
+                    </div>
+
+                    <div class="cardContent">
+                        <h4>Boost Productivity</h4>
+                        <p>Work smarter, not harder—with our AI-driven tools.</p>
+                    </div>
+                    <div class="arrow-container">
+                        <div class="arrow-icon arrow-left" role="button" aria-label="Previous slide" tabindex="0">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </div>
+                        <div class="arrow-icon arrow-right" role="button" aria-label="Next slide" tabindex="0">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endif %}
 
 {% comment %} Marquee tag {% endcomment %}
 
@@ -105,20 +148,29 @@
     <marquee class="marquee-content" onmouseover="this.stop();" onmouseout="this.start();"
              role="region" aria-label="Scrolling announcements" aria-live="off">
 
-        <i class="fas fa-bullhorn marquee-icon"></i>
-        <a class="marquee-link" href="#" target="_blank">
-            Admissions open for 2025! Apply now.
-        </a>
+        {% if section_data.Marquee %}
+            {% for item in section_data.Marquee %}
+                <i class="fas fa-bullhorn marquee-icon"></i>
+                <a class="marquee-link" href="/media/{{ item.media_file }}" target="_blank">
+                    {{ item.description}}
+                </a>
+            {% endfor %}
+        {% else %}
+            <i class="fas fa-bullhorn marquee-icon"></i>
+            <a class="marquee-link" href="#" target="_blank">
+                Admissions open for 2025! Apply now.
+            </a>
 
-        <i class="fas fa-bullhorn marquee-icon"></i>
-        <a class="marquee-link" href="#" target="_blank">
-            New course on Artificial Intelligence launched!
-        </a>
+            <i class="fas fa-bullhorn marquee-icon"></i>
+            <a class="marquee-link" href="#" target="_blank">
+                New course on Artificial Intelligence launched!
+            </a>
 
-        <i class="fas fa-bullhorn marquee-icon"></i>
-        <a class="marquee-link" href="#" target="_blank">
-            Check out the June newsletter for exciting updates.
-        </a>
+            <i class="fas fa-bullhorn marquee-icon"></i>
+            <a class="marquee-link" href="#" target="_blank">
+                Check out the June newsletter for exciting updates.
+            </a>
+        {% endif %}
 
     </marquee>
 </section>
@@ -129,36 +181,58 @@
          style="background-color:#EDEDF4; padding:50px 20px; font-family:'Merriweather', serif; margin: 0.5%;"
          id="aboutUsIndex"
          data-aos="fade-up"
-         aria-label="About Government Law College section">
+         aria-label="About Clamp Manufacturing Company section">
 
     <div class="about-header-container separator">
         <div class="about-separator-line"></div>
-        <h2 class="about-section-heading">About Us</h2>
+        {% if section_data.About_Us%}
+            <h2 class="about-section-heading">{{ section_data.About_Us.0.identifier }}</h2>
+        {% else %}
+            <h2 class="about-section-heading">About Us</h2>
+        {% endif %}
         <div class="about-separator-line"></div>
     </div>
 
     <div class="row about-content-container">
 
-        <div class="col-md-6 about-text-column">
-            <h2 class="about-tagline">Educating Minds, Inspiring Hearts</h2>
-            <p class="about-description">
-                Founded with a vision to cultivate knowledge and shape future leaders, our institution stands as a beacon of academic excellence and innovation. With decades of legacy and a vibrant learning environment, we are committed to providing students with a transformative educational experience.
-                <br><br>
-                Our campus blends tradition with modernity—offering state-of-the-art facilities, expert faculty, and a curriculum that nurtures critical thinking and holistic development. Through workshops, guest lectures, and real-world exposure, we ensure our students are equipped to thrive in a dynamic global landscape.
-                <br><br>
-                We take immense pride in fostering a community that values integrity, diversity, and lifelong learning. Here, education isn't just about books—it's about building character, exploring possibilities, and shaping the future, one student at a time.
-            </p>
+        {% if section_data.About_Us %}
+            <div class="col-md-6 about-text-column">
+                <h2 class="about-tagline">{{ section_data.About_Us.0.content_title }}</h2>
+                <p class="about-description">
+                    {{ section_data.About_Us.0.description }}
+                </p>
+                <button class="about-readmore-btn">
+                    Read More
+                </button>
+            </div>
 
-            <button class="about-readmore-btn">
-                Read More
-            </button>
-        </div>
+            <div class="col-md-6 about-image-column">
+                <img src="/media/{{ section_data.About_Us.0.media_file }}"
+                     alt="About Us Image"
+                     class="about-image">
+            </div>
+        {% else %}
+            <!-- Fallback static content -->
+            <div class="col-md-6 about-text-column">
+                <h2 class="about-tagline">Educating Minds, Inspiring Hearts</h2>
+                <p class="about-description">
+                    Founded with a vision to cultivate knowledge and shape future leaders, our institution stands as a beacon of academic excellence and innovation. With decades of legacy and a vibrant learning environment, we are committed to providing students with a transformative educational experience.
+                    <br><br>
+                    Our campus blends tradition with modernity—offering state-of-the-art facilities, expert faculty, and a curriculum that nurtures critical thinking and holistic development. Through workshops, guest lectures, and real-world exposure, we ensure our students are equipped to thrive in a dynamic global landscape.
+                    <br><br>
+                    We take immense pride in fostering a community that values integrity, diversity, and lifelong learning. Here, education isn't just about books—it's about building character, exploring possibilities, and shaping the future, one student at a time.
+                </p>
+                <button class="about-readmore-btn">
+                    Read More
+                </button>
+            </div>
 
-        <div class="col-md-6 about-image-column">
-            <img src="{% static 'images/Business/bg-techno.png' %}"
-                 alt="About Us Image"
-                 class="about-image">
-        </div>
+            <div class="col-md-6 about-image-column">
+                <img src="{% static 'images/Business/bg-techno.png' %}"
+                     alt="About Us Image"
+                     class="about-image">
+            </div>
+        {% endif %}
 
     </div>
 
@@ -173,56 +247,75 @@
 
     <div class="container2 separator1">
         <div class="lineFTDP"></div>
-        <h2 class="governance-heading mb-4">Meet Our Team</h2>
+        <h2 class="governance-heading mb-4">
+            {% if section_data.Meet_Our_Team %}
+                {{ section_data.Meet_Our_Team.0.identifier|default:"Meet Our Team" }}
+            {% else %}
+                Meet Our Team
+            {% endif %}
+        </h2>
         <div class="lineFTDP"></div>
     </div>
 
     <div class="row justify-content-center g-4" style="padding: 0% 10%;">
+        {% if section_data.Meet_Our_Team %}
+            {% for member in section_data.Meet_Our_Team %}
+                <div class="col-md-3" style="margin:2% 0%;">
+                    <figure class="governance-card" role="group">
+                        <img src="/media/{{ member.media_file }}"
+                             alt="{{ member.content_title }}" class="governance-img">
+                        <figcaption class="p-3">
+                            <p class="governance-name">{{ member.content_title }}</p>
+                            <p class="governance-title">{{ member.description }}</p>
+                        </figcaption>
+                    </figure>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-3" style="margin:2% 0%;">
+                <figure class="governance-card" role="group" aria-labelledby="name1 title1">
+                    <img src="{% static 'images/Business/1674460284_teacher2.jpg' %}"
+                        alt="Mr. Demo Person 1" class="governance-img">
+                    <figcaption class="p-3">
+                        <p id="name1" class="governance-name">Mr. Demo Person 1</p>
+                        <p id="title1" class="governance-title">Chief Demo Officer</p>
+                    </figcaption>
+                </figure>
+            </div>
 
-        <div class="col-md-3" style="margin:2% 0%;">
-            <figure class="governance-card" role="group" aria-labelledby="name1 title1">
-                <img src="{% static 'images/Business/1674460284_teacher2.jpg' %}"
-                     alt="Mr. Demo Person 1" class="governance-img">
-                <figcaption class="p-3">
-                    <p id="name1" class="governance-name">Mr. Demo Person 1</p>
-                    <p id="title1" class="governance-title">Chief Demo Officer</p>
-                </figcaption>
-            </figure>
-        </div>
+            <div class="col-md-3" style="margin:2% 0%;">
+                <figure class="governance-card" role="group" aria-labelledby="name2 title2">
+                    <img src="{% static 'images/Business/images1.jpeg' %}"
+                        alt="Ms. Demo Patel" class="governance-img">
+                    <figcaption class="p-3">
+                        <p id="name2" class="governance-name">Ms. Demo Patel</p>
+                        <p id="title2" class="governance-title">Head of Imaginary Education</p>
+                    </figcaption>
+                </figure>
+            </div>
 
-        <div class="col-md-3" style="margin:2% 0%;">
-            <figure class="governance-card" role="group" aria-labelledby="name2 title2">
-                <img src="{% static 'images/Business/images1.jpeg' %}"
-                     alt="Ms. Demo Patel" class="governance-img">
-                <figcaption class="p-3">
-                    <p id="name2" class="governance-name">Ms. Demo Patel</p>
-                    <p id="title2" class="governance-title">Head of Imaginary Education</p>
-                </figcaption>
-            </figure>
-        </div>
+            <div class="col-md-3" style="margin:2% 0%;">
+                <figure class="governance-card" role="group" aria-labelledby="name3 title3">
+                    <img src="{% static 'images/Business/Teacher.jpg' %}"
+                        alt="Dr. Placeholder Singh" class="governance-img">
+                    <figcaption class="p-3">
+                        <p id="name3" class="governance-name">Dr. Placeholder Singh</p>
+                        <p id="title3" class="governance-title">Virtual Secretary, Innovation & Magic</p>
+                    </figcaption>
+                </figure>
+            </div>
 
-        <div class="col-md-3" style="margin:2% 0%;">
-            <figure class="governance-card" role="group" aria-labelledby="name3 title3">
-                <img src="{% static 'images/Business/Teacher.jpg' %}"
-                     alt="Dr. Placeholder Singh" class="governance-img">
-                <figcaption class="p-3">
-                    <p id="name3" class="governance-name">Dr. Placeholder Singh</p>
-                    <p id="title3" class="governance-title">Virtual Secretary, Innovation & Magic</p>
-                </figcaption>
-            </figure>
-        </div>
-
-        <div class="col-md-3" style="margin:2% 0%;">
-            <figure class="governance-card" role="group" aria-labelledby="name4 title4">
-                <img src="{% static 'images/Business/user_teaching.jpeg' %}"
-                     alt="Prof. Testina Example" class="governance-img">
-                <figcaption class="p-3">
-                    <p id="name4" class="governance-name">Prof. Testina Example</p>
-                    <p id="title4" class="governance-title">Demo Principal, Sample Law College</p>
-                </figcaption>
-            </figure>
-        </div>
-
+            <div class="col-md-3" style="margin:2% 0%;">
+                <figure class="governance-card" role="group" aria-labelledby="name4 title4">
+                    <img src="{% static 'images/Business/user_teaching.jpeg' %}"
+                        alt="Prof. Testina Example" class="governance-img">
+                    <figcaption class="p-3">
+                        <p id="name4" class="governance-name">Prof. Testina Example</p>
+                        <p id="title4" class="governance-title">Demo Principal, Sample Law College</p>
+                    </figcaption>
+                </figure>
+            </div>
+        {% endif %}
     </div>
 </section>
 
@@ -235,68 +328,92 @@
         <!-- Section Title -->
         <div class="sectionTitle">
             <span class="lineFTDP"></span>
-            <h2>Journeys That Inspire</h2>
+            {% if section_data.Testimonials %}
+                <h2>{{ section_data.Testimonials.0.identifier|default:"Meet Our Team" }}</h2>
+            {% else %}
+                <h2>Testimonials</h2>
+            {% endif %}
             <span class="lineFTDP"></span>
         </div>
 
         <!-- DESKTOP Slider -->
         <div class="sliderViewport">
             <div class="sliderTrack">
+                {% if section_data.Testimonials %}
+                    {% for testimonial in section_data.Testimonials %}
+                        {% if forloop.first or forloop.counter0|divisibleby:3 %}
+                            <div class="testimonialSlide">
+                        {% endif %}
+                        
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="/media/{{ testimonial.media_file }}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>{{ testimonial.description }}</p>
+                                <h4>— {{ testimonial.content_title }}</h4>
+                            </div>
+                        </div>
 
-                <div class="testimonialSlide">
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                        {% if forloop.counter|divisibleby:3 or forloop.last %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="testimonialSlide">
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>Joining this platform transformed my career. The mentorship was priceless!</p>
+                                <h4>— Priya Mehta</h4>
+                            </div>
                         </div>
-                        <div class="testimonialText">
-                            <p>Joining this platform transformed my career. The mentorship was priceless!</p>
-                            <h4>— Priya Mehta</h4>
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>The community is supportive and the resources are always on point.</p>
+                                <h4>— Anjali Patil</h4>
+                            </div>
+                        </div>
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>Amazing team and tools! Helped me launch my startup idea.</p>
+                                <h4>— Vikas Sharma</h4>
+                            </div>
                         </div>
                     </div>
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
-                        </div>
-                        <div class="testimonialText">
-                            <p>The community is supportive and the resources are always on point.</p>
-                            <h4>— Anjali Patil</h4>
-                        </div>
-                    </div>
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
-                        </div>
-                        <div class="testimonialText">
-                            <p>Amazing team and tools! Helped me launch my startup idea.</p>
-                            <h4>— Vikas Sharma</h4>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="testimonialSlide">
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                    <div class="testimonialSlide">
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>I’ve recommended this to all my juniors. It works wonders.</p>
+                                <h4>— Sonal Joshi</h4>
+                            </div>
                         </div>
-                        <div class="testimonialText">
-                            <p>I’ve recommended this to all my juniors. It works wonders.</p>
-                            <h4>— Sonal Joshi</h4>
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>From confusion to confidence — I landed my dream job within 6 months.</p>
+                                <h4>— Rajiv Menon</h4>
+                            </div>
                         </div>
                     </div>
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
-                        </div>
-                        <div class="testimonialText">
-                            <p>From confusion to confidence — I landed my dream job within 6 months.</p>
-                            <h4>— Rajiv Menon</h4>
-                        </div>
-                    </div>
-                </div>
-
+                {% endif %}
             </div>
 
-            <!-- DESKTOP Dots -->
+            <!-- Optional: Static dots or JS-rendered based on count -->
             <div class="carouselDots">
                 <span class="dot active"></span>
                 <span class="dot"></span>
@@ -306,78 +423,91 @@
         <!-- MOBILE Slider -->
         <div class="mobileImageSlider">
             <div class="mobileSliderWrapper">
-
-                <div class="mobileSlide">
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                {% if section_data.Testimonials %}
+                    {% for testimonial in section_data.Testimonials %}
+                        <div class="mobileSlide" {% if not forloop.first %}style="display:none;"{% endif %}>
+                            <div class="testimonialCard">
+                                <div class="avatarWrapper">
+                                    <img src="/media/{{ testimonial.media_file }}" alt="Avatar">
+                                </div>
+                                <div class="testimonialText">
+                                    <p>{{ testimonial.description }}</p>
+                                    <h4>— {{ testimonial.content_title }}</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="testimonialText">
-                            <p>Joining this platform transformed my career. The mentorship was priceless!</p>
-                            <h4>— Priya Mehta</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mobileSlide" style="display:none;">
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
-                        </div>
-                        <div class="testimonialText">
-                            <p>The community is supportive and the resources are always on point.</p>
-                            <h4>— Anjali Patil</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mobileSlide" style="display:none;">
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
-                        </div>
-                        <div class="testimonialText">
-                            <p>Amazing team and tools! Helped me launch my startup idea.</p>
-                            <h4>— Vikas Sharma</h4>
+                    {% endfor %}
+                {% else %}
+                    <div class="mobileSlide">
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>Joining this platform transformed my career. The mentorship was priceless!</p>
+                                <h4>— Priya Mehta</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mobileSlide" style="display:none;">
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
-                        </div>
-                        <div class="testimonialText">
-                            <p>I’ve recommended this to all my juniors. It works wonders.</p>
-                            <h4>— Sonal Joshi</h4>
+                    <div class="mobileSlide" style="display:none;">
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>The community is supportive and the resources are always on point.</p>
+                                <h4>— Anjali Patil</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mobileSlide" style="display:none;">
-                    <div class="testimonialCard">
-                        <div class="avatarWrapper">
-                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
-                        </div>
-                        <div class="testimonialText">
-                            <p>From confusion to confidence — I landed my dream job within 6 months.</p>
-                            <h4>— Rajiv Menon</h4>
+                    <div class="mobileSlide" style="display:none;">
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>Amazing team and tools! Helped me launch my startup idea.</p>
+                                <h4>— Vikas Sharma</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                    <div class="mobileSlide" style="display:none;">
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>I’ve recommended this to all my juniors. It works wonders.</p>
+                                <h4>— Sonal Joshi</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mobileSlide" style="display:none;">
+                        <div class="testimonialCard">
+                            <div class="avatarWrapper">
+                                <img src="{% static 'images/Business/bg-techno.png' %}" alt="Avatar">
+                            </div>
+                            <div class="testimonialText">
+                                <p>From confusion to confidence — I landed my dream job within 6 months.</p>
+                                <h4>— Rajiv Menon</h4>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
 
-            <!-- MOBILE Dots -->
+            <!-- Dots for mobile -->
             <div class="mobileDotsContainer">
-                <span class="mobileDot active" data-index="0"></span>
-                <span class="mobileDot" data-index="1"></span>
-                <span class="mobileDot" data-index="2"></span>
-                <span class="mobileDot" data-index="3"></span>
-                <span class="mobileDot" data-index="4"></span>
+                {% for testimonial in section_data.Testimonials %}
+                    <span class="mobileDot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+                {% endfor %}
             </div>
         </div>
+
 
     </div>
 </section>
