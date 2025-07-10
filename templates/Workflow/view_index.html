@@ -24,8 +24,9 @@
 
 {% block content %}
 <input type="hidden" id="workflowIdInput" value="{{ workflow_Id }}">
-<div class="container my-5">
-  <h2 class="text-center mb-4 text-body-emphasis"> Index Table</h2>
+<input type="hidden" id="sectionidIdInput" value="{{ section_id }}">
+<div class="container my-1">
+  <h2 class="text-center mb-1 text-body-emphasis"> Index Table</h2>
 
 <div class="d-flex justify-content-end mb-3">
   {% comment %} <a href="{% startEditing %}" class="btn btn-primary rounded-pill shadow-sm">
@@ -53,7 +54,7 @@
                 <td>{{ row.block_type }}</td>
                 <td>{{ row.description }}</td>
                 <td>{{ row.title }}</td>
-                <td> <a href="" class="btn btn-primary rounded-pill shadow-sm">
+                <td> <a href="{% url 'viewEdit_index' row.id workflow_Id %}" class="btn btn-primary rounded-pill shadow-sm">
                     <i class="bi bi-plus-lg me-1"></i> Edit
                   </a>
                 </td>
