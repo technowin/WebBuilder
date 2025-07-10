@@ -523,7 +523,7 @@ def viewEdit_index(request, id, workflow_id):
             context = {
                
                 "id": data_row[0],"block_type": data_row[1],"description": data_row[2],"media_file": data_row[3],"section_id": data_row[9],"title": data_row[10],
-                "workflow_id":workflow_id,
+                "status": data_row[11],"workflow_id":workflow_id,
             }
                 
             return render(request, 'Workflow/viewEdit_index.html', context)
@@ -603,8 +603,8 @@ def viewEdit_index(request, id, workflow_id):
             title = request.POST.get('title') or ''
             description = request.POST.get('description') or ''
             workflow_id = request.POST.get('workflow_id')
-            page_id = request.POST.get('page_id')
-            section_id = request.POST.get('section_id')
+            # page_id = request.POST.get('page_id')
+            # section_id = request.POST.get('section_id')
             uploaded_file = request.FILES.get('media_file', None)
             status = 1 if request.POST.get('title_status') == 'on' else 0
 
