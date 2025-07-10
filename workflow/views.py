@@ -383,7 +383,7 @@ def submitEditing(request):
 #     data = YourModel.objects.all()
 #     return render(request, 'index.html', {'data': data})
 
-
+@login_required
 def view_index(request):
     Db.closeConnection()
     m = Db.get_connection()
@@ -397,7 +397,7 @@ def view_index(request):
             # rows = result.fetchall()
             index_data = list(result.fetchall())
         
-        return render(request, 'Workflow/view_index.html', {"index_data": index_data,"workflow_Id":workflow_Id,
+        return render(request, 'Workflow/view_index.html', {"index_data": index_data,"workflow_Id":workflow_Id,"section_id":section_id,
         })
 
     except Exception as e:
@@ -408,3 +408,158 @@ def view_index(request):
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
         return redirect('some_error_page')
+
+@login_required    
+def viewEdit_index(request, id, workflow_id):
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor = m.cursor() 
+
+    try:
+        username = request.session.get("username", "")
+        if request.method == "GET":
+            param =[id]
+        # workflow_Id = request.GET.get('workflow_id')
+            cursor.callproc("stp_getEditIndexPage", param)
+            for result in cursor.stored_results():
+                # rows = result.fetchall()
+                # data_row = list(result.fetchall())[0]
+                data_row = result.fetchall()[0]
+                
+            context = {
+               
+                "id": data_row[0],"block_type": data_row[1],"description": data_row[2],"media_file": data_row[3],"section_id": data_row[9],"title": data_row[10],
+                "workflow_id":workflow_id,
+            }
+                
+            return render(request, 'Workflow/viewEdit_index.html', context)
+        # if request.method == "POST":
+        #     username = request.session.get("username", "")
+        #     paramp = [id]
+        #     cursor.callproc("stp_getEditSecPgId", paramp)
+        #     for result in cursor.stored_results():
+        #         data_ids = result.fetchall()[0]
+        #     page_id = data_ids[2]
+        #     section_id = data_ids[1]
+                
+        #     title = request.POST.get('title') or ''
+        #     description = request.POST.get('description') or ''
+        #     workflow_id = request.POST.get('workflow_id')
+        #     page_id = request.POST.get('page_id')
+        #     section_id = request.POST.get('section_id')
+        #     uploaded_file = request.FILES.get('media_file', None)
+            
+            
+        #     params1 = [title,description,id                  
+        #     ]
+        #     cursor.callproc("stp_UpdateIndexCntentBlock", params1)
+        #     m.commit()
+
+        #     # At least one of these fields is required
+        #     if not (title or description or uploaded_file):
+        #         messages.error(request, "Please provide at least Title, Description or File.")
+        #         return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+        #     saved_path = None
+
+        #     if uploaded_file:
+        #         # ✅ File size validation
+        #         MAX_FILE_SIZE_MB = 5
+        #         MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024  # 5 MB in bytes
+
+        #         if uploaded_file.size > MAX_FILE_SIZE:
+        #             messages.error(request, f"File size should not exceed {MAX_FILE_SIZE_MB} MB.")
+        #             return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+        #         # 📁 Save file
+        #         folder_path = os.path.join(settings.MEDIA_ROOT, str(workflow_id), str(page_id), str(section_id))
+        #         os.makedirs(folder_path, exist_ok=True)
+
+        #         fs = FileSystemStorage(location=folder_path)
+
+        #         import time
+        #         original_name = os.path.splitext(uploaded_file.name)[0]
+        #         ext = os.path.splitext(uploaded_file.name)[1]
+
+        #         # Sanitize filename (optional but recommended)
+        #         safe_name = "".join(c for c in original_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+
+        #         # Add timestamp to filename
+        #         timestamp = time.strftime('%Y%m%d_%H%M%S')
+        #         final_name = f"{safe_name}_{timestamp}{ext}"
+
+        #         filename = fs.save(final_name, uploaded_file)
+
+        #         saved_path = os.path.join(str(workflow_id), str(page_id), str(section_id), filename).replace('\\', '/')
+
+        #     messages.success(request, "Content saved successfully.")
+        #     return redirect(f"/startEditing?workflow_id={workflow_id}")
+        if request.method == "POST":
+            username = request.session.get("username", "")
+            
+            # Get page & section id using content id
+            paramp = [id]
+            cursor.callproc("stp_getEditSecPgId", paramp)
+            for result in cursor.stored_results():
+                data_ids = result.fetchall()[0]
+            page_id = data_ids[2]
+            section_id = data_ids[1]
+
+            # Get form data
+            title = request.POST.get('title') or ''
+            description = request.POST.get('description') or ''
+            workflow_id = request.POST.get('workflow_id')
+            page_id = request.POST.get('page_id')
+            section_id = request.POST.get('section_id')
+            uploaded_file = request.FILES.get('media_file', None)
+            status = 1 if request.POST.get('title_status') == 'on' else 0
+
+            # Require at least one input
+            if not (title or description or uploaded_file):
+                messages.error(request, "Please provide at least Title, Description or File.")
+                return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+            saved_path = None
+
+            if uploaded_file:
+                MAX_FILE_SIZE_MB = 5
+                MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
+
+                if uploaded_file.size > MAX_FILE_SIZE:
+                    messages.error(request, f"File size should not exceed {MAX_FILE_SIZE_MB} MB.")
+                    return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+                # Save uploaded file
+                folder_path = os.path.join(settings.MEDIA_ROOT, str(workflow_id), str(page_id), str(section_id))
+                os.makedirs(folder_path, exist_ok=True)
+
+                fs = FileSystemStorage(location=folder_path)
+                import time
+
+                original_name = os.path.splitext(uploaded_file.name)[0]
+                ext = os.path.splitext(uploaded_file.name)[1]
+                safe_name = "".join(c for c in original_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+                timestamp = time.strftime('%Y%m%d_%H%M%S')
+                final_name = f"{safe_name}_{timestamp}{ext}"
+
+                filename = fs.save(final_name, uploaded_file)
+                saved_path = os.path.join(str(workflow_id), str(page_id), str(section_id), filename).replace('\\', '/')
+
+            # ✅ Call the combined stored procedure
+            
+            cursor.callproc("stp_UpdateIndexCntentBlock", [title,description,id , saved_path,status])
+            m.commit()
+
+            messages.success(request, "Content updated successfully.")
+            return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+        
+
+    except Exception as e:
+        import traceback
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        print(f"Error: {e}")
+        messages.error(request, "Oops! Something went wrong.")
+        return redirect("view_index")

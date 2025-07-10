@@ -483,4 +483,45 @@ body[data-bs-theme="dark"] .card.no-shadow-dark {
   background-color: #1e1e1e;
 }
 
+.toggle-scale {
+  transform: scale(1.5);
+  transform-origin: left;
+}
+
+.toggle-label {
+  font-size: 1.25rem; /* Same as fs-5 */
+  font-weight: 600;   /* Same as fw-semibold */
+  margin-left: 0.5rem; /* Same as ms-2 */
+}
+
+
+.toggle-big .form-check-input {
+  width: 4.2rem;
+  height: 1.8rem;
+  border-radius: 2rem;
+  background-color: #6c757d;
+  position: relative;
+  transition: background-color 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.toggle-big .form-check-input:checked {
+  background-color: #198754; /* Bootstrap success green */
+  
+}
+
+.toggle-big .form-check-input:focus {
+  box-shadow: none;
+}
+.custom-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  
+  margin-left: 1ch;
+}
+
+
+
+
 
