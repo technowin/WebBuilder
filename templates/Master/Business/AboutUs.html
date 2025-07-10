@@ -45,7 +45,7 @@
                       <!-- TEXT -->
                       <div class="col-md-6 p-5">
                         <h3 class="mb-3 who-we-are-title">
-                          {{ item.section_title|default:"Our Work in Action" }}
+                          {{ item.content_title|default:"Our Work in Action" }}
                         </h3>
                         <p>{{ item.description|default:"Discover how we bring ideas to life, with results that speak volumes." }}</p>
                       </div>
@@ -59,7 +59,6 @@
         </div>
       </div>
     </section>
-
   {% else %}
     <!-- DEFAULT FALLBACK SECTION -->
     <section class="py-5">
@@ -97,36 +96,49 @@
     </section>
   {% endif %}
 
-
   <!-- Why Choose Us -->
   <section>
     <div class="container-fluid px-0">
-      <h2 class="mb-4 text-center who-we-are-title">Why Choose Us</h2>
+      {% if section_data.Why_Choose_Us %}
+        <h2 class="mb-4 text-center who-we-are-title">{{section_data.Why_Choose_Us.0.identifier}}</h2>
+      {% else %}
+        <h2 class="mb-4 text-center who-we-are-title">Why Choose Us</h2>
+      {% endif %} 
       <div class="row text-center mx-0">
-        <div class="col-md-4 mb-4">
-          <div class="deep-shadow h-100">
-            <h5 class="feature-heading">Premium Bootstrap Templates</h5>
-            <p>Responsive, pixel-perfect, and professional-grade templates built with Bootstrap 5+. 
-                Responsive, pixel-perfect, and professional-grade templates built with Bootstrap 5+
-            SEO tools, hosting, forms, analytics, and more — everything included</p>
+
+        {% if section_data.Why_Choose_Us %}
+          {% for item in section_data.Why_Choose_Us %}
+          <div class="col-md-4 mb-4">
+            <div class="deep-shadow h-100 p-4">
+              <h5 class="feature-heading">{{ item.content_title }}</h5>
+              <p>{{ item.description }}</p>
+            </div>
           </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="deep-shadow h-100">
-            <h5 class="feature-heading">Drag & Drop Builder</h5>
-            <p>Build pages visually with intuitive components — no coding required. Responsive, 
-                pixel-perfect, and professional-grade templates built with Bootstrap 5+
-            SEO tools, hosting, forms, analytics, and more — everything included</p>
+          {% endfor %}
+        {% else %}
+          <!-- Default fallback content if DB is empty -->
+          <div class="col-md-4 mb-4">
+            <div class="deep-shadow h-100 p-4">
+              <h5 class="feature-heading">Precision You Can Trust</h5>
+              <p>We engineer clamps with meticulous attention to detail, ensuring optimal grip, durability, and performance for industrial applications where failure is not an option.</p>
+            </div>
           </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="deep-shadow h-100">
-            <h5 class="feature-heading">All-in-One Platform</h5>
-            <p>SEO tools, hosting, forms, analytics, and more — everything included. Responsive,
-                 pixel-perfect, and professional-grade templates built with Bootstrap 5+
-                SEO tools, hosting, forms, analytics, and more — everything included</p>
+
+          <div class="col-md-4 mb-4">
+            <div class="deep-shadow h-100 p-4">
+              <h5 class="feature-heading">Custom Solutions, Tailored Fit</h5>
+              <p>No two jobs are the same. That’s why we offer fully customizable clamp solutions to meet your exact specifications—whether for automotive, construction, or manufacturing.</p>
+            </div>
           </div>
-        </div>
+
+          <div class="col-md-4 mb-4">
+            <div class="deep-shadow h-100 p-4">
+              <h5 class="feature-heading">Reliability Backed by Experience</h5>
+              <p>With years of expertise and a global client base, our clamps are trusted in high-demand environments. We combine innovation with industry knowledge to deliver dependable products, every time.</p>
+            </div>
+          </div>
+        {% endif %}
+
       </div>
     </div>
   </section>
