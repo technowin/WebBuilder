@@ -4,6 +4,7 @@ from django.db import connection
 import traceback
 from django.contrib.auth.decorators import login_required
 import Db 
+from collections import defaultdict
 
 # Create your views here.
 
@@ -22,8 +23,34 @@ def businessHome(request):
             cursor.callproc("stp_getDataForWebsite", [workflow_id])
             for result in cursor.stored_results():
                 workflow_data = list(result.fetchall())
+                
+            cursor.callproc("stp_geSectionWiseDataForWebsite", [workflow_id])
+
+            for result in cursor.stored_results():
+                raw_data = list(result.fetchall())
+                columns = [col[0] for col in result.description]
+
+            # Convert each row to a dict
+            data_list = [dict(zip(columns, row)) for row in raw_data]
+
+            # Group by 'section_title'
+            section_data = defaultdict(list)
+            for item in data_list:
+                section_title = item.get('section_title')
+                if not section_title or not section_title.strip():
+                    section_title = 'Others'
+                section_data[section_title].append(item)
+
+                
+            formatted_data = {}
+            for key, val in section_data.items():
+                formatted_key = key.replace(" ", "_")  # "Main Slider" -> "Main_Slider"
+                formatted_data[formatted_key] = val
             
-            return render(request, 'Master/Business/BusinessHome.html', {"workflow_data": workflow_data})
+            return render(request, 'Master/Business/BusinessHome.html',
+                          {"workflow_data": workflow_data,
+                            "section_data": formatted_data,
+                            "workflow_id": workflow_id})
         else:
             return render(request, 'Master/Business/BusinessHome.html')
     
@@ -73,7 +100,33 @@ def aboutUs(request):
             for result in cursor.stored_results():
                 workflow_data = list(result.fetchall())
                 
-            return render(request, 'Master/Business/AboutUs.html',{"workflow_data": workflow_data})
+            cursor.callproc("stp_geSectionWiseDataForWebsite", [workflow_id])
+
+            for result in cursor.stored_results():
+                raw_data = list(result.fetchall())
+                columns = [col[0] for col in result.description]
+
+            # Convert each row to a dict
+            data_list = [dict(zip(columns, row)) for row in raw_data]
+
+            # Group by 'section_title'
+            section_data = defaultdict(list)
+            for item in data_list:
+                section_title = item.get('section_title')
+                if not section_title or not section_title.strip():
+                    section_title = 'Others'
+                section_data[section_title].append(item)
+                
+            formatted_data = {}
+            for key, val in section_data.items():
+                formatted_key = key.replace(" ", "_")  # "Main Slider" -> "Main_Slider"
+                formatted_data[formatted_key] = val
+                
+            return render(request, 'Master/Business/AboutUs.html',
+                          {"workflow_data": workflow_data,
+                           "section_data": formatted_data,
+                            "workflow_id": workflow_id
+                          })
         else:
             return render(request, 'Master/Business/AboutUs.html')
     

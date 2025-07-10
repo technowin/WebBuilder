@@ -25,39 +25,78 @@
     </div>
   </header>
 
-  <!-- Photo + Description -->
-  <section class="py-5">
-    <div class="container-fluid">
-      <div class="fancy-box w-100">
-        <div class="row align-items-center g-0">
-          <div class="col-md-6 mb-4 mb-md-0">
-            <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-              <div class="carousel-inner rounded shadow-sm">
-                <div class="carousel-item active">
-                  <img src="{% static 'images/aboutus1.jpg' %}" class="d-block w-100" alt="Photo 1">
-                </div>
-                <div class="carousel-item">
-                  <img src="{% static 'images/aboutus4.jpg' %}" class="d-block w-100" alt="Photo 2">
-                </div>
-                <div class="carousel-item">
-                  <img src="{% static 'images/aboutus5.jpg' %}" class="d-block w-100" alt="Photo 3">
+  {% if section_data.Our_Work_in_Action %}
+    <section class="py-5">
+      <div class="container-fluid">
+        <div class="fancy-box w-100">
+          <div class="row align-items-center g-0">
+
+            <!-- IMAGE + TEXT CAROUSEL -->
+            <div class="col-md-12">
+              <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner rounded shadow-sm">
+                  {% for item in section_data.Our_Work_in_Action %}
+                  <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="row align-items-center">
+                      <!-- IMAGE -->
+                      <div class="col-md-6">
+                        <img src="/media/{{ item.media_file }}" class="d-block w-100" alt="Slide {{ forloop.counter }}">
+                      </div>
+                      <!-- TEXT -->
+                      <div class="col-md-6 p-5">
+                        <h3 class="mb-3 who-we-are-title">
+                          {{ item.section_title|default:"Our Work in Action" }}
+                        </h3>
+                        <p>{{ item.description|default:"Discover how we bring ideas to life, with results that speak volumes." }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6 p-5">
-            <h3 class="mb-3 who-we-are-title">Our Work in Action</h3>
-            <p>
-              From elegant landing pages to complete business websites, our builder powers thousands of professional projects across the globe.
-            </p>
-            <p>
-              With drag-and-drop simplicity and fully customizable components, creators bring their ideas to life in just minutes — no code required.
-            </p>
-          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+  {% else %}
+    <!-- DEFAULT FALLBACK SECTION -->
+    <section class="py-5">
+      <div class="container-fluid">
+        <div class="fancy-box w-100">
+            <div class="row align-items-center g-0">
+
+              <!-- Default Carousel -->
+              <div class="col-md-6 mb-4 mb-md-0">
+                <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                  <div class="carousel-inner rounded shadow-sm">
+                    <div class="carousel-item active">
+                      <img src="{% static 'images/aboutus1.jpg' %}" class="d-block w-100" alt="Default Photo 1">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'images/aboutus4.jpg' %}" class="d-block w-100" alt="Default Photo 2">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'images/aboutus5.jpg' %}" class="d-block w-100" alt="Default Photo 3">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Default Text -->
+              <div class="col-md-6 p-5">
+                <h3 class="mb-3 who-we-are-title">Our Work in Action</h3>
+                <p>From elegant landing pages to complete business websites, our builder powers thousands of professional projects across the globe.</p>
+                <p>With drag-and-drop simplicity and fully customizable components, creators bring their ideas to life in just minutes — no code required.</p>
+              </div>
+
+            </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
 
   <!-- Why Choose Us -->
   <section>

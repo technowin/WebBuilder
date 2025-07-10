@@ -4,7 +4,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Business Home</title>
+    <title>{{workflow_data.0.7}}</title>
+    {% if workflow_data.0.11 %}
+        <link rel="icon" type="image/png" href="/media/{{workflow_data.0.11}}">
+    {% else %}
+        <link rel="icon" type="image/png" href="{% static 'images/Business/bg-techno.png' %}">
+    {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
@@ -32,59 +37,24 @@
             <div class="row headerUtilityRow">
 
                 <div class="col-md-5 govLinkContainer">
-                    <a href="https://maharashtra.gov.in/"
-                    target="_blank"
+                    <a href="#" 
+                    onclick="event.preventDefault();" 
                     class="underlineHover"
-                    aria-label="Government of Maharashtra official website, opens in a new tab"
+                    aria-label="Welcome message"
                     rel="noopener noreferrer">
                         {% if workflow_data.0.7 %}
                             Welcome To {{ workflow_data.0.7 }}
                         {% else %}
                             Welcome To Technowin Solutions Pvt. Ltd.
                         {% endif %}
-                    </a><br>
+                    </a>
+                    <br>
                 </div>
                 
                 {% if workflow_data.0.9 == 1 %}
                     
                     <div class="col-md-6 fontControlContainer" role="region" aria-label="Font size controls and site map">
-                        
-                        <div class="colorSelectorContainer" style="display: inline-flex; gap: 8px; margin-right: 10px;">
-                            
-                            <!-- Charcoal + Copper -->
-                            <button class="colorCircle"
-                                style="background-color: #2E2E2E;"
-                                onclick="selectColor('#2E2E2E', '#B87333')"
-                                aria-label="Select Charcoal and Copper theme"
-                                title="Charcoal + Copper (#2E2E2E / #B87333)">
-                            </button>
-
-                            <!-- Midnight Navy + Rose Gold -->
-                            <button class="colorCircle"
-                                style="background-color: #191970;"
-                                onclick="selectColor('#191970', '#B76E79')"
-                                aria-label="Select Midnight Navy and Rose Gold theme"
-                                title="Midnight Navy + Rose Gold (#191970 / #B76E79)">
-                            </button>
-
-                            <!-- Deep Forest + Champagne -->
-                            <button class="colorCircle"
-                                style="background-color: #013220;"
-                                onclick="selectColor('#013220', '#F7E7CE')"
-                                aria-label="Select Deep Forest and Champagne theme"
-                                title="Deep Forest + Champagne (#013220 / #F7E7CE)">
-                            </button>
-
-                            <!-- Default: Navy + Gold -->
-                            <button class="colorCircle"
-                                style="background-color: #002147; border: 2px solid gold;"
-                                onclick="selectColor('#002147', '#D4AF37')"
-                                aria-label="Select default Navy and Gold theme"
-                                title="Default Theme: Navy + Gold (#002147 / #D4AF37)">
-                            </button>
-
-                        </div>
-
+                     
                         <button onclick="increaseFont()" class="fontControlBtn" title="Increase Font Size" aria-label="Increase font size">A+</button>
                         <button onclick="decreaseFont()" class="fontControlBtn" title="Decrease Font Size" aria-label="Decrease font size">A-</button>
                         <button onclick="resetFont()" class="fontControlBtn" title="Reset Font Size" aria-label="Reset font size">A</button>
@@ -334,25 +304,25 @@
                                         <ul style="list-style: none; line-height:2em; padding-left: 0; font-family: 'Merriweather', serif;" role="list" aria-label="Quick Links">
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
-                                                <a href="{{ 'businessHome' }}" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                <a href="{% url 'businessHome' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Mumbai University website">Home</a>
                                             </li>
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
-                                                <a href="{{ 'AboutUs' }}" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                <a href="{% url 'aboutUs' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Maharashtra CET Cell website">About Us</a>
                                             </li>
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
-                                                <a href="{{'BusinessContactUs'}}" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                <a href="{{'BusinessContactUs'}}" class="underline-hover" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Maharashtra Scholarship website">Contact Us</a>
                                             </li>
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
-                                                <a href="" class="underline-hover" target="_blank" rel="noopener noreferrer"
+                                                <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Bar Council Of India website">Our Service</a>
                                             </li>
