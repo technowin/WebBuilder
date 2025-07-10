@@ -527,67 +527,7 @@ def viewEdit_index(request, id, workflow_id):
             }
                 
             return render(request, 'Workflow/viewEdit_index.html', context)
-        # if request.method == "POST":
-        #     username = request.session.get("username", "")
-        #     paramp = [id]
-        #     cursor.callproc("stp_getEditSecPgId", paramp)
-        #     for result in cursor.stored_results():
-        #         data_ids = result.fetchall()[0]
-        #     page_id = data_ids[2]
-        #     section_id = data_ids[1]
-                
-        #     title = request.POST.get('title') or ''
-        #     description = request.POST.get('description') or ''
-        #     workflow_id = request.POST.get('workflow_id')
-        #     page_id = request.POST.get('page_id')
-        #     section_id = request.POST.get('section_id')
-        #     uploaded_file = request.FILES.get('media_file', None)
-            
-            
-        #     params1 = [title,description,id                  
-        #     ]
-        #     cursor.callproc("stp_UpdateIndexCntentBlock", params1)
-        #     m.commit()
-
-        #     # At least one of these fields is required
-        #     if not (title or description or uploaded_file):
-        #         messages.error(request, "Please provide at least Title, Description or File.")
-        #         return redirect(f"/startEditing?workflow_id={workflow_id}")
-
-        #     saved_path = None
-
-        #     if uploaded_file:
-        #         # ✅ File size validation
-        #         MAX_FILE_SIZE_MB = 5
-        #         MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024  # 5 MB in bytes
-
-        #         if uploaded_file.size > MAX_FILE_SIZE:
-        #             messages.error(request, f"File size should not exceed {MAX_FILE_SIZE_MB} MB.")
-        #             return redirect(f"/startEditing?workflow_id={workflow_id}")
-
-        #         # 📁 Save file
-        #         folder_path = os.path.join(settings.MEDIA_ROOT, str(workflow_id), str(page_id), str(section_id))
-        #         os.makedirs(folder_path, exist_ok=True)
-
-        #         fs = FileSystemStorage(location=folder_path)
-
-        #         import time
-        #         original_name = os.path.splitext(uploaded_file.name)[0]
-        #         ext = os.path.splitext(uploaded_file.name)[1]
-
-        #         # Sanitize filename (optional but recommended)
-        #         safe_name = "".join(c for c in original_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
-
-        #         # Add timestamp to filename
-        #         timestamp = time.strftime('%Y%m%d_%H%M%S')
-        #         final_name = f"{safe_name}_{timestamp}{ext}"
-
-        #         filename = fs.save(final_name, uploaded_file)
-
-        #         saved_path = os.path.join(str(workflow_id), str(page_id), str(section_id), filename).replace('\\', '/')
-
-        #     messages.success(request, "Content saved successfully.")
-        #     return redirect(f"/startEditing?workflow_id={workflow_id}")
+        
         if request.method == "POST":
             username = request.session.get("username", "")
             
@@ -645,7 +585,7 @@ def viewEdit_index(request, id, workflow_id):
             m.commit()
 
             messages.success(request, "Content updated successfully.")
-            return redirect(f"/startEditing?workflow_id={workflow_id}")
+            return redirect(f"/view_index?workflow_id={workflow_id}&section_id={section_id}")
 
         
 
