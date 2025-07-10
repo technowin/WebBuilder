@@ -67,8 +67,13 @@ urlpatterns = [
     path("startEditing", startEditing,name='startEditing'),
     path("submitEditing", submitEditing,name='submitEditing'),
     path("view_index", view_index,name='view_index'),
+    path("renameSiteDetails", renameSiteDetails,name='renameSiteDetails'),
+    path("view_document", view_document,name='view_document')
     path('edit/<int:id>/<int:workflow_id>/', viewEdit_index, name='viewEdit_index'),
-]
-
+    
+]   
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
+
+

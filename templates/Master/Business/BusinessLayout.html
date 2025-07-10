@@ -32,84 +32,178 @@
             <div class="row headerUtilityRow">
 
                 <div class="col-md-5 govLinkContainer">
-                    <a href="https://maharashtra.gov.in/" 
-                    target="_blank" 
-                    class="underlineHover" 
-                    aria-label="Government of Maharashtra official website, opens in a new tab" 
+                    <a href="https://maharashtra.gov.in/"
+                    target="_blank"
+                    class="underlineHover"
+                    aria-label="Government of Maharashtra official website, opens in a new tab"
                     rel="noopener noreferrer">
-                        Welcome To Technowin Solutions Pvt. Ltd.
+                        {% if workflow_data.0.7 %}
+                            Welcome To {{ workflow_data.0.7 }}
+                        {% else %}
+                            Welcome To Technowin Solutions Pvt. Ltd.
+                        {% endif %}
                     </a><br>
                 </div>
-
-                <div class="col-md-6 fontControlContainer" role="region" aria-label="Font size controls and site map">
+                
+                {% if workflow_data.0.9 == 1 %}
                     
-                    <div class="colorSelectorContainer" style="display: inline-flex; gap: 8px; margin-right: 10px;">
+                    <div class="col-md-6 fontControlContainer" role="region" aria-label="Font size controls and site map">
                         
-                        <!-- Charcoal + Copper -->
-                        <button class="colorCircle"
-                            style="background-color: #2E2E2E;"
-                            onclick="selectColor('#2E2E2E', '#B87333')"
-                            aria-label="Select Charcoal and Copper theme"
-                            title="Charcoal + Copper (#2E2E2E / #B87333)">
-                        </button>
+                        <div class="colorSelectorContainer" style="display: inline-flex; gap: 8px; margin-right: 10px;">
+                            
+                            <!-- Charcoal + Copper -->
+                            <button class="colorCircle"
+                                style="background-color: #2E2E2E;"
+                                onclick="selectColor('#2E2E2E', '#B87333')"
+                                aria-label="Select Charcoal and Copper theme"
+                                title="Charcoal + Copper (#2E2E2E / #B87333)">
+                            </button>
 
-                        <!-- Midnight Navy + Rose Gold -->
-                        <button class="colorCircle"
-                            style="background-color: #191970;"
-                            onclick="selectColor('#191970', '#B76E79')"
-                            aria-label="Select Midnight Navy and Rose Gold theme"
-                            title="Midnight Navy + Rose Gold (#191970 / #B76E79)">
-                        </button>
+                            <!-- Midnight Navy + Rose Gold -->
+                            <button class="colorCircle"
+                                style="background-color: #191970;"
+                                onclick="selectColor('#191970', '#B76E79')"
+                                aria-label="Select Midnight Navy and Rose Gold theme"
+                                title="Midnight Navy + Rose Gold (#191970 / #B76E79)">
+                            </button>
 
-                        <!-- Deep Forest + Champagne -->
-                        <button class="colorCircle"
-                            style="background-color: #013220;"
-                            onclick="selectColor('#013220', '#F7E7CE')"
-                            aria-label="Select Deep Forest and Champagne theme"
-                            title="Deep Forest + Champagne (#013220 / #F7E7CE)">
-                        </button>
+                            <!-- Deep Forest + Champagne -->
+                            <button class="colorCircle"
+                                style="background-color: #013220;"
+                                onclick="selectColor('#013220', '#F7E7CE')"
+                                aria-label="Select Deep Forest and Champagne theme"
+                                title="Deep Forest + Champagne (#013220 / #F7E7CE)">
+                            </button>
 
-                        <!-- Default: Navy + Gold -->
-                        <button class="colorCircle"
-                            style="background-color: #002147; border: 2px solid gold;"
-                            onclick="selectColor('#002147', '#D4AF37')"
-                            aria-label="Select default Navy and Gold theme"
-                            title="Default Theme: Navy + Gold (#002147 / #D4AF37)">
-                        </button>
+                            <!-- Default: Navy + Gold -->
+                            <button class="colorCircle"
+                                style="background-color: #002147; border: 2px solid gold;"
+                                onclick="selectColor('#002147', '#D4AF37')"
+                                aria-label="Select default Navy and Gold theme"
+                                title="Default Theme: Navy + Gold (#002147 / #D4AF37)">
+                            </button>
 
+                        </div>
+
+                        <button onclick="increaseFont()" class="fontControlBtn" title="Increase Font Size" aria-label="Increase font size">A+</button>
+                        <button onclick="decreaseFont()" class="fontControlBtn" title="Decrease Font Size" aria-label="Decrease font size">A-</button>
+                        <button onclick="resetFont()" class="fontControlBtn" title="Reset Font Size" aria-label="Reset font size">A</button>
+                        <button class="fontControlBtn" id="toggleSpeech" aria-label="Toggle speech">🔈</button>
+                        <span class="siteMap"><a href="#" aria-label="Site Map">Site Map</a></span>
+                    </div>
+                
+                {% elif  workflow_data.0.9 == 0 %}
+                    <!-- Dont show -->
+                {% else %}
+                    
+                    <div class="col-md-6 fontControlContainer" role="region" aria-label="Font size controls and site map">
+                        
+                        <div class="colorSelectorContainer" style="display: inline-flex; gap: 8px; margin-right: 10px;">
+                            
+                            <!-- Charcoal + Copper -->
+                            <button class="colorCircle"
+                                style="background-color: #2E2E2E;"
+                                onclick="selectColor('#2E2E2E', '#B87333')"
+                                aria-label="Select Charcoal and Copper theme"
+                                title="Charcoal + Copper (#2E2E2E / #B87333)">
+                            </button>
+
+                            <!-- Midnight Navy + Rose Gold -->
+                            <button class="colorCircle"
+                                style="background-color: #191970;"
+                                onclick="selectColor('#191970', '#B76E79')"
+                                aria-label="Select Midnight Navy and Rose Gold theme"
+                                title="Midnight Navy + Rose Gold (#191970 / #B76E79)">
+                            </button>
+
+                            <!-- Deep Forest + Champagne -->
+                            <button class="colorCircle"
+                                style="background-color: #013220;"
+                                onclick="selectColor('#013220', '#F7E7CE')"
+                                aria-label="Select Deep Forest and Champagne theme"
+                                title="Deep Forest + Champagne (#013220 / #F7E7CE)">
+                            </button>
+
+                            <!-- Default: Navy + Gold -->
+                            <button class="colorCircle"
+                                style="background-color: #002147; border: 2px solid gold;"
+                                onclick="selectColor('#002147', '#D4AF37')"
+                                aria-label="Select default Navy and Gold theme"
+                                title="Default Theme: Navy + Gold (#002147 / #D4AF37)">
+                            </button>
+
+                        </div>
+
+                        <button onclick="increaseFont()" class="fontControlBtn" title="Increase Font Size" aria-label="Increase font size">A+</button>
+                        <button onclick="decreaseFont()" class="fontControlBtn" title="Decrease Font Size" aria-label="Decrease font size">A-</button>
+                        <button onclick="resetFont()" class="fontControlBtn" title="Reset Font Size" aria-label="Reset font size">A</button>
+                        <button class="fontControlBtn" id="toggleSpeech" aria-label="Toggle speech">🔈</button>
+                        <span class="siteMap"><a href="#" aria-label="Site Map">Site Map</a></span>
                     </div>
 
-                    <button onclick="increaseFont()" class="fontControlBtn" title="Increase Font Size" aria-label="Increase font size">A+</button>
-                    <button onclick="decreaseFont()" class="fontControlBtn" title="Decrease Font Size" aria-label="Decrease font size">A-</button>
-                    <button onclick="resetFont()" class="fontControlBtn" title="Reset Font Size" aria-label="Reset font size">A</button>
-                    <button class="fontControlBtn" id="toggleSpeech" aria-label="Toggle speech">🔈</button>
-                    <span class="siteMap"><a href="#" aria-label="Site Map">Site Map</a></span>
-                </div>
+                {% endif %}
             </div>
 
             <div class="containerForGLCLogo">
                
                 <div class="logoRow">
-                    <div class="mainGlclogo" id="mainlogoid">
-                        <img src="{% static 'images/Business/bg-techno.png' %}" alt="First Logo" style="" />
-                    </div>
-                    <div class="namez" id="nameid">
-                        <h1>Technowin Solutions Pvt. Ltd.</h1>
-                    </div>
-                    <div class="RightLayoutlogo" id="RightLayoutlogo">
-                        <img src="{% static 'images/Business/bg-techno.png' %}" alt="Second layout logo" />
-                    </div>
+                    
+                    {% comment %} First Logo {% endcomment %}
+
+                    {% if workflow_data.0.4 %}
+                        <div class="mainGlclogo" id="mainlogoid">
+                            <img src="/media/{{workflow_data.0.4}}" alt="First Logo" style="" />
+                        </div>
+                    {% else %}
+                        <div class="mainGlclogo" id="mainlogoid">
+                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="First Logo" style="" />
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Company Name {% endcomment %}
+                    
+                    {% if workflow_data.0.7 %}
+                        <div class="namez" id="nameid">
+                            <h1>{{ workflow_data.0.7 }}</h1>
+                        </div>
+                    {% else %}
+                        <div class="namez" id="nameid">
+                            <h1>Technowin Solutions Pvt. Ltd.</h1>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Second Logo {% endcomment %}
+                    
+                    {% if workflow_data.0.15 and workflow_data.0.16 == 1 %}
+                        <!-- Show first logo if path exists and it's enabled -->
+                        <div class="RightLayoutlogo" id="RightLayoutlogo">
+                            <img src="/media/{{ workflow_data.0.15 }}" alt="First Logo" style="" />
+                        </div>
+
+                    {% elif workflow_data.0.16 == 0 %}
+                        <!-- Second logo not enabled -->
+                        {# Optional: Show a placeholder or nothing #}
+                        {# No logo shown, since second logo is disabled #}
+
+                    {% else %}
+                        <!-- Default logo fallback -->
+                        <div class="RightLayoutlogo" id="RightLayoutlogo">
+                            <img src="{% static 'images/Business/bg-techno.png' %}" alt="Default Logo" />
+                        </div>
+                    {% endif %}
+
+
                 </div>
             
             </div>
             
             <nav class="topnav" id="myTopnav" role="navigation" aria-label="Primary navigation menu">
 
-                <a href="{{ 'businessHome' }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
+                <a href="{% url 'businessHome' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
                     Home
                 </a>
 
-                <a href="{{ 'AboutUs' }}" class="navlink" role="menuitem" tabindex="0">
+                <a href="{% url 'aboutUs' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
                     About Us
                 </a>
 
@@ -123,7 +217,7 @@
                     </div>
                 </div>
 
-                <a href="{{ 'Service' }}" class="navlink" role="menuitem" tabindex="0">
+                <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
                     Our Service
                 </a>
 
@@ -162,15 +256,42 @@
                                             Contact Us
                                         </h2>
                                         <address style="text-align: justify; font-family: 'Merriweather', serif; font-size: 18px; color: white; letter-spacing: 0.02em;">
-                                            Technowin Solutions Pvt. Ltd.<br>
-                                            Station Road, Goregoan,<br>
-                                            Mumbai - 400 520<br><br>
-                                            <a href="tel:+918805699874" style="color: white;">
-                                                <i class="fa-solid fa-phone" aria-hidden="true"></i> 022-8805 3626
-                                            </a><br>
-                                            <a href="mailto:TestEnail@glcmumbai.com" style="color: white;">
-                                                <i class="fa-solid fa-envelope" aria-hidden="true"></i> TestEnail@glcmumbai.com
-                                            </a>
+                                            {% if workflow_data.0.7 %}
+                                                {{workflow_data.0.7}}
+                                            {% else %}
+                                                Technowin Solutions Pvt. Ltd.
+                                            {% endif %}
+                                            <br>
+                                            {% if workflow_data.0.12 %}
+                                                {{ workflow_data.0.12 }}<br>
+                                            {% else %}
+                                                Station Road, Goregoan,<br>
+                                                Mumbai - 400 520<br><br>
+                                            {% endif %}
+
+                                            {% comment %} Phone Number {% endcomment %}
+                                            
+                                            {% if workflow_data.0.14 %}
+                                                <a href="tel:+918805699874" style="color: white;">
+                                                    <i class="fa-solid fa-phone" aria-hidden="true"></i> {{workflow_data.0.14}}
+                                                </a><br>
+                                            {% else %}
+                                                <a href="tel:+918805699874" style="color: white;">
+                                                    <i class="fa-solid fa-phone" aria-hidden="true"></i> 022-8805 3626
+                                                </a><br>
+                                            {% endif %}
+
+                                            {% comment %} Email Address {% endcomment %}
+
+                                            {% if workflow_data.0.13 %}
+                                                <a href="mailto:TestEnail@glcmumbai.com" style="color: white;">
+                                                    <i class="fa-solid fa-envelope" aria-hidden="true"></i> {{workflow_data.0.13}}
+                                                </a>
+                                            {% else %}
+                                                <a href="mailto:TestEnail@glcmumbai.com" style="color: white;">
+                                                    <i class="fa-solid fa-envelope" aria-hidden="true"></i> TestEnail@glcmumbai.com
+                                                </a>
+                                            {% endif %}
                                         </address>
 
                                         <!-- Social Links -->
@@ -258,24 +379,40 @@
 
                                         <ul class="social-list" role="list">
                                             <li>
-                                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                                                <a href="https://www.facebook.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Facebook page">Official Facebook</a>
+                                                {% if workflow_data.0.1 %}
+                                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                                    <a href="{{ workflow_data.0.1 }}" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Facebook page">Official Facebook</a>
+                                                {% else %}
+                                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                                    <a href="https://www.facebook.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Facebook page">Official Facebook</a>
+                                                {% endif %}
                                             </li>
                                             <li>
-                                                <i class="fab fa-youtube" aria-hidden="true"></i>
-                                                <a href="https://www.youtube.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official YouTube channel">Official YouTube</a>
+                                                {% if workflow_data.0.8 %}
+                                                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                                                    <a href="{{ workflow_data.0.8 }}" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official YouTube channel">Official YouTube</a>
+                                                {% else %}
+                                                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                                                    <a href="https://www.youtube.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official YouTube channel">Official YouTube</a>
+                                                {% endif %}
                                             </li>
                                             <li>
-                                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                                                <a href="https://twitter.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Twitter profile">Official Twitter</a>
+                                                {% if workflow_data.0.2 %}
+                                                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                                                    <a href="{{ workflow_data.0.2 }}" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Instagram profile">Official Instagram</a>
+                                                {% else %}
+                                                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                                                    <a href="https://instagram.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Instagram profile">Official Instagram</a>
+                                                {% endif %}
                                             </li>
                                             <li>
-                                                <i class="fab fa-instagram" aria-hidden="true"></i>
-                                                <a href="https://instagram.com/glcmumbai" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official Instagram profile">Official Instagram</a>
-                                            </li>
-                                            <li>
-                                                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                                                <a href="https://www.linkedin.com/school/government-law-college-mumbai/" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official LinkedIn profile">Official LinkedIn</a>
+                                                {% if workflow_data.0.3 %}
+                                                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                                    <a href="{{ workflow_data.0.3 }}" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official LinkedIn profile">Official LinkedIn</a>
+                                                {% else %}
+                                                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                                    <a href="https://www.linkedin.com" class="underline-hover" target="_blank" rel="noopener noreferrer" aria-label="Visit Official LinkedIn profile">Official LinkedIn</a>
+                                                {% endif %}
                                             </li>
                                         </ul>
 
@@ -364,26 +501,38 @@
     {% comment %} Change Color Codes {% endcomment %}
 
     <script>
-        function selectColor(primary, accent) {
-            debugger;
-            document.documentElement.style.setProperty('--primary-color', primary);
-            document.documentElement.style.setProperty('--accent-color', accent);
+        window.addEventListener('DOMContentLoaded', () => {
+            // Get user-stored colors
+            let storedPrimary = localStorage.getItem('primary-color');
+            let storedAccent = localStorage.getItem('accent-color');
 
-            // Optional: persist theme across page reloads
+            // Table-rendered values from Django (always rendered)
+            const wfPrimary = '{{ workflow_data.0.5|default:"" }}'.trim();
+            const wfAccent = '{{ workflow_data.0.6|default:"" }}'.trim();
+
+            // Apply logic:
+            // Priority 1: Workflow DB values (only if present)
+            // Priority 2: Stored values from user selection
+            let finalPrimary = wfPrimary || storedPrimary;
+            let finalAccent = wfAccent || storedAccent;
+
+            if (finalPrimary && finalAccent) {
+                applyColors(finalPrimary, finalAccent);
+            }
+        });
+
+        function selectColor(primary, accent) {
+            applyColors(primary, accent);
+
+            // Save user selection
             localStorage.setItem('primary-color', primary);
             localStorage.setItem('accent-color', accent);
         }
 
-        // Restore colors if previously selected
-        window.addEventListener('DOMContentLoaded', () => {
-            debugger;
-            const primary = localStorage.getItem('primary-color');
-            const accent = localStorage.getItem('accent-color');
-            if (primary && accent) {
+        function applyColors(primary, accent) {
             document.documentElement.style.setProperty('--primary-color', primary);
             document.documentElement.style.setProperty('--accent-color', accent);
-            }
-        });
+        }
     </script>
 
     {% comment %} Scroll top function {% endcomment %}

@@ -14,7 +14,10 @@ import os
 from django.core.files.storage import FileSystemStorage
 import time
 from .models import WebsiteWorkflow
-
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.core.exceptions import ObjectDoesNotExist
+from WebBuilder.encryption import encrypt_parameter
 
 # Create your views here.
 
@@ -164,8 +167,17 @@ def mySites(request):
             youtube_url = request.POST.get("youtube_url", "").strip()
             linkedin_url = request.POST.get("linkedin_url", "").strip()
 
+            # New Fields
+            address = request.POST.get("address", "").strip()
+            phone = request.POST.get("phone", "").strip()
+            email = request.POST.get("email", "").strip()
+
+            enable_accessibility = 1 if request.POST.get("enable_accessibility") == "on" else 0
+            show_second_logo = 1 if request.POST.get("show_second_logo") == "on" else 0
+
             logo = request.FILES.get("logo")
             favicon = request.FILES.get("favicon")
+            second_logo = request.FILES.get("second_logo")
 
             MAX_FILE_SIZE_MB = 5
             MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
@@ -189,9 +201,8 @@ def mySites(request):
                 filename = fs.save(final_name, file_obj)
                 return os.path.join(str(workflow_id), subfolder, filename).replace('\\', '/')
 
-            # Insert new
             if not workflow_id:
-                # No workflow_id => Create new
+                # Create new
                 workflow = WebsiteWorkflow.objects.create(
                     website_name=website_name or None,
                     primary_color=primary_color or None,
@@ -200,15 +211,21 @@ def mySites(request):
                     instagram_url=instagram_url or None,
                     youtube_url=youtube_url or None,
                     linkedin_url=linkedin_url or None,
+                    address=address or None,
+                    phone_number=phone or None,
+                    email_address=email or None,
+                    enable_accessibility=enable_accessibility,
+                    show_second_logo=show_second_logo,
                     created_at=timezone.now(),
                     created_by=username
                 )
 
-                # If logo is uploaded, save it
                 if logo:
                     workflow.logo = save_file(logo, workflow.id, "Image")
                 if favicon:
                     workflow.favicon = save_file(favicon, workflow.id, "Favicon")
+                if second_logo:
+                    workflow.second_logo = save_file(second_logo, workflow.id, "Second Logo")
 
                 workflow.save()
                 messages.success(request, "New branding created successfully!")
@@ -227,11 +244,18 @@ def mySites(request):
                 workflow.instagram_url = instagram_url or workflow.instagram_url
                 workflow.youtube_url = youtube_url or workflow.youtube_url
                 workflow.linkedin_url = linkedin_url or workflow.linkedin_url
+                workflow.address = address or workflow.address
+                workflow.phone_number = phone or workflow.phone_number
+                workflow.email_address = email or workflow.email_address
+                workflow.enable_accessibility = enable_accessibility
+                workflow.show_second_logo = show_second_logo
 
                 if logo:
                     workflow.logo = save_file(logo, workflow_id, "Image")
                 if favicon:
                     workflow.favicon = save_file(favicon, workflow_id, "Favicon")
+                if second_logo:
+                    workflow.second_logo = save_file(second_logo, workflow.id, "Second Logo")
 
                 workflow.updated_at = timezone.now()
                 workflow.updated_by = username
@@ -240,6 +264,7 @@ def mySites(request):
                 messages.success(request, "Branding updated successfully!")
 
             return redirect('mySites')
+
         
     except Exception as e:
         import traceback
@@ -299,7 +324,7 @@ def startEditing(request):
         request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
-        return redirect('some_error_page')
+        return redirect('startEditing')
 
 @login_required
 def submitEditing(request):
@@ -378,10 +403,79 @@ def submitEditing(request):
         messages.error(request, "Oops! Something went wrong.")
         return redirect(f"/startEditing?workflow_id={workflow_id}")
 
+@login_required
+@require_POST
+def renameSiteDetails(request):
+    # Optional: close old connections if you're handling raw DB manually
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor = m.cursor()
 
-# def view_index(request):
-#     data = YourModel.objects.all()
-#     return render(request, 'index.html', {'data': data})
+    try:
+        workflow_id = request.POST.get('workflow_id')
+
+        if not workflow_id:
+            return JsonResponse({'error': 'Workflow ID is required'}, status=400)
+
+        try:
+            workflow = WebsiteWorkflow.objects.get(id=workflow_id)
+        except ObjectDoesNotExist:
+            return JsonResponse({'error': 'WebsiteWorkflow not found'}, status=404)
+
+        response_data = {
+            'workflow_id': workflow.id,
+            'website_name': workflow.website_name,
+            'primary_color': workflow.primary_color,
+            'secondary_color': workflow.secondary_color,
+            'facebook_url': workflow.facebook_url,
+            'instagram_url': workflow.instagram_url,
+            'youtube_url': workflow.youtube_url,
+            'linkedin_url': workflow.linkedin_url,
+            'enable_accessibility': workflow.enable_accessibility,
+            'show_second_logo': workflow.show_second_logo,
+            'address': workflow.address,
+            'phone_number': workflow.phone_number,
+            'email_address': workflow.email_address,
+        }
+        return JsonResponse(response_data)
+
+    except Exception as e:
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        if request.user.id:
+            cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
+        print(f"Error: {e}")
+        return JsonResponse({'error': 'Something went wrong on the server.'}, status=500)
+    
+@login_required
+def view_document(request):
+    if request.method == "POST":
+        workflow_id = request.POST.get("workflow_id")
+        doc_type = request.POST.get("doc_type")  # 'logo' or 'favicon'
+
+        try:
+            workflow = WebsiteWorkflow.objects.get(pk=workflow_id)
+
+            if doc_type == 'logo':
+                file_field = workflow.logo
+            elif doc_type == 'favicon':
+                file_field = workflow.favicon
+            elif doc_type == 'second_logo':
+                file_field = workflow.second_logo
+            else:
+                return JsonResponse({'error': 'Invalid document type.'}, status=400)
+
+            if file_field and file_field.name:
+                return JsonResponse({
+                    'file_url': os.path.join(settings.MEDIA_URL, file_field.name)
+                }, status=200)
+            else:
+                return JsonResponse({'error': 'File not uploaded.'}, status=404)
+
+        except WebsiteWorkflow.DoesNotExist:
+            return JsonResponse({'error': 'Workflow not found.'}, status=404)
+
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
 @login_required
 def view_index(request):
@@ -407,8 +501,8 @@ def view_index(request):
         request.user.id and cursor.callproc("stp_error_log", [fun, str(e), request.user.id])
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
-        return redirect('some_error_page')
-
+        return redirect('view_index')
+    
 @login_required    
 def viewEdit_index(request, id, workflow_id):
     Db.closeConnection()

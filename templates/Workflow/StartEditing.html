@@ -26,8 +26,16 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h2 class="mb-4 text-primary fw-bold">Edit Your Website Workflow</h2>
-
+        {% comment %} <h2 class="mb-4 text-primary fw-bold">Edit Your Website Workflow</h2> {% endcomment %}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-primary fw-bold mb-0">Edit Your Website Workflow</h2>
+            <a href="{% url 'businessHome' %}?workflow_id={{ workflow_id }}" target="_blank"
+            class="px-3 py-1 rounded-pill text-white small fw-semibold shadow-sm"
+            style="background: linear-gradient(135deg, #0d6efd, #6610f2); text-decoration: none; transition: all 0.3s ease;">
+            👀 Take a Quick Look
+            </a>
+        </div>
+        
         <div class="accordion" id="workflowAccordion">
             {% if pages %}
                 {% for page in pages %}
@@ -184,7 +192,6 @@
     });
   });
 </script>
-
 
 {% endblock %}
 
