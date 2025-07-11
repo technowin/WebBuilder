@@ -177,7 +177,11 @@
                     About Us
                 </a>
 
-                <div class="dropdown1">
+                <a href="{% url 'BusinessContactUs' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
+                    Contact Us
+                </a>
+
+                {% comment %} <div class="dropdown1">
                     <button class="dropbtn1 navlink" role="menuitem" tabindex="0">
                         Contact Us <span class="dropdown-icon">&#x25BC;</span> <!-- ▼ Downward chevron -->
                     </button>
@@ -185,7 +189,7 @@
                         <a href="{{ 'BusinessContactUs' }}" role="menuitem" tabindex="0">Contact Form</a>
                         <a href="{{ 'BusinessContactUs' }}" role="menuitem" tabindex="0">Support Team</a>
                     </div>
-                </div>
+                </div> {% endcomment %}
 
                 <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
                     Our Service

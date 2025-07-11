@@ -180,5 +180,14 @@ class SectionType(models.Model):
     class Meta:
         db_table = 'tbl_section_type'
 
-
+class ContactMessage(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_by = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    class Meta:
+        db_table = 'tbl_contact_message'
 

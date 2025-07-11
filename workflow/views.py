@@ -18,6 +18,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist
 from WebBuilder.encryption import encrypt_parameter
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -597,3 +598,4 @@ def viewEdit_index(request, id, workflow_id):
         print(f"Error: {e}")
         messages.error(request, "Oops! Something went wrong.")
         return redirect("view_index")
+    

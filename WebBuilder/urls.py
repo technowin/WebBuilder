@@ -69,6 +69,7 @@ urlpatterns = [
     path("view_index", view_index,name='view_index'),
     path("renameSiteDetails", renameSiteDetails,name='renameSiteDetails'),
     path("view_document", view_document,name='view_document'),
+    path("send_contact_email", send_contact_email,name='send_contact_email'),
     path('edit/<int:id>/<int:workflow_id>/', viewEdit_index, name='viewEdit_index'),
     
 ]   
