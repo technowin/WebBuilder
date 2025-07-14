@@ -154,6 +154,9 @@ class ContentBlock(models.Model):
     description = models.TextField(blank=True)  # ✏️ Renamed from content → description
     media_file = models.FileField(blank=True, null=True)
 
+    pdf_file = models.FileField(blank=True, null=True)
+    url = models.TextField(blank=True, null=True)
+
     order = models.PositiveIntegerField(default=0)
     is_active = models.IntegerField(default=1)
 

@@ -1,0 +1,224 @@
+{% extends 'Master/Business/BusinessLayout.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Keeping only SweetAlert and essential layout styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/Business/BusinessOurProduct.css' %}">
+
+{% endblock %}
+
+{% block content %}
+  
+    <header class="bg-custom-primary header-title">
+        <div class="container">
+        <h1 class="display-4">Our Product</h1>
+        <p class="lead header-subtitle">Build Stunning Websites. Without Code.</p>
+        </div>
+    </header>
+
+    <section>
+
+        <div class="section-header">
+            {% if section_data.Our_Product_Paginated %}
+                <h2>{{ section_data.Our_Product_Paginated.0.identifier }}</h2>
+            {% else %}
+                <h2>Our Product</h2>
+            {% endif %}
+            <p>Explore our latest innovations and cutting-edge content crafted for the future.</p>
+        </div>
+
+        {% if section_data.Our_Product_Paginated %}
+            <div class="product-container">
+                {% for item in section_data.Our_Product_Paginated %}
+                    <div class="program-card">
+                        <div class="card-image">
+                            <img src="/media/{{ item.media_file }}" alt="{{ item.title }}">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">{{ item.content_title }}</h3>
+                            <p class="card-description">{{ item.description }}</p>
+
+                            {% if item.pdf_file %}
+                                <div class="card-buttons">
+                                    <a href="#"
+                                    class="card_btnEvent"
+                                    data-workflow-id="{{ workflow_id }}"
+                                    data-doc-type="pdf"
+                                    data-doc-path="{{ item.pdf_file|urlencode }}">
+                                        View More
+                                    </a>
+                                </div>
+                            {% elif item.url %}
+                                <div class="card-buttons">
+                                    <a href="{{ item.url }}" target="_blank" class="card_btnEventt">View More</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="pagination-wrapper">
+                <ul class="pagination">
+                    {% if section_data.Our_Product_Paginated.has_previous %}
+                        <li><a href="?workflow_id={{ workflow_id }}&page={{ section_data.Our_Product_Paginated.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                        <li class="disabled"><span>Previous</span></li>
+                    {% endif %}
+
+                    {% for num in section_data.Our_Product_Paginated.paginator.page_range %}
+                        {% if section_data.Our_Product_Paginated.number == num %}
+                            <li class="active"><span>{{ num }}</span></li>
+                        {% else %}
+                            <li><a href="?workflow_id={{ workflow_id }}&page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if section_data.Our_Product_Paginated.has_next %}
+                        <li><a href="?workflow_id={{ workflow_id }}&page={{ section_data.Our_Product_Paginated.next_page_number }}">Next</a></li>
+                    {% else %}
+                        <li class="disabled"><span>Next</span></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+
+        {% else %}
+            <div class="product-container">
+
+                <div class="program-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/Business/vision_bg.jpg' %}" alt="The Future of AI">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Future of AI</h3>
+                        <p class="card-description">A comprehensive overview of how artificial intelligence is reshaping industries, economies, and society.</p>
+
+                        <div class="card-buttons">
+                            <a href="https://example.com/ai-future" target="_blank" class="card_btnEvent">View More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/Business/bg-techno.png' %}" alt="Green Technology Revolution">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Green Technology Revolution</h3>
+                        <p class="card-description">Explore how innovations in green tech are driving sustainable change in the 21st century.</p>
+
+                        <div class="card-buttons">
+                            <a href="https://example.com/green-tech" target="_blank" class="card_btnEvent">View More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/Business/bg-techno.png' %}" alt="Understanding the Metaverse">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Understanding the Metaverse</h3>
+                        <p class="card-description">A guide to the digital future where virtual and real-world experiences blend seamlessly.</p>
+
+                        <div class="card-buttons">
+                            <a href="https://example.com/metaverse-book" target="_blank" class="card_btnEvent">View More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/Business/vision_bg.jpg' %}" alt="The Future of AI">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Future of AI</h3>
+                        <p class="card-description">A comprehensive overview of how artificial intelligence is reshaping industries, economies, and society.</p>
+
+                        <div class="card-buttons">
+                            <a href="https://example.com/ai-future" target="_blank" class="card_btnEvent">View More</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endif %}
+
+    </section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+  {% if messages %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const theme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+        {% for message in messages %}
+          Swal.fire({
+            title: "{{ message.tags|title }}",
+            text: "{{ message|escapejs }}",
+            icon: "{{ message.tags }}",
+            confirmButtonText: "OK",
+            background: theme === 'dark' ? '#343a40' : '#ffffff',
+            color: theme === 'dark' ? '#f8f9fa' : '#212529',
+            confirmButtonColor: '#0d6efd',
+            customClass: {
+              popup: 'rounded-4 shadow',
+              confirmButton: 'btn btn-primary px-4 py-2'
+            }
+          });
+        {% endfor %}
+      });
+    </script>
+  {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '.card_btnEvent', function (e) {
+            e.preventDefault();
+            debugger;
+
+            const workflowId = $(this).data('workflow-id');
+            const docType = $(this).data('doc-type');
+            const docPath = $(this).data('doc-path');
+
+            $.ajax({
+                url: "{% url 'view_document_master' %}",
+                method: "GET",
+                data: {
+                    workflow_id: workflowId,
+                    doc_type: docType,
+                    doc_path: docPath,
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                },
+                success: function (response) {
+                    if (response.file_url) {
+                        window.open(response.file_url, '_blank');
+                    } else {
+                        alert("File URL not found.");
+                    }
+                },
+                error: function (xhr) {
+                    const errMsg = xhr.responseJSON?.error || "Something went wrong.";
+                    alert("Error: " + errMsg);
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+

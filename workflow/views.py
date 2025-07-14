@@ -340,7 +340,9 @@ def submitEditing(request):
         workflow_id = request.POST.get('workflow_id')
         page_id = request.POST.get('page_id')
         section_id = request.POST.get('section_id')
+        url = request.POST.get('url') or ''
         uploaded_file = request.FILES.get('media_file', None)
+        pdf_file = request.FILES.get('pdf_file', None)
 
         # At least one of these fields is required
         if not (title or description or uploaded_file):
@@ -348,6 +350,7 @@ def submitEditing(request):
             return redirect(f"/startEditing?workflow_id={workflow_id}")
 
         saved_path = None
+        saved_pdf_path = None  # <-- 🔧 This line prevents the error
 
         if uploaded_file:
             # ✅ File size validation
@@ -361,7 +364,6 @@ def submitEditing(request):
             # 📁 Save file
             folder_path = os.path.join(settings.MEDIA_ROOT, str(workflow_id), str(page_id), str(section_id))
             os.makedirs(folder_path, exist_ok=True)
-
             fs = FileSystemStorage(location=folder_path)
 
             import time
@@ -379,14 +381,50 @@ def submitEditing(request):
 
             saved_path = os.path.join(str(workflow_id), str(page_id), str(section_id), filename).replace('\\', '/')
 
+        if pdf_file:
+            ALLOWED_DOC_TYPES = ['.pdf', '.doc', '.docx', '.xls', '.xlsx']
+            MAX_FILE_SIZE_MB = 5
+            MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
+
+            ext = os.path.splitext(pdf_file.name)[1].lower()
+            if ext not in ALLOWED_DOC_TYPES:
+                messages.error(request, "Unsupported document type.")
+                return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+            if pdf_file.size > MAX_FILE_SIZE:
+                messages.error(request, f"Document size should not exceed {MAX_FILE_SIZE_MB} MB.")
+                return redirect(f"/startEditing?workflow_id={workflow_id}")
+
+            doc_folder = os.path.join(settings.MEDIA_ROOT, str(workflow_id), str(page_id), str(section_id), "docs")
+            os.makedirs(doc_folder, exist_ok=True)
+            safe_name = "".join(c for c in os.path.splitext(pdf_file.name)[0] if c.isalnum() or c in (' ', '-', '_')).rstrip()
+            timestamp = time.strftime('%Y%m%d_%H%M%S')
+            final_name = f"{safe_name}_{timestamp}{ext}"
+            doc_fs = FileSystemStorage(location=doc_folder)
+            doc_filename = doc_fs.save(final_name, pdf_file)
+            saved_pdf_path = os.path.join(str(workflow_id), str(page_id), str(section_id), "docs", doc_filename).replace('\\', '/')
+            
         # ✅ Create DB entry
         section_instance = Section.objects.get(id=section_id)
+        
+        # Determine block_type
+        if uploaded_file:
+            block_type = 'image'
+        elif pdf_file:
+            block_type = 'file'
+        elif url:
+            block_type = 'url'
+        else:
+            block_type = 'text'
+            
         ContentBlock.objects.create(
             section=section_instance,
             title=title,
             description=description,
-            block_type='file' if uploaded_file else 'text',
+            block_type=block_type,
             media_file=saved_path,
+            pdf_file=saved_pdf_path,
+            url=url,
             created_by=username,
             created_at=timezone.now()
         )
@@ -451,8 +489,8 @@ def renameSiteDetails(request):
 @login_required
 def view_document(request):
     if request.method == "POST":
-        workflow_id = request.POST.get("workflow_id")
-        doc_type = request.POST.get("doc_type")  # 'logo' or 'favicon'
+        workflow_id = request.POST.get("workflow_id") 
+        doc_type = request.POST.get("doc_type")
 
         try:
             workflow = WebsiteWorkflow.objects.get(pk=workflow_id)

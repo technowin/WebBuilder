@@ -8,6 +8,10 @@ from collections import defaultdict
 from workflow.models import *
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import JsonResponse
+import os
+from collections import defaultdict
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -196,7 +200,65 @@ def servicepage(request):
         print(f"error: {e}")
         messages.error(request, 'Oops...! Something went wrong!')
         response = {'result': 'fail','messages ':'something went wrong !'}  
-       
+
+@login_required
+def ourProduct(request):
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor=m.cursor()
+    try:
+        workflow_id = request.GET.get('workflow_id', '')
+        page_number = request.GET.get('page', 1)
+        
+        if workflow_id:
+            cursor.callproc("stp_getDataForWebsite", [workflow_id])
+            for result in cursor.stored_results():
+                workflow_data = list(result.fetchall())
+
+            cursor.callproc("stp_geSectionWiseDataForWebsite", [workflow_id])
+            for result in cursor.stored_results():
+                raw_data = list(result.fetchall())
+                columns = [col[0] for col in result.description]
+
+            # Convert to dict
+            data_list = [dict(zip(columns, row)) for row in raw_data]
+
+            # Group by section
+            section_data = defaultdict(list)
+            for item in data_list:
+                section = item.get('section_title', 'Others').strip() or 'Others'
+                section_data[section].append(item)
+
+            formatted_data = {}
+            for key, val in section_data.items():
+                formatted_key = key.replace(" ", "_")
+                formatted_data[formatted_key] = val
+
+            # Handle pagination only for Our_Product
+            our_products = formatted_data.get('Our_Product', [])
+            paginator = Paginator(our_products, 4)  # 4 items per page
+            page_obj = paginator.get_page(page_number)
+
+            formatted_data['Our_Product_Paginated'] = page_obj
+
+            return render(request, 'Master/Business/ourProduct.html', {
+                "workflow_data": workflow_data,
+                "section_data": formatted_data,
+                "workflow_id": workflow_id,
+                "page_obj": page_obj,
+            })
+            
+        else:
+            return render(request, 'Master/Business/ourProduct.html')
+    
+    except Exception as e:
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        cursor.callproc("stp_error_log",[fun,str(e),request.user.id])  
+        print(f"error: {e}")
+        messages.error(request, 'Oops...! Something went wrong!')
+        response = {'result': 'fail','messages ':'something went wrong !'}  
+   
 @login_required
 def send_contact_email(request):
     try:
@@ -255,3 +317,23 @@ def send_contact_email(request):
             print("Error while logging error:", db_log_err)
 
         print(f"Error: {e}")
+  
+@login_required
+def view_document_master(request):
+        
+    workflow_id = request.GET.get("workflow_id") 
+    doc_type = request.GET.get("doc_type")
+    doc_path = request.GET.get("doc_path")
+    try:
+        if doc_type == 'pdf':
+            file_field = doc_path
+        else:
+            return JsonResponse({'error': 'Invalid document type.'}, status=400)
+        if file_field:
+            return JsonResponse({
+                'file_url': os.path.join(settings.MEDIA_URL, file_field)
+            }, status=200)
+        else:
+            return JsonResponse({'error': 'File not uploaded.'}, status=404)
+    except WebsiteWorkflow.DoesNotExist:
+        return JsonResponse({'error': 'Workflow not found.'}, status=404)

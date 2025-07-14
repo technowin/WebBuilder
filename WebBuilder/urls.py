@@ -58,6 +58,9 @@ urlpatterns = [
     path("AboutUs", aboutUs,name='aboutUs'),
     path("BusinessContactUs", BusinessContactUs,name='BusinessContactUs'),
     path("Service", servicepage,name='servicepage'),
+    path("ourProduct", ourProduct,name='ourProduct'),
+    path("send_contact_email", send_contact_email,name='send_contact_email'),
+    path("view_document_master", view_document_master,name='view_document_master'),
     
     # Workflow
     path("workflow_starts", workflow_starts,name='workflow_starts'),
@@ -69,7 +72,6 @@ urlpatterns = [
     path("view_index", view_index,name='view_index'),
     path("renameSiteDetails", renameSiteDetails,name='renameSiteDetails'),
     path("view_document", view_document,name='view_document'),
-    path("send_contact_email", send_contact_email,name='send_contact_email'),
     path('edit/<int:id>/<int:workflow_id>/', viewEdit_index, name='viewEdit_index'),
     
 ]   

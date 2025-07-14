@@ -195,6 +195,10 @@
                     Our Service
                 </a>
 
+                <a href="{% url 'ourProduct' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
+                    Our Product
+                </a>
+
                 <a href="javascript:void(0);" class="icon" aria-label="Toggle navigation menu" role="button" tabindex="0" onclick="myFunction()">
                     &#9776;
                 </a>
@@ -329,6 +333,12 @@
                                                 <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Bar Council Of India website">Our Service</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                <a href="{% url 'ourProduct' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
+                                                style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
+                                                aria-label="Visit Bar Council Of India website">Our Product</a>
                                             </li>
                                         </ul>
                                     </div>

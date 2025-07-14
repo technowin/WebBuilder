@@ -1,0 +1,328 @@
+/* style.css */
+
+body {
+  font-family: 'Merriweather', serif;
+  background-color: #f9f9f9;
+}
+
+:root {
+  --primary-color:#002147;
+  --accent-color: #D4AF37;
+}
+
+.bg-custom-primary {
+  background-color: grey;
+  /* background-color: var(--primary-color); */
+  /* background-color: var(--accent-color); */
+  color: var(--accent-color);
+}
+
+.header-title {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.header-subtitle {
+  color: var(--accent-color);
+  /* color: var(--accent-color); */
+}
+
+.feature-heading {
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  color: var(--accent-color); /* optional if you want to match your theme */
+}
+.connect-section-bg {
+  background-color: #92969d;
+}
+
+@media all and (max-width: 1000px) {
+    .contactussection{
+      padding: 5% 5%;
+    }
+}
+
+/* 📲 Tablet view (1000px - 1135px) */
+@media all and (min-width: 1000px) and (max-width: 1135px) {
+    .contactussection{
+      padding: 5% 15%;
+    }
+}
+
+/* 🖥️ Desktop view (1136px and above) */
+@media all and (min-width: 1136px) {
+   
+    .contactussection{
+      padding: 5% 15%;
+    }
+}
+
+.contactusFirstsection h1{
+  color:var(--primary-color);
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: var(--primary-color);
+    font-size: 20px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+.social-icons a:hover {
+    color: #007bff; /* Bootstrap primary blue or change to your brand color */
+    transform: scale(1.2) rotate(5deg);
+}
+
+.social-icons a:nth-child(1):hover { color: #3b5998; }  /* Facebook */
+.social-icons a:nth-child(2):hover { color: #1da1f2; }  /* Twitter */
+.social-icons a:nth-child(3):hover { color: #e1306c; }  /* Instagram */
+.social-icons a:nth-child(4):hover { color: #0077b5; }  /* LinkedIn */
+
+.contact-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      max-width: 600px;
+      width: 100%;
+}
+
+.contact-box h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.contact-box p {
+  font-size: 15px;
+  color: var(--accent-color);
+  margin-bottom: 25px;
+}
+
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #fafafa;
+}
+
+.contact-box textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-box button {
+  background: #ff9124;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 14px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+
+.contact-box button:hover {
+  background: #e07d14;
+}
+
+/* Here is css  */
+
+.product-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+.program-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 30px;
+    padding: 25px;
+    transition: transform 0.2s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-image {
+    flex: 0 0 300px;
+    height: 250px;
+    margin-right: 50px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    /* color: #222; */
+    color: var(--accent-color);
+}
+
+.card-description {
+    font-size: 1.05rem;
+    color: #444;
+    margin-bottom: 18px;
+}
+
+.info-group {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--accent-color);
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.info-item i {
+    margin-right: 8px;
+    color: var(--accent-color)white;
+}
+
+.card_btnEvent {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.card_btnEvent:hover {
+    background-color: #333; /* Optional hover contrast */
+}
+
+.card_btnEventt {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.card_btnEventt:hover {
+    background-color: #333; /* Optional hover contrast */
+}
+
+@media (max-width: 768px) {
+    .program-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card-image {
+        margin: 0 0 20px 0;
+        width: 100%;
+        height: auto;
+        max-height: 250px;
+    }
+
+    .info-group {
+        justify-content: center;
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin: 60px auto 30px;
+    max-width: 800px;
+    padding: 0 15px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.pagination li {
+    border-right: 1px solid #ddd;
+}
+
+.pagination li:last-child {
+    border-right: none;
+}
+
+.pagination a,
+.pagination span {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: var(--accent-color);
+    background-color: white;
+    transition: background-color 0.2s;
+}
+
+.pagination li.active span {
+    background-color: var(--accent-color);
+    color: white;
+    font-weight: bold;
+}
+
+.pagination li.disabled span {
+    color: #aaa;
+    cursor: not-allowed;
+}
