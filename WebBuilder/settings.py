@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'D:/Python Proj/Documents/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'D:/Python Project/Documents/')
 MEDIA_URL = "/media/"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -64,7 +64,8 @@ LOCAL_APPS = [
     "bootstrap.tables.apps.TablesConfig",
     "bootstrap.ui.apps.UiConfig",
     'Account',
-    'workflow'
+    'workflow',
+    'Master'
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -90,7 +91,9 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 ROOT_URLCONF = 'WebBuilder.urls'
-
+LOGOUT_REDIRECT_URL = "Account"
+LOGIN_REDIRECT_URL = "Account"
+LOGIN_URL = "Account"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -125,7 +128,7 @@ DATABASES = {
         'NAME': 'webbuilder',                   # Your MySQL database name
         'USER': 'root',                         # Your MySQL username
         'PASSWORD': 'Mysql_MH-047319',   # Your MySQL password
-        'HOST': '15.207.169.98',                # Your MySQL server IP
+        'HOST': '13.232.86.95',                # Your MySQL server IP
         'PORT': '3306',                         # Default MySQL port
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -191,3 +194,18 @@ CSRF_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Session lasts for 1 hour (3600 seconds)
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+
+# Don't expire session on browser close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587  # Use the appropriate port for your SMTP server
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "technowinitinfra@gmail.com"
+EMAIL_HOST_PASSWORD = "tfakuyitxdupjqfu"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+CONTACT_EMAIL = 'technowinitinfra@gmail.com'  # Or wherever you want to receive messages
