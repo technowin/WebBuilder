@@ -70,7 +70,7 @@
                 <li><a href="{{ template.template.function_name }}" target="_blank"><i class="fas fa-eye"></i> View Template</a></li>
                 <li><a href="#"><i class="fas fa-trash-alt"></i> Move to trash</a></li>
                 <li><a href="{% url 'startEditing' %}?workflow_id={{ template.id }}"><i class="fas fa-pencil-alt"></i> Start Editing</a></li>
-                <li><a href="{% url 'businessHome' %}?workflow_id={{ template.id }}" target="_blank"><i class="fas fa-eye"></i> Take a Quick Look</a></li>
+                {% comment %} <li><a href="{% url 'businessHome' %}?workflow_id={{ template.id }}" target="_blank"><i class="fas fa-eye"></i> Take a Quick Look</a></li> {% endcomment %}
               </ul>
             </div>
           </div>

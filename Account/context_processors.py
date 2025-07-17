@@ -24,6 +24,7 @@ def logged_in_user(request):
     menu_items = []
     
     workflow_data = []
+    page_data = [] 
     workflow_id = request.GET.get('workflow_id', '')
     
     if workflow_id:
@@ -35,10 +36,19 @@ def logged_in_user(request):
             cursor.callproc("stp_getDataForWebsite", [workflow_id])
             for result in cursor.stored_results():
                 workflow_data = result.fetchall()
+                
+            cursor.callproc("stp_getPageWithPathName", [workflow_id])
+            for result1 in cursor.stored_results():
+                columns = [col[0] for col in result1.description]
+                for row in result1.fetchall():
+                    page_data.append(dict(zip(columns, row)))
             
         except Exception as e:
             print("DB error:", e)
         finally:
             if cursor: cursor.close()
             if m and m.is_connected(): m.close()
-    return {'username':username,'full_name':full_name,'session_timeout_minutes':session_timeout_minutes,'reports':reports, 'menu_items': menu_items, 'workflow_data': workflow_data}
+    return {'username':username,'full_name':full_name,'session_timeout_minutes':session_timeout_minutes,
+            'reports':reports, 'menu_items': menu_items, 'workflow_data': workflow_data,
+            'page_data': page_data
+            }

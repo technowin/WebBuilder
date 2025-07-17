@@ -201,9 +201,9 @@
                 <p class="about-description">
                     {{ section_data.About_Us.0.description }}
                 </p>
-                <button class="about-readmore-btn">
+                <a href="{% url 'businessHome' %}?workflow_id={{ workflow_id }}&slug=About Us" class="about-readmore-btn">
                     Read More
-                </button>
+                </a>
             </div>
 
             <div class="col-md-6 about-image-column">

@@ -69,11 +69,14 @@
                 {% endfor %}
             </div>
 
-            <!-- Pagination Controls -->
             <div class="pagination-wrapper">
                 <ul class="pagination">
                     {% if section_data.Our_Product_Paginated.has_previous %}
-                        <li><a href="?workflow_id={{ workflow_id }}&page={{ section_data.Our_Product_Paginated.previous_page_number }}">Previous</a></li>
+                        <li>
+                            <a href="?workflow_id={{ workflow_id }}&slug={{ section_data.current_slug }}&page={{ section_data.Our_Product_Paginated.previous_page_number }}">
+                                Previous
+                            </a>
+                        </li>
                     {% else %}
                         <li class="disabled"><span>Previous</span></li>
                     {% endif %}
@@ -82,17 +85,26 @@
                         {% if section_data.Our_Product_Paginated.number == num %}
                             <li class="active"><span>{{ num }}</span></li>
                         {% else %}
-                            <li><a href="?workflow_id={{ workflow_id }}&page={{ num }}">{{ num }}</a></li>
+                            <li>
+                                <a href="?workflow_id={{ workflow_id }}&slug={{ section_data.current_slug }}&page={{ num }}">
+                                    {{ num }}
+                                </a>
+                            </li>
                         {% endif %}
                     {% endfor %}
 
                     {% if section_data.Our_Product_Paginated.has_next %}
-                        <li><a href="?workflow_id={{ workflow_id }}&page={{ section_data.Our_Product_Paginated.next_page_number }}">Next</a></li>
+                        <li>
+                            <a href="?workflow_id={{ workflow_id }}&slug={{ section_data.current_slug }}&page={{ section_data.Our_Product_Paginated.next_page_number }}">
+                                Next
+                            </a>
+                        </li>
                     {% else %}
                         <li class="disabled"><span>Next</span></li>
                     {% endif %}
                 </ul>
             </div>
+
 
 
         {% else %}

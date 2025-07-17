@@ -24,6 +24,9 @@ from django.views.generic import TemplateView
 from Account.views import *
 from workflow.views import *
 from Master.views import *
+from django.urls import path
+from django.urls import path
+# from . import views
 
 urlpatterns = [
     
@@ -61,6 +64,9 @@ urlpatterns = [
     path("ourProduct", ourProduct,name='ourProduct'),
     path("send_contact_email", send_contact_email,name='send_contact_email'),
     path("view_document_master", view_document_master,name='view_document_master'),
+    path('<slug:slug>/', businessHome, name='businessHome'),
+    # path('<slug:slug>/',  businessHome, name='businessHome'),
+    # path('businessHome/',  businessHome),
     
     # Workflow
     path("workflow_starts", workflow_starts,name='workflow_starts'),

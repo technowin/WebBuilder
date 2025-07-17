@@ -94,6 +94,7 @@ class Page(models.Model):
     )
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
+    template_path = models.CharField(max_length=555, null=True, blank=True)
     order = models.PositiveIntegerField(default=0)
     is_active = models.IntegerField(default=1)
 

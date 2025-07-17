@@ -12,62 +12,63 @@ from django.http import JsonResponse
 import os
 from collections import defaultdict
 from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 
-@login_required
-def businessHome(request):
-    Db.closeConnection()
-    m = Db.get_connection()
-    cursor=m.cursor()
-    try:
-        # Your normal logic goes here
-        # return render(request, 'Master/Business/BusinessHome.html')
+# @login_required
+# def businessHome(request):
+#     Db.closeConnection()
+#     m = Db.get_connection()
+#     cursor=m.cursor()
+#     try:
+#         # Your normal logic goes here
+#         # return render(request, 'Master/Business/BusinessHome.html')
         
-        workflow_id = request.GET.get('workflow_id', '')
+#         workflow_id = request.GET.get('workflow_id', '')
 
-        if workflow_id:
-            cursor.callproc("stp_getDataForWebsite", [workflow_id])
-            for result in cursor.stored_results():
-                workflow_data = list(result.fetchall())
+#         if workflow_id:
+#             cursor.callproc("stp_getDataForWebsite", [workflow_id])
+#             for result in cursor.stored_results():
+#                 workflow_data = list(result.fetchall())
                 
-            cursor.callproc("stp_geSectionWiseDataForWebsite", [workflow_id])
+#             cursor.callproc("stp_geSectionWiseDataForWebsite", [workflow_id])
 
-            for result in cursor.stored_results():
-                raw_data = list(result.fetchall())
-                columns = [col[0] for col in result.description]
+#             for result in cursor.stored_results():
+#                 raw_data = list(result.fetchall())
+#                 columns = [col[0] for col in result.description]
 
-            # Convert each row to a dict
-            data_list = [dict(zip(columns, row)) for row in raw_data]
+#             # Convert each row to a dict
+#             data_list = [dict(zip(columns, row)) for row in raw_data]
 
-            # Group by 'section_title'
-            section_data = defaultdict(list)
-            for item in data_list:
-                section_title = item.get('section_title')
-                if not section_title or not section_title.strip():
-                    section_title = 'Others'
-                section_data[section_title].append(item)
+#             # Group by 'section_title'
+#             section_data = defaultdict(list)
+#             for item in data_list:
+#                 section_title = item.get('section_title')
+#                 if not section_title or not section_title.strip():
+#                     section_title = 'Others'
+#                 section_data[section_title].append(item)
 
                 
-            formatted_data = {}
-            for key, val in section_data.items():
-                formatted_key = key.replace(" ", "_")  # "Main Slider" -> "Main_Slider"
-                formatted_data[formatted_key] = val
+#             formatted_data = {}
+#             for key, val in section_data.items():
+#                 formatted_key = key.replace(" ", "_")  # "Main Slider" -> "Main_Slider"
+#                 formatted_data[formatted_key] = val
             
-            return render(request, 'Master/Business/BusinessHome.html',
-                          {"workflow_data": workflow_data,
-                            "section_data": formatted_data,
-                            "workflow_id": workflow_id})
-        else:
-            return render(request, 'Master/Business/BusinessHome.html')
+#             return render(request, 'Master/Business/BusinessHome.html',
+#                           {"workflow_data": workflow_data,
+#                             "section_data": formatted_data,
+#                             "workflow_id": workflow_id})
+#         else:
+#             return render(request, 'Master/Business/BusinessHome.html')
     
-    except Exception as e:
-        tb = traceback.extract_tb(e.__traceback__)
-        fun = tb[0].name
-        cursor.callproc("stp_error_log",[fun,str(e),request.user.id])  
-        print(f"error: {e}")
-        messages.error(request, 'Oops...! Something went wrong!')
-        response = {'result': 'fail','messages ':'something went wrong !'}  
+#     except Exception as e:
+#         tb = traceback.extract_tb(e.__traceback__)
+#         fun = tb[0].name
+#         cursor.callproc("stp_error_log",[fun,str(e),request.user.id])  
+#         print(f"error: {e}")
+#         messages.error(request, 'Oops...! Something went wrong!')
+#         response = {'result': 'fail','messages ':'something went wrong !'}  
 
 @login_required
 def BusinessContactUs(request):
@@ -337,3 +338,74 @@ def view_document_master(request):
             return JsonResponse({'error': 'File not uploaded.'}, status=404)
     except WebsiteWorkflow.DoesNotExist:
         return JsonResponse({'error': 'Workflow not found.'}, status=404)
+
+@login_required
+def businessHome(request):
+    Db.closeConnection()
+    m = Db.get_connection()
+    cursor=m.cursor()
+    try:
+        
+        workflow_id = request.GET.get('workflow_id', '')
+        page_number = request.GET.get('page', 1)
+        slug = request.GET.get('slug', '')
+
+        if workflow_id:
+            
+            # page = Page.objects.filter(is_active=1, website_id=workflow_id).first()
+            if slug:
+                page = Page.objects.filter(is_active=1, website_id=workflow_id, slug__iexact=slug).first()
+            else:
+                page = Page.objects.filter(is_active=1, website_id=workflow_id).first()
+
+            print(f"Page: {page}")
+            
+            cursor.callproc("stp_getDataForWebsite", [workflow_id])
+            for result in cursor.stored_results():
+                workflow_data = list(result.fetchall())
+                
+            cursor.callproc("stp_geSectionWiseDataForWebsite", [workflow_id])
+
+            for result in cursor.stored_results():
+                raw_data = list(result.fetchall())
+                columns = [col[0] for col in result.description]
+
+            # Convert each row to a dict
+            data_list = [dict(zip(columns, row)) for row in raw_data]
+
+            # Group by 'section_title'
+            section_data = defaultdict(list)
+            for item in data_list:
+                section_title = item.get('section_title')
+                if not section_title or not section_title.strip():
+                    section_title = 'Others'
+                section_data[section_title].append(item)
+                
+            formatted_data = {}
+            for key, val in section_data.items():
+                formatted_key = key.replace(" ", "_")  # "Main Slider" -> "Main_Slider"
+                formatted_data[formatted_key] = val
+            
+            if slug == 'Our Product':
+                our_products = formatted_data.get('Our_Product', [])
+                paginator = Paginator(our_products, 4)  # 4 items per page
+                page_obj = paginator.get_page(page_number)
+
+                formatted_data['Our_Product_Paginated'] = page_obj
+                formatted_data['current_slug'] = slug
+            
+            return render(request, page.template_path,
+                          {"workflow_data": workflow_data,
+                            "section_data": formatted_data,
+                            "workflow_id": workflow_id
+                          })
+        else:
+            return render(request, 'Master/Business/BusinessHome.html')
+    
+    except Exception as e:
+        tb = traceback.extract_tb(e.__traceback__)
+        fun = tb[0].name
+        cursor.callproc("stp_error_log",[fun,str(e),request.user.id])  
+        print(f"error: {e}")
+        messages.error(request, 'Oops...! Something went wrong!')
+        response = {'result': 'fail','messages ':'something went wrong !'}  

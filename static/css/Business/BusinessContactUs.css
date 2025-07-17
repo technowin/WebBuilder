@@ -13,22 +13,26 @@ body {
 .bg-custom-primary {
   background-color: grey;
   /* background-color: var(--primary-color); */
-  color: var(--accent-color);
+  /* color: var(--accent-color); */
 }
 
 .header-title {
   padding: 3rem 0;
   text-align: center;
+  color: white;
 }
 
+
 .header-subtitle {
-  color: var(--accent-color); /* Gold/Yellow */
+  /* color: var(--accent-color); */
+  color: yellow !important;
 }
 
 .feature-heading {
   font-weight: 700;
   font-family: 'Merriweather', serif;
-  color: var(--accent-color); /* optional if you want to match your theme */
+  /* color: var(--accent-color); */
+  color: #fff;
 }
 .connect-section-bg {
   background-color: #92969d;

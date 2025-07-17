@@ -166,45 +166,49 @@
                 </div>
             
             </div>
-            
-            <nav class="topnav" id="myTopnav" role="navigation" aria-label="Primary navigation menu">
 
-                <a href="{% url 'businessHome' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
-                    Home
-                </a>
+            {% if workflow_id %}
+                <nav class="topnav" id="myTopnav" role="navigation" aria-label="Primary navigation menu">
+                    {% for page in page_data %}
+                        {% comment %} <a href="{% url 'businessHome' %}?workflow_id={{ workflow_id }}"
+                        class="navlink {% if request.path == '/'|add:page.slug|add:'/' %}active{% endif %}">
+                            {{ page.title }}
+                        </a> {% endcomment %}
+                        <a href="{% url 'businessHome' %}?workflow_id={{ workflow_id }}&slug={{ page.slug }}"
+                            class="navlink {% if request.GET.slug == page.slug %}active{% endif %}">
+                            {{ page.title }}
+                        </a>
+                    {% endfor %}
+                    <a href="javascript:void(0);" class="icon" aria-label="Toggle navigation menu" onclick="myFunction()">&#9776;</a>
+                </nav>
+            {% else %}
+                <nav class="topnav" id="myTopnav" role="navigation" aria-label="Primary navigation menu">
 
-                <a href="{% url 'aboutUs' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
-                    About Us
-                </a>
+                    <a href="{% url 'businessHome' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink active" aria-current="page" role="menuitem" tabindex="0">
+                        Home
+                    </a>
 
-                <a href="{% url 'BusinessContactUs' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
-                    Contact Us
-                </a>
+                    <a href="{% url 'aboutUs' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
+                        About Us
+                    </a>
 
-                {% comment %} <div class="dropdown1">
-                    <button class="dropbtn1 navlink" role="menuitem" tabindex="0">
-                        Contact Us <span class="dropdown-icon">&#x25BC;</span> <!-- ▼ Downward chevron -->
-                    </button>
-                    <div class="dropdown1-content1">
-                        <a href="{{ 'BusinessContactUs' }}" role="menuitem" tabindex="0">Contact Form</a>
-                        <a href="{{ 'BusinessContactUs' }}" role="menuitem" tabindex="0">Support Team</a>
-                    </div>
-                </div> {% endcomment %}
+                    <a href="{% url 'BusinessContactUs' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
+                        Contact Us
+                    </a>
 
-                <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
-                    Our Service
-                </a>
+                    <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
+                        Our Service
+                    </a>
 
-                <a href="{% url 'ourProduct' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
-                    Our Product
-                </a>
+                    <a href="{% url 'ourProduct' %}?workflow_id={{ workflow_data.0.0 }}" class="navlink" role="menuitem" tabindex="0">
+                        Our Product
+                    </a>
 
-                <a href="javascript:void(0);" class="icon" aria-label="Toggle navigation menu" role="button" tabindex="0" onclick="myFunction()">
-                    &#9776;
-                </a>
-
-            </nav>
-
+                    <a href="javascript:void(0);" class="icon" aria-label="Toggle navigation menu" role="button" tabindex="0" onclick="myFunction()">
+                        &#9776;
+                    </a>
+                </nav>
+            {% endif %}
         </div>
 
     </section>
@@ -309,7 +313,62 @@
                                             Quick Links
                                         </h2>
 
-                                        <ul style="list-style: none; line-height:2em; padding-left: 0; font-family: 'Merriweather', serif;" role="list" aria-label="Quick Links">
+                                        {% if workflow_id %}
+                                            <ul style="list-style: none; line-height:2em; padding-left: 0; font-family: 'Merriweather', serif;" role="list" aria-label="Quick Links">
+                                                {% for page in page_data %}
+                                                    <li>
+                                                        <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                        <a         href="{% url 'businessHome' %}?workflow_id={{ workflow_id }}&slug={{ page.slug }}"
+                                                            class="underline-hover" rel="noopener noreferrer"
+                                                            style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
+                                                            aria-label="Visit {{ page.title }} page">
+                                                            {{ page.title }}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <ul style="list-style: none; line-height:2em; padding-left: 0; font-family: 'Merriweather', serif;" role="list" aria-label="Quick Links">
+                                                <li>
+                                                    <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                    <a href="{% url 'businessHome' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
+                                                        style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;" aria-label="Visit Home page">
+                                                        Home
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                    <a href="{% url 'aboutUs' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
+                                                        style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;" aria-label="Visit About Us page">
+                                                        About Us
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                    <a href="{% url 'BusinessContactUs' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
+                                                        style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;" aria-label="Visit Contact Us page">
+                                                        Contact Us
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                    <a href="{% url 'servicepage' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
+                                                        style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;" aria-label="Visit Our Service page">
+                                                        Our Service
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
+                                                    <a href="{% url 'ourProduct' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
+                                                        style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;" aria-label="Visit Our Product page">
+                                                        Our Product
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+
+
+                                        {% comment %} <ul style="list-style: none; line-height:2em; padding-left: 0; font-family: 'Merriweather', serif;" role="list" aria-label="Quick Links">
                                             <li>
                                                 <i class="fas fa-external-link" aria-hidden="true" style="color: white;"></i>
                                                 <a href="{% url 'businessHome' %}?workflow_id={{ workflow_data.0.0 }}" class="underline-hover" rel="noopener noreferrer"
@@ -340,7 +399,7 @@
                                                 style="margin-left: 5px; font-size: 18px; color: white; letter-spacing: 0.03em;"
                                                 aria-label="Visit Bar Council Of India website">Our Product</a>
                                             </li>
-                                        </ul>
+                                        </ul> {% endcomment %}
                                     </div>
                                 </nav>
 
