@@ -129,7 +129,8 @@ DATABASES = {
         'NAME': 'webbuilder',                   # Your MySQL database name
         'USER': 'root',                         # Your MySQL username
         'PASSWORD': 'Mysql_MH-047319',   # Your MySQL password
-        'HOST': '13.232.86.95',                # Your MySQL server IP
+        # 'HOST': '13.232.86.95',                # Your MySQL server IP
+        'HOST': '127.0.0.1',                # Your MySQL server IP
         'PORT': '3306',                         # Default MySQL port
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
