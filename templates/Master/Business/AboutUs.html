@@ -108,12 +108,12 @@
 
         {% if section_data.Why_Choose_Us %}
           {% for item in section_data.Why_Choose_Us %}
-          <div class="col-md-4 mb-4">
-            <div class="deep-shadow h-100 p-4">
-              <h5 class="feature-heading">{{ item.content_title }}</h5>
-              <p>{{ item.description }}</p>
+            <div class="col-md-4 mb-4">
+              <div class="deep-shadow h-100 p-4">
+                <h5 class="feature-heading">{{ item.content_title }}</h5>
+                <p>{{ item.description }}</p>
+              </div>
             </div>
-          </div>
           {% endfor %}
         {% else %}
           <!-- Default fallback content if DB is empty -->
