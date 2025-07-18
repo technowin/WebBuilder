@@ -16,7 +16,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'D:/Python Project/Documents/')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'D:/Python Project/Documents/')
+MEDIA_ROOT = os.path.join(BASE_DIR, '/home/ubuntu/Documents/')
 MEDIA_URL = "/media/"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -25,9 +26,9 @@ MEDIA_URL = "/media/"
 SECRET_KEY = 'django-insecure--vd1$23zgj8do-v+f$1balj9v5i3je)23+$v47x*w7wnq=#b2e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '13.202.106.233' ]
 
 
 # Application definition
@@ -209,3 +210,22 @@ EMAIL_HOST_USER = "technowinitinfra@gmail.com"
 EMAIL_HOST_PASSWORD = "tfakuyitxdupjqfu"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 CONTACT_EMAIL = 'technowinitinfra@gmail.com'  # Or wherever you want to receive messages
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',  
+            'filename': os.path.join(BASE_DIR, '/home/ubuntu/WebBuild Logs', 'django.log'),  
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
