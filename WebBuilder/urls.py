@@ -34,7 +34,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # bootstap internal urls
-    
+    path('secure-media/<str:encrypted_name>/', serve_encrypted_file, name='serve_encrypted_file'),
+
     path("apps/", include("bootstrap.apps.urls", namespace="apps")),
     path("apps/crm/", include("bootstrap.crm.urls", namespace="crm")),
     path("apps/ecommerce/", include("bootstrap.ecommerce.urls", namespace="ecommerce")),

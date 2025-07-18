@@ -17,8 +17,9 @@ from .models import WebsiteWorkflow
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist
-from WebBuilder.encryption import encrypt_parameter
+from WebBuilder.encryption import encrypt_parameter,decrypt_parameter
 from django.core.mail import send_mail
+from django.http import FileResponse, Http404
 
 # Create your views here.
 
@@ -505,8 +506,10 @@ def view_document(request):
                 return JsonResponse({'error': 'Invalid document type.'}, status=400)
 
             if file_field and file_field.name:
+                encrypted_name = encrypt_parameter(file_field.name)
+                secure_url = reverse('serve_encrypted_file', args=[encrypted_name])
                 return JsonResponse({
-                    'file_url': os.path.join(settings.MEDIA_URL, file_field.name)
+                    'file_url': secure_url
                 }, status=200)
             else:
                 return JsonResponse({'error': 'File not uploaded.'}, status=404)
@@ -516,6 +519,19 @@ def view_document(request):
 
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
+@login_required
+def serve_encrypted_file(request, encrypted_name):
+    try:
+        decrypted_path = decrypt_parameter(encrypted_name)  # e.g., "1/Image/ProfilePhoto.png"
+        file_path = os.path.join(settings.MEDIA_ROOT, decrypted_path)
+
+        if os.path.exists(file_path):
+            return FileResponse(open(file_path, 'rb'))
+        else:
+            raise Http404("Decrypted file not found.")
+    except Exception:
+        raise Http404("Invalid or tampered encrypted link.")
+    
 @login_required
 def view_index(request):
     Db.closeConnection()
