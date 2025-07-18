@@ -20,6 +20,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from WebBuilder.encryption import encrypt_parameter,decrypt_parameter
 from django.core.mail import send_mail
 from django.http import FileResponse, Http404
+from django.http import HttpResponseNotFound
+from django.utils.module_loading import import_string  # 🔥 dynamic import
 
 # Create your views here.
 
@@ -519,7 +521,6 @@ def view_document(request):
 
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
-@login_required
 def serve_encrypted_file(request, encrypted_name):
     try:
         decrypted_path = decrypt_parameter(encrypted_name)  # e.g., "1/Image/ProfilePhoto.png"
@@ -531,7 +532,7 @@ def serve_encrypted_file(request, encrypted_name):
             raise Http404("Decrypted file not found.")
     except Exception:
         raise Http404("Invalid or tampered encrypted link.")
-    
+
 @login_required
 def view_index(request):
     Db.closeConnection()
@@ -653,3 +654,23 @@ def viewEdit_index(request, id, workflow_id):
         messages.error(request, "Oops! Something went wrong.")
         return redirect("view_index")
     
+def dynamic_dispatch(request, client_id):
+    client = Client.objects.filter(id=client_id, is_active=1).first()
+
+    if client:
+        workflow = WebsiteWorkflow.objects.filter(client_id=client.id, is_active=1).first()
+        request.workflow = workflow  # store for downstream use if needed
+
+        if workflow and workflow.template and workflow.template.function_name:
+            function_name = workflow.template.function_name.strip()
+
+            try:
+                view_func = import_string(f"Master.views.{function_name}")
+                return view_func(request)
+            except Exception as e:
+                print(f"[Dispatch Error] Could not import {function_name}: {e}")
+                return HttpResponseNotFound("Something went wrong while dispatching the view.")
+        else:
+            return HttpResponseNotFound("No workflow/template/function defined for this client.")
+    else:
+        return HttpResponseNotFound("Invalid or inactive client.")

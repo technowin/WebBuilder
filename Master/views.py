@@ -345,8 +345,12 @@ def businessHome(request):
     m = Db.get_connection()
     cursor=m.cursor()
     try:
+        workflow_id = getattr(getattr(request, "workflow", None), "id", None)
+        # fallback to GET param (optional, for testing/debug)
+        if not workflow_id:
+            workflow_id = request.GET.get('workflow_id', '')
         
-        workflow_id = request.GET.get('workflow_id', '')
+        # workflow_id = request.GET.get('workflow_id', '')
         page_number = request.GET.get('page', 1)
         slug = request.GET.get('slug', '')
 

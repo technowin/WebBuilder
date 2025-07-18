@@ -26,6 +26,8 @@ from workflow.views import *
 from Master.views import *
 from django.urls import path
 from django.urls import path
+from django.urls import re_path
+
 # from . import views
 
 urlpatterns = [
@@ -35,6 +37,7 @@ urlpatterns = [
     
     # bootstap internal urls
     path('secure-media/<str:encrypted_name>/', serve_encrypted_file, name='serve_encrypted_file'),
+    re_path(r'^dynamic_dispatch=(\d+)$', dynamic_dispatch, name='dynamic_dispatch'),
 
     path("apps/", include("bootstrap.apps.urls", namespace="apps")),
     path("apps/crm/", include("bootstrap.crm.urls", namespace="crm")),

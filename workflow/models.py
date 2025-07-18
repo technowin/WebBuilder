@@ -52,6 +52,15 @@ class WebsiteWorkflow(models.Model):
     )
     client_id = models.IntegerField(blank=True, null=True)  # ForeignKey optional
 
+    template = models.ForeignKey(
+        WebsiteTemplate,
+        on_delete=models.CASCADE,
+        db_column='template_id',
+        related_name='templates',
+        blank=True,
+        null=True
+    )
+    
     # New branding fields
     website_name = models.CharField(max_length=2555, blank=True, null=True)
     logo = models.ImageField(blank=True, null=True)
@@ -195,3 +204,25 @@ class ContactMessage(models.Model):
     class Meta:
         db_table = 'tbl_contact_message'
 
+class Client(models.Model):
+    id = models.AutoField(primary_key=True)
+    
+    name = models.CharField(max_length=255)
+    company_name = models.CharField(max_length=255, blank=True, null=True)
+    
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+
+    domain_name = models.CharField(max_length=255, blank=True, null=True, unique=True)
+
+    is_active = models.IntegerField(default=1) 
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.CharField(max_length=255, blank=True, null=True)  # CharField is better than TextField for short names
+
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'tbl_client'
