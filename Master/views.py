@@ -368,6 +368,15 @@ def businessHome(request):
             for result in cursor.stored_results():
                 workflow_data = list(result.fetchall())
                 
+            page_data = [] 
+            
+            if workflow_id:
+                cursor.callproc("stp_getPageWithPathName", [workflow_id])
+                for result1 in cursor.stored_results():
+                    columns = [col[0] for col in result1.description]
+                    for row in result1.fetchall():
+                        page_data.append(dict(zip(columns, row)))
+                
             cursor.callproc("stp_geSectionWiseDataForWebsite", [workflow_id])
 
             for result in cursor.stored_results():
@@ -401,7 +410,8 @@ def businessHome(request):
             return render(request, page.template_path,
                           {"workflow_data": workflow_data,
                             "section_data": formatted_data,
-                            "workflow_id": workflow_id
+                            "workflow_id": workflow_id,
+                            "page_data": page_data
                           })
         else:
             return render(request, 'Master/Business/BusinessHome.html')
