@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure--vd1$23zgj8do-v+f$1balj9v5i3je)23+$v47x*w7wnq=#b2e
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = [ '13.202.106.233' ]
+ALLOWED_HOSTS = [ '13.202.106.233','technotest.technowinitinfra.com' ]
 
 
 # Application definition
