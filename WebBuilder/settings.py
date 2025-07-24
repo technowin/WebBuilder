@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure--vd1$23zgj8do-v+f$1balj9v5i3je)23+$v47x*w7wnq=#b2e
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = [ '13.202.106.233','technotest.technowinitinfra.com' ]
+ALLOWED_HOSTS = [ '3.111.141.151','technotest.technowinitinfra.com', 'newtechnotest.technowinitinfra.com' ]
 
 
 # Application definition
@@ -83,6 +83,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_auto_logout.middleware.auto_logout',
     'corsheaders.middleware.CorsMiddleware',
+    'WebBuilder.middleware.ClientDomainRoutingMiddleware',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # 🔥 Dev only!
