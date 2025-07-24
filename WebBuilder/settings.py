@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from workflow.models import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,10 @@ SECRET_KEY = 'django-insecure--vd1$23zgj8do-v+f$1balj9v5i3je)23+$v47x*w7wnq=#b2e
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = [ '3.111.141.151','technotest.technowinitinfra.com', 'newtechnotest.technowinitinfra.com' ]
+# ALLOWED_HOSTS = [ '3.111.141.151','technotest.technowinitinfra.com', 'newtechnotest.technowinitinfra.com' ]
+ALLOWED_HOSTS = ['3.111.141.151'] + [
+    client.domain_name for client in Client.objects.all()
+]
 
 
 # Application definition
