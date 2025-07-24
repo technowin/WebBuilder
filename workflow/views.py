@@ -654,23 +654,43 @@ def viewEdit_index(request, id, workflow_id):
         messages.error(request, "Oops! Something went wrong.")
         return redirect("view_index")
     
-def dynamic_dispatch(request, client_id):
-    client = Client.objects.filter(id=client_id, is_active=1).first()
+def dynamic_dispatch(request):
+    client = getattr(request, 'client', None)
+    # if client:
+    workflow = getattr(request, 'workflow', None)
 
-    if client:
-        workflow = WebsiteWorkflow.objects.filter(client_id=client.id, is_active=1).first()
-        request.workflow = workflow  # store for downstream use if needed
-
-        if workflow and workflow.template and workflow.template.function_name:
-            function_name = workflow.template.function_name.strip()
-
-            try:
-                view_func = import_string(f"Master.views.{function_name}")
-                return view_func(request)
-            except Exception as e:
-                print(f"[Dispatch Error] Could not import {function_name}: {e}")
-                return HttpResponseNotFound("Something went wrong while dispatching the view.")
-        else:
-            return HttpResponseNotFound("No workflow/template/function defined for this client.")
+    if workflow and workflow.template and workflow.template.function_name:
+        function_name = workflow.template.function_name.strip()
+        try:
+            view_func = import_string(f"Master.views.{function_name}")
+            return view_func(request)
+        except Exception as e:
+            print(f"[Dispatch Error] Could not import {function_name}: {e}")
+            return HttpResponseNotFound("Error loading client view.")
     else:
-        return HttpResponseNotFound("Invalid or inactive client.")
+        return HttpResponseNotFound("No workflow/template/function defined for this client.")
+    # else:
+    #     return HttpResponseNotFound("Client not identified.")
+
+
+# def dynamic_dispatch(request, client_id):
+#     client = Client.objects.filter(id=client_id, is_active=1).first()
+
+#     if client:
+#         workflow = WebsiteWorkflow.objects.filter(client_id=client.id, is_active=1).first()
+#         request.workflow = workflow  # store for downstream use if needed
+
+#         if workflow and workflow.template and workflow.template.function_name:
+#             function_name = workflow.template.function_name.strip()
+
+#             try:
+#                 view_func = import_string(f"Master.views.{function_name}")
+#                 return view_func(request)
+#             except Exception as e:
+#                 print(f"[Dispatch Error] Could not import {function_name}: {e}")
+#                 return HttpResponseNotFound("Something went wrong while dispatching the view.")
+#         else:
+#             return HttpResponseNotFound("No workflow/template/function defined for this client.")
+#     else:
+#         return HttpResponseNotFound("Invalid or inactive client.")
+
