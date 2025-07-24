@@ -339,7 +339,7 @@ def view_document_master(request):
     except WebsiteWorkflow.DoesNotExist:
         return JsonResponse({'error': 'Workflow not found.'}, status=404)
 
-@login_required
+# @login_required
 def businessHome(request):
     Db.closeConnection()
     m = Db.get_connection()
