@@ -26,8 +26,10 @@ from workflow.views import *
 
 class ClientDomainRoutingMiddleware(MiddlewareMixin):
     def process_request(self, request):
+        Db.closeConnection()
+        m = Db.get_connection()
+        cursor=m.cursor()
         domain = request.get_host().split(':')[0].lower()
-
         try:
             client = Client.objects.get(domain_name=domain, is_active=1)
             request.client = client
@@ -48,3 +50,10 @@ class ClientDomainRoutingMiddleware(MiddlewareMixin):
             request.client = None
             request.workflow = None
             return None  # Also skip hard failure on unexpected exceptions
+        except Exception as e:
+            tb = traceback.extract_tb(e.__traceback__)
+            fun = tb[0].name
+            cursor.callproc("stp_error_log",[fun,str(e),''])  
+            print(f"error: {e}")
+            messages.error(request, 'Oops...! Something went wrong!')
+            response = {'result': 'fail','messages ':'something went wrong !'}  
