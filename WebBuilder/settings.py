@@ -32,8 +32,7 @@ SECRET_KEY = 'django-insecure--vd1$23zgj8do-v+f$1balj9v5i3je)23+$v47x*w7wnq=#b2e
 
 # ALLOWED_HOSTS = [ '3.111.141.151','technotest.technowinitinfra.com', 'newtechnotest.technowinitinfra.com' ]
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['3.111.141.151', '*']  # '*' is fine *only if* you're validating domains later
 
 # Application definition
 # APPS

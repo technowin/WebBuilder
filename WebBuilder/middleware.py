@@ -49,38 +49,31 @@ import logging
 #             request.client = None
 #             request.workflow = None
 #             return None  # Also skip hard failure on unexpected exceptions
-        
 
-logger = logging.getLogger(__name__)
-
+ALLOWED_DEV_HOSTS = ['3.111.141.151']
 class ClientDomainRoutingMiddleware(MiddlewareMixin):
     def process_request(self, request):
         domain = request.get_host().split(':')[0].lower()
 
+        # ✅ Whitelist dev IPs or trusted internal domains
+        if domain in ALLOWED_DEV_HOSTS:
+            request.client = None
+            request.workflow = None
+            return None
+
         try:
-            # Check if the domain exists in the Client table
             client = Client.objects.get(domain_name=domain, is_active=1)
             request.client = client
 
-            # Fetch associated workflow
             workflow = WebsiteWorkflow.objects.filter(client_id=client.id, is_active=1).first()
             request.workflow = workflow
 
-            # Optional: dispatch to a custom view handler
-            # return dynamic_dispatch(request)
-
-            # Let the request continue
             return dynamic_dispatch(request)
 
         except Client.DoesNotExist:
-            request.client = None
-            request.workflow = None
-            logger.warning(f"[ClientDomainRouting] Forbidden access from unknown domain: {domain}")
             return HttpResponseForbidden("403 Forbidden: Unauthorized domain")
 
-        except Exception as e:
-            request.client = None
-            request.workflow = None
-            logger.exception(f"[ClientDomainRouting] Error processing domain {domain}: {str(e)}")
+        except Exception:
             return HttpResponseForbidden("403 Forbidden: Internal error")
+
 
